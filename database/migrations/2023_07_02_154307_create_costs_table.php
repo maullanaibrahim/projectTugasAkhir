@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('company_name');
             $table->timestamps();
         });
+
+        DB::table('costs')->insert([
+            ['cost_name' => 'Procurement', 'region' => 'Griya Center', 'company_name' => 'PT. Griya Pratama', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59']
+        ]);
     }
 
     /**

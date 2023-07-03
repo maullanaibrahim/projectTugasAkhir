@@ -54,7 +54,7 @@
                                     <form action="/employees/{{ $employee->id }}" method="post" class="d-inline">
                                        @method('delete')
                                        @csrf
-                                       <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus {{ strtoupper($employee->nama_cabang) }}?')"><i class="bi bi-trash-fill"></i></button>
+                                       <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus {{ strtoupper($employee->employee_name) }}?')"><i class="bi bi-trash-fill"></i></button>
                                     </form>
                                  </td>
                               </tr>

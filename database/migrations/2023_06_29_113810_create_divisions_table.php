@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('alamat');
             $table->timestamps();
         });
+
+        DB::table('divisions')->insert([
+            ['nama_divisi' => 'Procurement', 'lokasi' => 'Griya Center', 'alamat' => 'Jl. Soekarno Hatta No. 236 Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59']
+        ]);
     }
 
     /**

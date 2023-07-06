@@ -32,6 +32,15 @@
         function zoom() {
             document.body.style.zoom = "90%" 
         }
+
+        function myFunction() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
    </script>
 
    <!-- =======================================================
@@ -78,13 +87,17 @@
                                 <!-- Input Username -->
                                 <div class="col-12">
                                     <div class="border border-3 border-primary d-inline py-2"></div>
-                                    <input type="email" name="email" class="form-control d-inline rounded-0" id="email" placeholder="Email ID" required>
+                                    <input type="email" name="email" class="form-control d-inline rounded-0" id="email" placeholder="Email ID" required />
                                 </div> <!-- End Input Username -->
 
                                 <!-- Input Password -->
                                 <div class="col-12 pb-4">
                                     <span class="border border-3 border-primary d-inline py-2"></span>
-                                    <input type="password" name="password" class="form-control d-inline rounded-0" id="password" placeholder="Password" required>
+                                    <input type="password" name="password" class="form-control d-inline rounded-0 mb-2" id="password" placeholder="Password" required />
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" onclick="myFunction()">
+                                        <label class="form-check-label" for="inlineCheckbox1">Show Password</label>
+                                    </div>
                                 </div> <!-- End Input Password -->
 
                                 <!-- Login Button -->

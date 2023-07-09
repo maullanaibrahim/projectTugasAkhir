@@ -35,7 +35,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $branch->area }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
-                                                <a href="#{{ $branch->id }}"><button class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                <a href="/branches/{{ $branch->id }}/edit"><button class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></button></a>
                                                 <!-- Button for delete data -->
                                                 <form action="/branches/{{ $branch->id }}" method="post" class="d-inline">
                                                     @method('delete')

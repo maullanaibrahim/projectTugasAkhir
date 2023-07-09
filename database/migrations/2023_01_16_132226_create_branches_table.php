@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('branch_code')->unique();
             $table->string('branch_name');
             $table->string('branch_address');
-            $table->string('wilayah');
             $table->string('regional');
             $table->string('area');
             $table->timestamps();

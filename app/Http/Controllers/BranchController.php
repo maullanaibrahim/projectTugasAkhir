@@ -31,7 +31,7 @@ class BranchController extends Controller
             "path"      => "Data Cabang",
             "path2"     => "Tambah",
             "branches"  => Branch::all()
-         ]);
+        ]);
     }
 
     /**
@@ -43,9 +43,8 @@ class BranchController extends Controller
         $validatedData = $request->validate([
             'branch_code'       => 'required|max:3|unique:branches',
             'branch_name'       => 'required|min:5|max:50|unique:branches',
-            'wilayah'           => 'required',
-            'regional'          => 'required',
-            'area'              => 'required',
+            'regional'          => 'required|max:1',
+            'area'              => 'required|max:1',
             'branch_address'    => 'required|min:10|max:255',
         ],
         // Create custom notification for the validation request
@@ -57,10 +56,11 @@ class BranchController extends Controller
             'branch_name.min'           => 'Ketikkan Nama Cabang minimal 5 huruf!',
             'branch_name.max'           => 'Ketikkan Nama Cabang maksimal 50 huruf!',
             'branch_name.unique'        => 'Nama Cabang sudah ada!',
-            'wilayah.required'          => 'Wilayah harus dipilih!',
-            'regional.required'         => 'Regional harus dipilih!',
-            'area.required'             => 'Area harus dipilih!',
-            'branch_address.required'   => 'Arlamat harus diisi!',
+            'regional.required'         => 'Regional harus diisi!',
+            'regional.max'              => 'Maksimal 1 digit!',
+            'area.required'             => 'Area harus diisi!',
+            'area.max'                  => 'Maksimal 1 digit!',
+            'branch_address.required'   => 'Alamat harus diisi!',
             'branch_address.min'        => 'Ketikkan Alamat minimal 10 huruf!',
             'branch_address.max'        => 'Ketikkan Alamat maksimal 255 huruf!',
         ]);
@@ -90,9 +90,14 @@ class BranchController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Branch $branch)
     {
-        //
+        return view('branch.edit', [
+            "title"     => "Edit Data Cabang",
+            "path"      => "Data Cabang",
+            "path2"     => "Edit",
+            "branch"    => $branch
+        ]);
     }
 
     /**

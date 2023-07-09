@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.third')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -10,11 +10,12 @@
                                 <h5 class="card-title">{{ $title }}</h5>
 
                                 <!-- Showing form input new branch -->
-                                <form class="row g-3 mb-3" action="/branches" method="POST">
+                                <form class="row g-3 mb-3" action="/branches/{{ $branch->id }}" method="POST">
+                                    @method('put')
                                     @csrf
                                     <div class="col-md-2">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase @error('branch_code') is-invalid @enderror" name="branch_code" id="kodeCabang" placeholder="Kode Cabang" value="{{ old('branch_code') }}" required>
+                                            <input type="text" class="form-control text-uppercase @error('branch_code') is-invalid @enderror" name="branch_code" id="kodeCabang" placeholder="Kode Cabang" value="{{ old('branch_code', $branch->branch_code) }}" required>
                                             <label for="kodeCabang">Kode Cabang</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -28,7 +29,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase @error('branch_name') is-invalid @enderror" name="branch_name" id="namaCabang" placeholder="Nama Cabang" value="{{ old('branch_name') }}" required>
+                                            <input type="text" class="form-control text-uppercase @error('branch_name') is-invalid @enderror" name="branch_name" id="namaCabang" placeholder="Nama Cabang" value="{{ old('branch_name', $branch->branch_name) }}" required>
                                             <label for="namaCabang">Nama Cabang</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -42,7 +43,7 @@
 
                                     <div class="col-md-2">
                                         <div class="form-floating">
-                                            <input pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Tolong isi dengan huruf abjad.')" type="text" class="form-control text-uppercase @error('regional') is-invalid @enderror" name="regional" id="regional" placeholder="Regional" value="{{ old('regional') }}" required>
+                                            <input type="text" class="form-control text-uppercase @error('regional') is-invalid @enderror" name="regional" id="regional" placeholder="Regional" value="{{ old('regional', $branch->regional) }}" required>
                                             <label for="regional">Regional</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -56,7 +57,11 @@
 
                                     <div class="col-md-2">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control text-uppercase @error('area') is-invalid @enderror" name="area" id="area" placeholder="Area" value="{{ old('area') }}" required>
+                                            <select class="form-select @error('area') is-invalid @enderror" name="area" id="area" value="{{ old('area') }}" aria-label="State">
+                                                <option selected disabled>Pilih Area..</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
                                             <label for="area">Area</label>
 
                                             <!-- Showing notification error for input validation -->

@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_item')->unique();
-            $table->string('preview');
-            $table->string('nama_item');
-            $table->double('harga');
-            $table->string('satuan');
+            $table->string('item_code')->unique();
+            $table->string('item_preview')->nullable();
+            $table->string('item_name');
+            $table->double('price');
+            $table->string('unit');
             $table->bigInteger('supplier_id');
-            $table->string('jenis_item');
+            $table->string('item_type');
             $table->timestamps();
         });
     }

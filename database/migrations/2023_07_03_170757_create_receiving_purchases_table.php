@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('receiving_purchases', function (Blueprint $table) {
             $table->id();
-            $table->string('no_receiving')->unique();
-            $table->date('tgl_receiving');
+            $table->string('receiving_number')->unique();
+            $table->date('receiving_date');
             $table->bigInteger('purchase_id');
-            $table->string('penerima');
-            $table->string('divisi');
-            $table->string('no_sj');
-            $table->string('keterangan');
+            $table->string('recipient');
+            $table->string('division_name');
+            $table->string('invoice_number');
+            $table->string('receiving_note');
             $table->timestamps();
         });
     }

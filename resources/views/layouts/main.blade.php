@@ -62,6 +62,25 @@
 
    <!-- ======= Main Content ======= -->
    <main id="main" class="main">
+      <!-- Showing notification succeded for input new branch -->
+      @if(session()->has('success'))
+      <div class="alert alert-light alert-dismissible fade show w-auto position-fixed end-0 text-success" style="margin-right:30px;" role="alert">
+         <i class="bi bi-check-circle me-1"></i>
+         {{ session('success') }}
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      @endif
+      
+      <!-- Title Bar -->
+      <div class="pagetitle">
+         <h1>{{ $path }}</h1>
+         <nav>
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/dashboard"><i class="bi bi-house-door"></i></a></li>
+                  <li class="breadcrumb-item active">{{ $path }}</li>
+               </ol>
+         </nav>
+      </div><!-- End Title Bar -->
       @yield('content')
    </main><!-- End Main Content -->
 

@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('divisions', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_divisi');
-            $table->string('lokasi');
-            $table->string('alamat');
+            $table->string('division_name');
+            $table->string('location');
+            $table->string('address');
             $table->timestamps();
         });
 
         DB::table('divisions')->insert([
-            ['nama_divisi' => 'Procurement', 'lokasi' => 'Griya Center', 'alamat' => 'Jl. Soekarno Hatta No. 236 Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59']
+            ['division_name' => 'Procurement', 'location' => 'Griya Center', 'address' => 'Jl. Soekarno Hatta No. 236 Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59']
         ]);
     }
 

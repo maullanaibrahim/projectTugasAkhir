@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_cabang')->unique();
-            $table->string('nama_cabang');
-            $table->string('alamat_cabang');
+            $table->string('branch_code')->unique();
+            $table->string('branch_name');
+            $table->string('branch_address');
             $table->string('wilayah');
             $table->string('regional');
             $table->string('area');

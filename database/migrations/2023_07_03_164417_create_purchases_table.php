@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->string('no_purchase')->unique();
-            $table->date('tgl_purchase');
-            $table->date('exp_purchase');
-            $table->string('pembuat');
-            $table->string('nama_supplier');
-            $table->double('total');
+            $table->string('purchase_number')->unique();
+            $table->date('purchase_date');
+            $table->date('purchase_expired');
+            $table->string('purchase_maker');
+            $table->string('supplier_name');
+            $table->double('purchase_total');
             $table->bigInteger('ppbje_id');
             $table->bigInteger('cost_id');
-            $table->string('keterangan');
-            $table->string('no_receiving');
+            $table->string('purchase_note');
+            $table->string('receiving_number');
             $table->timestamps();
         });
     }

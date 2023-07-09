@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('ppbje_id');
             $table->bigInteger('item_id');
-            $table->double('qty');
-            $table->double('harga');
-            $table->double('jumlah');
+            $table->double('quantity');
+            $table->double('price');
+            $table->double('price_total');
             $table->timestamps();
         });
     }

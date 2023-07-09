@@ -39,41 +39,44 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
+        // Validating data request from branch.create
         $validatedData = $request->validate([
-            'kode_cabang'     => 'required|max:3|unique:branches',
-            'nama_cabang'     => 'required|min:5|max:50|unique:branches',
-            'wilayah'         => 'required',
-            'regional'        => 'required',
-            'area'            => 'required',
-            'alamat_cabang'   => 'required|min:10|max:255',
-         ],
-         [
-            'kode_cabang.required'  => 'Harus diisi!', 
-            'kode_cabang.max'       => 'Maksimal 3 huruf!',
-            'kode_cabang.unique'    => 'Kode Cabang sudah ada!',
-            'nama_cabang.required'  => 'Nama Cabang harus diisi!',
-            'nama_cabang.min'       => 'Ketikkan Nama Cabang minimal 5 huruf!',
-            'nama_cabang.max'       => 'Ketikkan Nama Cabang maksimal 50 huruf!',
-            'nama_cabang.unique'    => 'Nama Cabang sudah ada!',
-            'wilayah.required'      => 'Wilayah harus dipilih!',
-            'regional.required'     => 'Regional harus dipilih!',
-            'area.required'         => 'Area harus dipilih!',
-            'alamat_cabang.required'=> 'Arlamat harus diisi!',
-            'alamat_cabang.min'     => 'Ketikkan Alamat minimal 10 huruf!',
-            'alamat_cabang.max'     => 'Ketikkan Alamat maksimal 255 huruf!',
+            'branch_code'       => 'required|max:3|unique:branches',
+            'branch_name'       => 'required|min:5|max:50|unique:branches',
+            'wilayah'           => 'required',
+            'regional'          => 'required',
+            'area'              => 'required',
+            'branch_address'    => 'required|min:10|max:255',
+        ],
+        // Create custom notification for the validation request
+        [
+            'branch_code.required'      => 'Harus diisi!', 
+            'branch_code.max'           => 'Maksimal 3 huruf!',
+            'branch_code.unique'        => 'Kode Cabang sudah ada!',
+            'branch_name.required'      => 'Nama Cabang harus diisi!',
+            'branch_name.min'           => 'Ketikkan Nama Cabang minimal 5 huruf!',
+            'branch_name.max'           => 'Ketikkan Nama Cabang maksimal 50 huruf!',
+            'branch_name.unique'        => 'Nama Cabang sudah ada!',
+            'wilayah.required'          => 'Wilayah harus dipilih!',
+            'regional.required'         => 'Regional harus dipilih!',
+            'area.required'             => 'Area harus dipilih!',
+            'branch_address.required'   => 'Arlamat harus diisi!',
+            'branch_address.min'        => 'Ketikkan Alamat minimal 10 huruf!',
+            'branch_address.max'        => 'Ketikkan Alamat maksimal 255 huruf!',
         ]);
-   
-        $nama_cabang = strtoupper($request['nama_cabang']);
+        // Saving data to branches table
         Branch::create($validatedData);
 
-        $company_name       = "PT. GRIYA PRATAMA";
+        // Saving data to costs table too
         $cost               = new Cost;
-        $cost->cost_name    = $request['nama_cabang'];
+        $cost->cost_name    = $request['branch_name'];
         $cost->region       = $request['regional'];
-        $cost->company_name = $company_name;
+        $cost->company_name = "PT. MAULANA SUKSES SELALU";
         $cost->save();
 
-        return redirect('/branches')->with('success', 'Cabang '.$nama_cabang.' berhasil ditambahkan!');
+        // Redirect to the branch view if create data succeded
+        $branch_name = strtoupper($request['branch_name']);
+        return redirect('/branches')->with('success', 'Cabang '.$branch_name.' berhasil ditambahkan!');
     }
 
     /**
@@ -105,7 +108,9 @@ class BranchController extends Controller
      */
     public function destroy(Branch $branch)
     {
+        $cost = Cost::where('cost_name', $branch->branch_name)->get();
         Branch::destroy($branch->id);
-        return redirect('/branches')->with('success', 'Cabang '.strtoupper($branch->nama_cabang).' berhasil dihapus!');
+        Cost::destroy($cost);
+        return redirect('/branches')->with('success', 'Cabang '.strtoupper($branch->branch_name).' berhasil dihapus!');
     }
 }

@@ -14,8 +14,8 @@ class SupplierController extends Controller
     {
         $suppliers = Supplier::all();
         return view('supplier.index', [
-            "title" => "Data Supplier",
-            "path" => "Data Supplier",
+            "title"     => "Data Supplier",
+            "path"      => "Data Supplier",
             "suppliers" => $suppliers
         ]);
     }
@@ -33,8 +33,8 @@ class SupplierController extends Controller
             "title"     => "Tambah Data Supplier",
             "path"      => "Data Supplier",
             "path2"     => "Tambah",
-            "suppliers"   => Supplier::all(),
-            "count"      => $count
+            "suppliers" => Supplier::all(),
+            "count"     => $count
         ]);
     }
 
@@ -43,34 +43,38 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
+        // Validating data request from supplier.create
         $validatedData = $request->validate([
-            'kode_supplier'   => 'required|unique:suppliers',
-            'nama_supplier'   => 'required|min:4|max:50|unique:suppliers',
-            'pic_supplier'    => 'required|min:2|max:25',
-            'kontak_supplier' => 'required|min:11|max:25',
-            'alamat_supplier' => 'required|min:5|max:255',
-            'top'             => 'required|min:5|max:10',
-            'pkp'             => 'required|min:2|max:5',
+            'supplier_code'     => 'required|unique:suppliers',
+            'supplier_name'     => 'required|min:4|max:50|unique:suppliers',
+            'supplier_pic'      => 'required|min:2|max:25',
+            'supplier_contact'  => 'required|min:11|max:25',
+            'supplier_address'  => 'required|min:5|max:255',
+            'term'              => 'required',
+            'tax'               => 'required'
         ],
+        // Create custom notification for the validation request
         [
-            'nama_supplier.required'   => 'Nama Supplier belum diisi!',
-            'nama_supplier.min'        => 'Ketikkan minimal 4 digit!',
-            'nama_supplier.max'        => 'Ketikkan maksimal 50 digit!',
-            'nama_supplier.unique'     => 'Nama Supplier sudah ada!',
-            'pic_supplier.required'    => 'PIC Supplier belum diisi!',
-            'pic_supplier.min'         => 'Ketikkan minimal 2 digit!',
-            'pic_supplier.max'         => 'Ketikkan maksimal 25 digit!',
-            'kontak_supplier.required' => 'Kontak Supplier belum diisi!',
-            'kontak_supplier.min'      => 'Ketikkan minimal 11 digit!',
-            'kontak_supplier.max'      => 'Ketikkan maksimal 25 digit!',
-            'alamat_supplier.required' => 'Alamat Supplier belum diisi!',
-            'alamat_supplier.min'      => 'Ketikkan minimal 5 digit!',
-            'alamat_suppliermax'       => 'Ketikkan maksimal 255 digit!',
+            'supplier_name.required'    => 'Nama Supplier belum diisi!',
+            'supplier_name.min'         => 'Ketikkan minimal 4 digit!',
+            'supplier_name.max'         => 'Ketikkan maksimal 50 digit!',
+            'supplier_name.unique'      => 'Nama Supplier sudah ada!',
+            'supplier_pic.required'     => 'PIC Supplier belum diisi!',
+            'supplier_pic.min'          => 'Ketikkan minimal 2 digit!',
+            'supplier_pic.max'          => 'Ketikkan maksimal 25 digit!',
+            'supplier_contact.required' => 'Kontak Supplier belum diisi!',
+            'supplier_contact.min'      => 'Ketikkan minimal 11 digit!',
+            'supplier_contact.max'      => 'Ketikkan maksimal 25 digit!',
+            'supplier_address.required' => 'Alamat Supplier belum diisi!',
+            'supplier_address.min'      => 'Ketikkan minimal 5 digit!',
+            'supplier_address.max'      => 'Ketikkan maksimal 255 digit!'
         ]);
-
-        $nama_supplier = strtoupper($request['nama_supplier']);
+        // Saving data to branches table
         Supplier::create($validatedData);
-        return redirect('/suppliers')->with('success', 'Supplier '.$nama_supplier.' berhasil ditambahkan!');
+
+        // Redirect to the supplier view if create data succeded
+        $supplier_name = strtoupper($request['supplier_name']);
+        return redirect('/suppliers')->with('success', 'Supplier '.$supplier_name.' berhasil ditambahkan!');
     }
 
     /**

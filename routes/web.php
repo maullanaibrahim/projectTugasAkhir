@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PPBJeController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\DivisionController;
@@ -39,7 +40,26 @@ Route::post('/register', [RegisterController::class, 'store'])
 Route::get('/dashboard', [DashboardController::class, 'index'])
    ->middleware('auth')->name('dashboard');
 
+// Route PPBJe
+Route::get('/ppbje-asset', [PPBJeController::class, 'asset'])
+   ->middleware('auth')->name('ppbje-asset');
+Route::get('/ppbje-nonAsset', [PPBJeController::class, 'nonAsset'])
+   ->middleware('auth')->name('ppbje-nonAsset');
+Route::get('/ppbje-asset/create', [PPBJeController::class, 'createAsset'])
+   ->middleware('auth')->name('ppbje-createAsset');
+Route::get('/ppbje-nonAsset/create', [PPBJeController::class, 'createNonAsset'])
+   ->middleware('auth')->name('ppbje-createNonAsset');
+Route::post('/ppbje-store', [PPBJeController::class, 'store'])
+   ->middleware('auth')->name('ppbje-store');
    
+// Get on Create PPBJe
+Route::get('/ppbje-create/{id}', [PPBJeController::class, 'getCost'])
+   ->middleware('auth')->name('getCost');
+Route::get('/ppbje-create2/{id}', [PPBJeController::class, 'getApplicant'])
+   ->middleware('auth')->name('getApplicant');
+Route::get('/ppbje-create3/{id}', [PPBJeController::class, 'getItem'])
+   ->middleware('auth')->name('getItem');
+
 // Route Employee
 Route::resource('/employees', EmployeeController::class)
    ->middleware('auth');

@@ -15,13 +15,15 @@ class RegisterController extends Controller
     {
         return view('register.index', [
             "title"     => "Register Account",
-            "positions" => Position::orderBy('nama_jabatan', 'ASC')->get(),
-            "divisions" => Division::orderBy('nama_divisi', 'ASC')->get(),
+            // Sending data from position and division table to register view with Ascending data sorted
+            "positions" => Position::orderBy('position_name', 'ASC')->get(),
+            "divisions" => Division::orderBy('division_name', 'ASC')->get(),
         ]);
     }
 
     public function store(Request $request)
     {
+        // Validating data request from register.index
         $validatedData = $request->validate([
             'first_name'    => 'required|min:2|max:255',
             'last_name'     => 'required|min:2|max:255',
@@ -30,6 +32,7 @@ class RegisterController extends Controller
             'position_id'   => 'required',
             'division_id'   => 'required'
         ],
+        // Create custom notification for the validation request
         [
             'first_name.required'   => 'Nama Depan Harus diisi!', 
             'first_name.min'        => 'Ketikkan Nama Depan minimal 2 digit!',
@@ -45,12 +48,14 @@ class RegisterController extends Controller
             'max'                   => 'Ketikkan maksimal 255 digit!',
             'position_id'           => 'Pilih Jabatan anda!',
             'division_id'           => 'Pilih Divisi anda!',
-         ]);
+        ]);
 
+        // Encrypt Password
         $validatedData['password'] = Hash::make($validatedData['password']);
-
+        // Saving data to users table
         User::create($validatedData);
 
-        return redirect('/register')->with('success', 'Akun baru berhasil ditambahkan!');
+        // Redirect to the register view if create data succeded
+        return redirect('/register')->with('success', 'Akun Anda berhasil di daftarkan!');
     }
 }

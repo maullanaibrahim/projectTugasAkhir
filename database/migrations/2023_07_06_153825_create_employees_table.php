@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nik')->unique();
             $table->string('employee_name');
-            $table->string('position_id');
-            $table->string('cost_id');
+            $table->string('employee_position');
+            $table->string('employee_location');
+            $table->string('company');
             $table->timestamps();
         });
     }

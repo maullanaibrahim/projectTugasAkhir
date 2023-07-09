@@ -15,17 +15,17 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('purchase_id');
             $table->string('status1');
-            $table->string('tgl1');
+            $table->string('date1');
             $table->string('chief');
-            $table->string('catatan1');
+            $table->string('note1');
             $table->string('status2');
-            $table->string('tgl2');
+            $table->string('date2');
             $table->string('manager');
-            $table->string('catatan2');
+            $table->string('note2');
             $table->string('status3');
-            $table->string('tgl3');
+            $table->string('date3');
             $table->string('direktur');
-            $table->string('catatan3');
+            $table->string('note3');
             $table->timestamps();
         });
     }

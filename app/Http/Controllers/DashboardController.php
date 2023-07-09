@@ -8,10 +8,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-      return view('dashboard.index', [
-         "url"          => "",
-         "title"        => "Dashboard",
-         "path"         => "Dashboard",
-      ]);
+        return view('dashboard.index', [
+            "url"          => "",
+            "title"        => "Dashboard",
+            "path"         => "Dashboard",
+        ]);
     }
 }

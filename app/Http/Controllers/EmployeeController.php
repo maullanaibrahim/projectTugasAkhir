@@ -27,18 +27,14 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $hitung  = Employee::count();
-        $hitung1 = $hitung+1;
-        $count   = sprintf("%05d", $hitung1);
-
+        // Access employee view
         return view('employee.create', [
             "title"     => "Tambah Data Karyawan",
             "path"      => "Data Karyawan",
             "path2"     => "Tambah",
             "employees" => Employee::all(),
-            "positions" => Position::orderBy('nama_jabatan', 'ASC')->get(),
-            "costs"     => Cost::orderBy('cost_name', 'ASC')->get(),
-            "count"     => $count
+            "positions" => Position::orderBy('position_name', 'ASC')->get(),
+            "costs"     => Cost::orderBy('cost_name', 'ASC')->get()
         ]);
     }
 
@@ -47,24 +43,31 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        // Validating data request from employee.create
         $validatedData = $request->validate([
-            'nik'           => 'required|unique:employees',
-            'employee_name' => 'required|min:2|max:255',
-            'position_id'   => 'required',
-            'cost_id'       => 'required'
+            'nik'               => 'required|min:5|max:255|unique:employees',
+            'employee_name'     => 'required|min:2|max:255',
+            'employee_position' => 'required',
+            'employee_location' => 'required',
+            'company'           => 'required'
         ],
+        // Create custom notification for the validation request
         [
-            'nik.required'              => 'NIK harus diisi!',
-            'unique'                    => 'NIK sudah ada!',
-            'employee_name.required'    => 'Nama Karyawan harus diisi!',
-            'employee_name.min'         => 'Ketik minimal 2 digit!',
-            'employee_name.max'         => 'Ketik maksimal 255 digit!',
-            'position_id.required'      => 'Jabatan harus dipilih!',
-            'cost_id.rquired'           => 'Cabang/Divisi harus dipilih!',
+            'nik.required'                  => 'NIK harus diisi!',
+            'nik.min'                       => 'Ketik minimal 2 digit!',
+            'nik.max'                       => 'Ketik maksimal 255 digit!',
+            'unique'                        => 'NIK sudah ada!',
+            'employee_name.required'        => 'Nama Karyawan harus diisi!',
+            'employee_name.min'             => 'Ketik minimal 2 digit!',
+            'employee_name.max'             => 'Ketik maksimal 255 digit!',
+            'employe_position.required'     => 'Jabatan harus dipilih!',
+            'employee_location.required'    => 'Cabang/Divisi harus dipilih!'
         ]);
-
-        $employe_name = strtoupper($request['employee_name']);
+        // Saving data to employees table
         Employee::create($validatedData);
+
+        // Redirect to the employee view if create data succeded
+        $employe_name = strtoupper($request['employee_name']);
         return redirect('/employees')->with('success', $employe_name.' berhasil ditambahkan!');
     }
 

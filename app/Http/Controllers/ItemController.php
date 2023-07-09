@@ -16,7 +16,7 @@ class ItemController extends Controller
         $items = Item::all();
         return view('item.index', [
             "title" => "Data Item",
-            "path" => "Data Item",
+            "path"  => "Data Item",
             "items" => $items
         ]);
     }
@@ -26,6 +26,7 @@ class ItemController extends Controller
      */
     public function create()
     {
+        // Determine item code with autoincrement
         $hitung  = Item::count();
         $hitung1 = $hitung+1;
         $count   = sprintf("%04d", $hitung1);
@@ -45,27 +46,31 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+        // Validating data request from branch.create
         $validatedData = $request->validate([
-            'kode_item'     => 'required',
-            'nama_item'     => 'required|min:5|max:100',
-            'harga'           => 'required',
-            'satuan'          => 'required',
-            'supplier_id'     => 'required',
-            'jenis_item'    => 'required'
+            'item_code'     => 'required',
+            'item_name'     => 'required|min:5|max:100',
+            'price'         => 'required',
+            'unit'          => 'required',
+            'supplier_id'   => 'required',
+            'item_type'     => 'required'
         ],
+        // Create custom notification for the validation request
         [
-            'nama_item.required'     => 'Nama Item belum diisi!',
-            'nama_item.min'          => 'Ketikkan minimal 5 huruf!',
-            'nama_item.max'          => 'Ketikkan maksimal 100 huruf!',
-            'harga.required'           => 'Harga belum diisi!',
-            'satuan.required'          => 'Satuan belum dipilih!',
-            'supplier_id.required'     => 'Supplier belum dipilih!',
-            'jenis_item.required'    => 'Jenis Item belum dipilih!',
+            'item_name.required'    => 'Nama Item belum diisi!',
+            'item_name.min'         => 'Ketikkan minimal 5 huruf!',
+            'item_name.max'         => 'Ketikkan maksimal 100 huruf!',
+            'price.required'        => 'Harga belum diisi!',
+            'unit.required'         => 'Satuan belum dipilih!',
+            'supplier_id.required'  => 'Supplier belum dipilih!',
+            'item_type.required'    => 'Jenis Item belum dipilih!',
         ]);
-
-        $nama_item = strtoupper($request['nama_item']);
+        // Saving data to items table
         Item::create($validatedData);
-        return redirect('/items')->with('success', 'Item '.$nama_item.' berhasil ditambahkan!');
+
+        // Redirect to the item view if create data succeded
+        $item_name = strtoupper($request['item_name']);
+        return redirect('/items')->with('success', 'Item '.$item_name.' berhasil ditambahkan!');
     }
 
     /**
@@ -98,6 +103,6 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         Item::destroy($item->id);
-        return redirect('/items')->with('success', 'Item '.strtoupper($item->nama_item).' berhasil dihapus!');
+        return redirect('/items')->with('success', 'Item '.strtoupper($item->item_name).' berhasil dihapus!');
     }
 }

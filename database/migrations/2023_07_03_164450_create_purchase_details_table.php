@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('purchase_id');
             $table->bigInteger('ppbje_detail_id');
-            $table->double('qty');
-            $table->string('satuan');
-            $table->double('harga');
-            $table->double('diskon');
-            $table->double('jumlah');
+            $table->double('quantity');
+            $table->string('unit');
+            $table->double('price');
+            $table->double('discount');
+            $table->double('price_total');
             $table->timestamps();
         });
     }

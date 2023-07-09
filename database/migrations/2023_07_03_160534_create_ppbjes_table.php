@@ -13,19 +13,19 @@ return new class extends Migration
     {
         Schema::create('ppbjes', function (Blueprint $table) {
             $table->id();
-            $table->string('no_ppbje')->unique();
-            $table->string('pembuat');
-            $table->string('divisi_pembuat');
+            $table->string('ppbje_number')->unique();
+            $table->string('maker');
+            $table->string('maker_division');
             $table->bigInteger('cost_id');
             $table->string('region');
             $table->bigInteger('employee_id');
             $table->string('employee_position');
             $table->string('employee_division');
-            $table->string('jenis_ppbje');
-            $table->date('tgl_kebutuhan');
-            $table->string('alasan');
-            $table->double('total_biaya');
-            $table->string('keterangan');
+            $table->string('ppbje_type');
+            $table->date('date_of_need');
+            $table->string('reason');
+            $table->double('cost_total');
+            $table->string('ppbje_note');
             $table->timestamps();
         });
     }

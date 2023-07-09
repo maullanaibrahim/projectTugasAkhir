@@ -13,24 +13,24 @@ return new class extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_jabatan');
+            $table->string('position_name');
             $table->timestamps();
         });
 
         DB::table('positions')->insert([
-            ['nama_jabatan' => 'Admin', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Asisten Kepala Toko', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Barista', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Chief', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Direktur', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Junior Staff', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Kasir', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Kepala Toko', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Koordinator Wilayah', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Manager', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Senior Manager', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Service Crew', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['nama_jabatan' => 'Staff', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59']
+            ['position_name' => 'Admin', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Asisten Kepala Toko', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Barista', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Chief', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Direktur', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Junior Staff', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Kasir', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Kepala Toko', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Koordinator Wilayah', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Manager', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Senior Manager', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Service Crew', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['position_name' => 'Staff', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59']
         ]);
     }
 

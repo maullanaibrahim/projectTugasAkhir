@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('recipient');
             $table->string('division_name');
             $table->string('invoice_number');
-            $table->string('receiving_note');
+            $table->string('receiving_note')->nullable();
             $table->timestamps();
         });
     }

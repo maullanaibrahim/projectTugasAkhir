@@ -20,7 +20,7 @@ return new class extends Migration
         });
 
         DB::table('divisions')->insert([
-            ['division_name' => 'Procurement', 'location' => 'Griya Center', 'address' => 'Jl. Soekarno Hatta No. 236 Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59']
+            ['division_name' => 'Procurement', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59']
         ]);
     }
 

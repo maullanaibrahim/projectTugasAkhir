@@ -20,7 +20,16 @@ return new class extends Migration
         });
 
         DB::table('divisions')->insert([
-            ['division_name' => 'Procurement', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59']
+            ['division_name' => 'Information Technology', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['division_name' => 'Asset Management', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['division_name' => 'Operational Reg. A', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['division_name' => 'Operational Reg. B', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['division_name' => 'Operational Reg. C', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['division_name' => 'Operational Reg. D', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['division_name' => 'Operational Area 1', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['division_name' => 'Operational Area 2', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['division_name' => 'Procurement', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
+            ['division_name' => 'Maulana Center', 'location' => 'Head Office', 'address' => 'Jl. Soreang-Cipatik No. 1, Kutawaringin, Kab. Bandung', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59']
         ]);
     }
 

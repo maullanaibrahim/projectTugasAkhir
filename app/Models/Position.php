@@ -15,4 +15,9 @@ class Position extends Model
     {
         return $this->hasOne('App\Models\User');
     }
+
+    public function employee()
+    {
+        return $this->hasOne('App\Models\Employee');
+    }
 }

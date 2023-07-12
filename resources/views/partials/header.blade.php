@@ -18,6 +18,14 @@
                         <hr class="dropdown-divider">
                     </li>
                     <li>
+                        <a href="/register">
+                            <button class="dropdown-item d-flex align-items-center">
+                                <i class="bi bi-person-plus"></i>
+                                <span>Tambah Akun</span>
+                            </button>
+                        </a>
+                    </li>
+                    <li>
                         <!-- Form Logout -->
                         <form class="row g-3" action="/logout" method="post">
                             @csrf

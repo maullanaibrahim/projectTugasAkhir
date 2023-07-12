@@ -18,13 +18,12 @@ class LoginController extends Controller
     {
         // Validating data request from login.index
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+            'nik'       => ['required'],
+            'password'  => ['required'],
         ],
         // Create custom notification for the validation request
         [
-            'email.required'    => 'Email ID harus diisi!', 
-            'email'             => 'Ketikkan alamat email yang valid!',
+            'email.required'    => 'Nomor Induk Karyawan harus diisi!',
             'password.required' => 'Password harus diisi!'
          ]);
  
@@ -37,7 +36,7 @@ class LoginController extends Controller
         }
  
         // Back to the login view if login failed
-        return back()->with('loginError', 'Email ID atau Password salah!');
+        return back()->with('loginError', 'Nomor Induk atau Password salah!');
     }
 
     public function logout(Request $request)

@@ -20,7 +20,16 @@ return new class extends Migration
         });
 
         DB::table('costs')->insert([
-            ['cost_name' => 'Procurement', 'region' => 'Griya Center', 'company_name' => 'PT. Griya Pratama', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59']
+            ['cost_name' => 'Information Technology', 'region' => 'Head Office', 'company_name' => 'PT. Maulana Sukses Selalu', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
+            ['cost_name' => 'Asset Management', 'region' => 'Head Office', 'company_name' => 'PT. Maulana Sukses Selalu', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
+            ['cost_name' => 'Operational Reg. A', 'region' => 'Head Office', 'company_name' => 'PT. Maulana Sukses Selalu', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
+            ['cost_name' => 'Operational Reg. B', 'region' => 'Head Office', 'company_name' => 'PT. Maulana Sukses Selalu', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
+            ['cost_name' => 'Operational Reg. c', 'region' => 'Head Office', 'company_name' => 'PT. Maulana Sukses Selalu', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
+            ['cost_name' => 'Operational Reg. D', 'region' => 'Head Office', 'company_name' => 'PT. Maulana Sukses Selalu', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
+            ['cost_name' => 'Operational Area 1', 'region' => 'Head Office', 'company_name' => 'PT. Maulana Sukses Selalu', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
+            ['cost_name' => 'Operational Area 2', 'region' => 'Head Office', 'company_name' => 'PT. Maulana Sukses Selalu', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
+            ['cost_name' => 'Procurement', 'region' => 'Head Office', 'company_name' => 'PT. Maulana Sukses Selalu', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
+            ['cost_name' => 'Maulana Center', 'region' => 'Head Office', 'company_name' => 'PT. Maulana Sukses Selalu', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59']
         ]);
     }
 

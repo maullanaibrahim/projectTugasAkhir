@@ -34,8 +34,8 @@
                     @enderror
                     
                     <!-- Showing Error Input email -->
-                    <div class="@error('email') is-invalid @enderror"></div>
-                    @error('email')
+                    <div class="@error('nik') is-invalid @enderror"></div>
+                    @error('nik')
                     <div class="alert alert-light alert-dismissible fade show w-auto invalid-feedback text-danger end-0" id="alert3" role="alert">
                         <i class="bi bi-exclamation-triangle-fill me-1"></i>
                         {{ $message }}
@@ -108,7 +108,7 @@
                                     <!-- Input Email -->
                                     <div class="col-12">
                                         <div class="border border-3 border-primary d-inline py-2"></div>
-                                        <input type="email" name="email" class="form-control d-inline rounded-0" id="email" placeholder="Alamat Email" value="{{ old('email') }}" required>
+                                        <input type="text" name="nik" class="form-control d-inline rounded-0" id="nik" placeholder="No. Induk Karyawan" value="{{ old('nik') }}" required>
                                     </div> <!-- End Input Email -->
 
                                     <!-- Input Password -->
@@ -128,6 +128,17 @@
                                             <option selected disabled>Jabatan</option>
                                             @foreach($positions as $position)
                                             <option value="{{ $position->id }}">{{ ucwords($position->position_name) }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div> <!-- End Input Jabatan -->
+
+                                    <!-- Input Jabatan Hidden -->
+                                    <div class="col-12" hidden>
+                                        <div class="border border-3 border-primary d-inline py-2"></div>
+                                        <select class="form-select d-inline rounded-0" name="position_name" id="position_name" required>
+                                            <option selected disabled>Jabatan</option>
+                                            @foreach($positions as $position)
+                                            <option value="{{ $position->position_name }}">{{ ucwords($position->position_name) }}</option>
                                             @endforeach
                                         </select>
                                     </div> <!-- End Input Jabatan -->

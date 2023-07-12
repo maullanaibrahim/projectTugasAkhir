@@ -15,30 +15,30 @@
                                     <thead class="bg-light" style="height: 45px;">
                                         <tr>
                                             <th scope="col">NIK</th>
-                                            <th scope="col">NAMA KARYAWAN</th>
+                                            <th scope="col">NAMA USER</th>
                                             <th scope="col">JABATAN</th>
                                             <th scope="col">CABANG / DIVISI</th>
-                                            <th scope="col">PERUSAHAAN</th>
                                             <th scope="col">AKSI</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-uppercase">
-                                        @foreach($employees as $employee)
+                                        @foreach($users as $user)
                                         <tr>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $employee->nik }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $employee->employee_name }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $employee->position->position_name }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $employee->cost->cost_name }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $employee->company }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $user->nik }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $user->first_name }} {{ $user->last_name }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $user->position->position_name }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $user->division->division_name }}</td>
                                             <td style="font-size:13px;">
-                                                <!-- Button for edit data -->
-                                                <a href="#{{ $employee->id }}"><button class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                <!-- Hidden delete button for super admin -->
+                                                @if($user->nik == '123456789')
+                                                @else
                                                 <!-- Button for delete data -->
-                                                <form action="/employees/{{ $employee->id }}" method="post" class="d-inline">
+                                                <form action="/users/{{ $user->id }}" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
-                                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus {{ strtoupper($employee->employee_name) }}?')"><i class="bi bi-trash-fill"></i></button>
+                                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus {{ strtoupper($user->first_name) }} {{ strtoupper($user->last_name) }}?')"><i class="bi bi-trash-fill"></i></button>
                                                 </form>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach

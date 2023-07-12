@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Position;
 use App\Models\Division;
+use App\Models\Employee;
 
 class RegisterController extends Controller
 {
@@ -27,7 +28,7 @@ class RegisterController extends Controller
         $validatedData = $request->validate([
             'first_name'    => 'required|min:2|max:255',
             'last_name'     => 'required|min:2|max:255',
-            'email'         => ['required', 'unique:users'],
+            'nik'           => ['required', 'unique:users'],
             'password'      => 'required|min:5|max:255',
             'position_id'   => 'required',
             'division_id'   => 'required'
@@ -40,9 +41,8 @@ class RegisterController extends Controller
             'last_name.required'    => 'Nama Belakang harus diisi!', 
             'last_name.min'         => 'Ketikkan Nama Belakang minimal 2 digit!',
             'last_name.max'         => 'Ketikkan Nama Belakang maksimal 255 digit!',
-            'email.required'        => 'Alamat Email harus diisi!', 
-            'email'                 => 'Ketikkan Alamat Email yang valid!',
-            'unique'                => 'Alamat Email telah digunakan!',
+            'nik.required'          => 'Nomor Induk Karyawan harus diisi!', 
+            'unique'                => 'Nomor Induk Karyawan telah digunakan!',
             'password.required'     => 'Password harus diisi!', 
             'password.min'          => 'Ketikkan Password minimal 5 digit!',
             'max'                   => 'Ketikkan maksimal 255 digit!',
@@ -55,7 +55,19 @@ class RegisterController extends Controller
         // Saving data to users table
         User::create($validatedData);
 
+        $employee_name = $request['first_name'].' '.$request['last_name'];
+
+        // Saving data to costs table too
+        $cost                   = new Employee;
+        $cost->nik              = $request['nik'];
+        $cost->employee_name    = $employee_name;
+        $cost->position_id      = $request['position_id'];
+        $cost->cost_id          = $request['division_id'];
+        $cost->company          = "PT. MAULANA SUKSES SELALU";
+        $cost->save();
+
         // Redirect to the register view if create data succeded
-        return redirect('/register')->with('success', 'Akun Anda berhasil di daftarkan!');
+        $first_name = strtoupper($request['first_name']);
+        return redirect('/register')->with('success', 'User '.$first_name.' berhasil di daftarkan!');
     }
 }

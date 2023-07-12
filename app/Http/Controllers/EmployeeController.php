@@ -45,11 +45,11 @@ class EmployeeController extends Controller
     {
         // Validating data request from employee.create
         $validatedData = $request->validate([
-            'nik'               => 'required|min:5|max:255|unique:employees',
-            'employee_name'     => 'required|min:2|max:255',
-            'employee_position' => 'required',
-            'employee_location' => 'required',
-            'company'           => 'required'
+            'nik'           => 'required|min:5|max:255|unique:employees',
+            'employee_name' => 'required|min:2|max:255',
+            'position_id'   => 'required',
+            'cost_id'       => 'required',
+            'company'       => 'required'
         ],
         // Create custom notification for the validation request
         [
@@ -60,8 +60,8 @@ class EmployeeController extends Controller
             'employee_name.required'        => 'Nama Karyawan harus diisi!',
             'employee_name.min'             => 'Ketik minimal 2 digit!',
             'employee_name.max'             => 'Ketik maksimal 255 digit!',
-            'employe_position.required'     => 'Jabatan harus dipilih!',
-            'employee_location.required'    => 'Cabang/Divisi harus dipilih!'
+            'position_id.required'          => 'Jabatan harus dipilih!',
+            'cost_id.required'              => 'Cabang/Divisi harus dipilih!'
         ]);
         // Saving data to employees table
         Employee::create($validatedData);

@@ -26,7 +26,7 @@
                                 <!-- Login Title -->
                                 <div class="pb-4">
                                     <h5 class="card-title text-primary text-center pb-0 fs-4 fw-bold">Form Login</h5>
-                                    <p class="text-center small px-2">Masukkan Alamat Email dan Kata Sandi akun anda untuk dapat masuk & mulai bekerja.</p>
+                                    <p class="text-center small px-2">Masukkan Nomor Induk dan Kata Sandi akun anda untuk dapat masuk & mulai bekerja.</p>
                                 </div>
 
                                 <!-- Login Form -->
@@ -35,7 +35,7 @@
                                     <!-- Input Email ID -->
                                     <div class="col-12">
                                         <div class="border border-3 border-primary d-inline py-2"></div>
-                                        <input type="email" name="email" class="form-control d-inline rounded-0" id="email" placeholder="Alamat Email" required />
+                                        <input type="text" name="nik" class="form-control d-inline rounded-0" id="nik" placeholder="No. Induk Karyawan" required />
                                     </div> <!-- End Input Email ID -->
 
                                     <!-- Input Password -->
@@ -55,7 +55,7 @@
                                         
                                     <!-- Lupa Password -->
                                     <div class="col-12">
-                                        <p class="small mb-0 text-center">Belum punya akun? Silakan <a href="/register">Daftar</a></p>
+                                        <p class="small mb-0 text-center">Belum punya akun? Silakan <a href="#" onclick="return confirm('Silakan hubungi Administrator IT untuk Daftar Akun!')">Daftar</a></p>
                                     </div> <!-- End Lupa Password -->
                                 </form> <!-- End Login Form -->
                             </div> <!-- End card-body -->

@@ -18,8 +18,7 @@
                                             <th scope="col">KODE</th>
                                             <th scope="col">NAMA CABANG</th>
                                             <th scope="col">ALAMAT</th>
-                                            <th scope="col">WIL</th>
-                                            <th scope="col">REG</th>
+                                            <th scope="col">REGIONAL</th>
                                             <th scope="col">AREA</th>
                                             <th scope="col">AKSI</th>
                                         </tr>
@@ -30,7 +29,6 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $branch->branch_code }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $branch->branch_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $branch->branch_address }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $branch->wilayah }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $branch->regional }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $branch->area }}</td>
                                             <td style="font-size:13px;">

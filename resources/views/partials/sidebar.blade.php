@@ -43,8 +43,15 @@
             <li class="nav-heading">MASTER DATA</li>
             
             <li class="nav-item">
+                <a class="nav-link {{ Request::is('users*') ? '' : 'collapsed' }}" href="/users">
+                    <i class="bi bi-person-circle"></i>
+                    <span>Data User</span>
+                </a>
+            </li><!-- End Data Karyawan -->
+            
+            <li class="nav-item">
                 <a class="nav-link {{ Request::is('employees*') ? '' : 'collapsed' }}" href="/employees">
-                    <i class="bi bi-person-badge"></i>
+                    <i class="bi bi-people"></i>
                     <span>Data Karyawan</span>
                 </a>
             </li><!-- End Data Karyawan -->

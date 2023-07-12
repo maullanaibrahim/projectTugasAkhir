@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PPBJeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\DivisionController;
@@ -32,7 +33,7 @@ Route::post('/logout', [LoginController::class, 'logout'])
 
 // Route Register
 Route::get('/register', [RegisterController::class, 'index'])
-   ->middleware('guest')->name('register.index');
+   ->middleware('auth')->name('register.index');
 Route::post('/register', [RegisterController::class, 'store'])
    ->name('register.store');
 
@@ -59,6 +60,10 @@ Route::get('/ppbje-create2/{id}', [PPBJeController::class, 'getApplicant'])
    ->middleware('auth')->name('getApplicant');
 Route::get('/ppbje-create3/{id}', [PPBJeController::class, 'getItem'])
    ->middleware('auth')->name('getItem');
+
+// Route User
+Route::resource('/users', UserController::class)
+   ->middleware('auth');
 
 // Route Employee
 Route::resource('/employees', EmployeeController::class)

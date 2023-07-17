@@ -36,7 +36,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $supplier->term }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
-                                                <a href="#{{ $supplier->id }}"><button class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                <a href="/suppliers/{{ $supplier->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
                                                 <!-- Button for delete data -->
                                                 <form action="/suppliers/{{ $supplier->id }}" method="post" class="d-inline">
                                                     @method('delete')

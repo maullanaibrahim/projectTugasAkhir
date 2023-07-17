@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.third')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -10,17 +10,18 @@
                                 <h5 class="card-title">{{ $title }}</h5>
 
                                 <!-- Showing form input new supplier -->
-                                <form class="row g-3 mb-3" action="/suppliers" method="POST">
+                                <form class="row g-3 mb-3" action="/suppliers/{{ $supplier->id }}" method="POST">
+                                    @method('put')
                                     @csrf
                                     <div class="col-md-1">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control bg-light" name="supplier_code" id="kodeSupplier" value="S{{ $count }}" readonly>
+                                            <input type="text" class="form-control bg-light" name="supplier_code" id="kodeSupplier" value="{{ $supplier->supplier_code }}" readonly>
                                             <label for="namaSupplier">Kode</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase @error('supplier_name') is-invalid @enderror" name="supplier_name" id="namaSupplier" placeholder="Nama Supplier" value="{{ old('supplier_name') }}" required>
+                                            <input type="text" class="form-control text-uppercase @error('supplier_name') is-invalid @enderror" name="supplier_name" id="namaSupplier" placeholder="Nama Supplier" value="{{ old('supplier_name', $supplier->supplier_name) }}" required>
                                             <label for="namaSupplier">Nama Supplier</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -33,7 +34,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase @error('supplier_pic') is-invalid @enderror" name="supplier_pic" id="picSupplier" placeholder="PIC" value="{{ old('supplier_pic') }}" required>
+                                            <input type="text" class="form-control text-uppercase @error('supplier_pic') is-invalid @enderror" name="supplier_pic" id="picSupplier" placeholder="PIC" value="{{ old('supplier_pic', $supplier->supplier_pic) }}" required>
                                             <label for="picSupplier">PIC</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -46,7 +47,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase @error('supplier_contact') is-invalid @enderror" name="supplier_contact" id="kontak" placeholder="Kontak" value="{{ old('supplier_contact') }}" required>
+                                            <input type="text" class="form-control text-uppercase @error('supplier_contact') is-invalid @enderror" name="supplier_contact" id="kontak" placeholder="Kontak" value="{{ old('supplier_contact', $supplier->supplier_contact) }}" required>
                                             <label for="kontak">Kontak</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -62,7 +63,7 @@
                                             <select class="form-select" name="term" id="top">
                                                 <option selected disabled>Pilih Termin..</option>
                                                 @for($i=0; $i < count($terms); $i++){
-                                                    @if(old('term') == $terms[$i])
+                                                    @if(old('term', $supplier->term) == $terms[$i])
                                                     <option selected value="{{ $terms[$i] }}">{{ $terms[$i] }}</option>
                                                     @else
                                                     <option value="{{ $terms[$i] }}">{{ $terms[$i] }}</option>
@@ -77,7 +78,7 @@
                                             <select class="form-select" name="tax" id="pkp">
                                                 <option selected disabled>Pilih PPN..</option>
                                                 @for($i=0; $i < count($taxes); $i++){
-                                                    @if(old('tax') == $taxes[$i])
+                                                    @if(old('tax', $supplier->tax) == $taxes[$i])
                                                     <option selected value="{{ $taxes[$i] }}">{{ $taxes[$i] }}</option>
                                                     @else
                                                     <option value="{{ $taxes[$i] }}">{{ $taxes[$i] }}</option>
@@ -89,7 +90,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control text-uppercase @error('supplier_address') is-invalid @enderror" placeholder="Alamat Supplier" name="supplier_address" id="alamatSupplier" style="height: 100px;" required>{{ old('supplier_address') }}</textarea>
+                                            <textarea class="form-control text-uppercase @error('supplier_address') is-invalid @enderror" placeholder="Alamat Supplier" name="supplier_address" id="alamatSupplier" style="height: 100px;" required>{{ old('supplier_address', $supplier->supplier_address) }}</textarea>
                                             <label for="alamatSupplier">Alamat Supplier</label>
                                             
                                             <!-- Showing notification error for input validation -->

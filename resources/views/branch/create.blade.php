@@ -46,7 +46,7 @@
                                             <select class="form-select @error('regional') is-invalid @enderror" name="regional" id="regional">
                                                 <option selected disabled>Pilih Regional..</option>
                                                 @for($i=0; $i < count($regionals); $i++){
-                                                    @if(old('regional'))
+                                                    @if(old('regional') == $regionals[$i])
                                                     <option selected value="{{ $regionals[$i] }}">{{ $regionals[$i] }}</option>
                                                     @else
                                                     <option value="{{ $regionals[$i] }}">{{ $regionals[$i] }}</option>
@@ -70,7 +70,7 @@
                                             <select class="form-select @error('area') is-invalid @enderror" name="area" id="area">
                                                 <option selected disabled>Pilih Area..</option>
                                                 @for($i=0; $i < count($areas); $i++){
-                                                    @if(old('area'))
+                                                    @if(old('area') == $areas[$i])
                                                     <option selected value="{{ $areas[$i] }}">{{ $areas[$i] }}</option>
                                                     @else
                                                     <option value="{{ $areas[$i] }}">{{ $areas[$i] }}</option>

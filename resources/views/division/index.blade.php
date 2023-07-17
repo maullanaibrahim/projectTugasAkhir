@@ -30,7 +30,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $division->address }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
-                                                <a href="/divisions/{{ $division->id }}/edit"><button class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                <a href="/divisions/{{ $division->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
                                                 <!-- Button for delete data -->
                                                 <form action="/divisions/{{ $division->id }}" method="post" class="d-inline">
                                                     @method('delete')

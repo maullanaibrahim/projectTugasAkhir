@@ -11,6 +11,21 @@
 
                                 <form class="row g-3 mb-3" action="/divisions" method="POST">
                                     @csrf
+                                    <!-- Input Kode Divisi -->
+                                    <div class="col-md-2">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control text-uppercase @error('division_code') is-invalid @enderror" name="division_code" id="division_code" placeholder="Nama Divisi" value="{{ old('division_code') }}" required>
+                                            <label for="kodeDivisi">Kode Divisi</label>
+
+                                            <!-- Showing notification error for input validation -->
+                                            @error('division_code')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                     <!-- Input Nama Divisi -->
                                     <div class="col-md-4">
                                         <div class="form-floating">
@@ -31,8 +46,13 @@
                                         <div class="form-floating">
                                             <select class="form-select @error('location') is-invalid @enderror" name="location" id="lokasi" aria-label="Lokasi">
                                                 <option selected disabled>Pilih Lokasi..</option>
-                                                <option value="HEAD OFFICE">HEAD OFFICE</option>
-                                                <option value="DISTRIBUTION CENTER">DISTRIBUTION CENTER</option>
+                                                @for($i=0; $i < count($locations); $i++){
+                                                    @if(old('location') == $locations[$i])
+                                                    <option selected value="{{ $locations[$i] }}">{{ $locations[$i] }}</option>
+                                                    @else
+                                                    <option value="{{ $locations[$i] }}">{{ $locations[$i] }}</option>
+                                                    @endif
+                                                }@endfor
                                             </select>
                                             <label for="lokasi">Lokasi</label>
 

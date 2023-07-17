@@ -115,7 +115,7 @@ class BranchController extends Controller
      */
     public function update(Request $request, Branch $branch)
     {
-        // Validating data request from branch.create
+        // Validating data request from branch.edit
         $rules = [
             'regional'          => 'required',
             'area'              => 'required',
@@ -158,7 +158,7 @@ class BranchController extends Controller
         $cost->region       = $request['regional'];
         $cost->save();
         
-        return redirect('/branches')->with('success', 'Data cabang berhasil diubah!');
+        return redirect('/branches')->with('success', 'Data Cabang berhasil diubah!');
     }
 
     /**

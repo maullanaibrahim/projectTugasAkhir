@@ -40,9 +40,19 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <!-- Pilih Regional -->
+                                    <div class="col-md-3">
                                         <div class="form-floating">
-                                            <input pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Tolong isi dengan huruf abjad.')" type="text" class="form-control text-uppercase @error('regional') is-invalid @enderror" name="regional" id="regional" placeholder="Regional" value="{{ old('regional') }}" required>
+                                            <select class="form-select @error('regional') is-invalid @enderror" name="regional" id="regional">
+                                                <option selected disabled>Pilih Regional..</option>
+                                                @for($i=0; $i < count($regionals); $i++){
+                                                    @if(old('regional'))
+                                                    <option selected value="{{ $regionals[$i] }}">{{ $regionals[$i] }}</option>
+                                                    @else
+                                                    <option value="{{ $regionals[$i] }}">{{ $regionals[$i] }}</option>
+                                                    @endif
+                                                }@endfor
+                                            </select>
                                             <label for="regional">Regional</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -54,9 +64,19 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <!-- Pilih Area -->
+                                    <div class="col-md-3">
                                         <div class="form-floating">
-                                            <input type="number" class="form-control text-uppercase @error('area') is-invalid @enderror" name="area" id="area" placeholder="Area" value="{{ old('area') }}" required>
+                                            <select class="form-select @error('area') is-invalid @enderror" name="area" id="area">
+                                                <option selected disabled>Pilih Area..</option>
+                                                @for($i=0; $i < count($areas); $i++){
+                                                    @if(old('area'))
+                                                    <option selected value="{{ $areas[$i] }}">{{ $areas[$i] }}</option>
+                                                    @else
+                                                    <option value="{{ $areas[$i] }}">{{ $areas[$i] }}</option>
+                                                    @endif
+                                                }@endfor
+                                            </select>
                                             <label for="area">Area</label>
 
                                             <!-- Showing notification error for input validation -->

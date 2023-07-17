@@ -67,8 +67,8 @@ class EmployeeController extends Controller
         Employee::create($validatedData);
 
         // Redirect to the employee view if create data succeded
-        $employe_name = strtoupper($request['employee_name']);
-        return redirect('/employees')->with('success', $employe_name.' berhasil ditambahkan!');
+        $employee_name = strtoupper($request['employee_name']);
+        return redirect('/employees')->with('success', $employee_name.' berhasil ditambahkan!');
     }
 
     /**

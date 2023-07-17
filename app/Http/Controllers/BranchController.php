@@ -26,10 +26,15 @@ class BranchController extends Controller
      */
     public function create()
     {
+        $regionals  = ["A", "B", "C", "D"];
+        $areas      = [1, 2];
+
         return view('branch.create', [
             "title"     => "Tambah Data Cabang",
             "path"      => "Data Cabang",
             "path2"     => "Tambah",
+            "regionals" => $regionals,
+            "areas"     => $areas,
             "branches"  => Branch::all()
         ]);
     }
@@ -43,8 +48,8 @@ class BranchController extends Controller
         $validatedData = $request->validate([
             'branch_code'       => 'required|max:3|unique:branches',
             'branch_name'       => 'required|min:5|max:50|unique:branches',
-            'regional'          => 'required|max:1',
-            'area'              => 'required|max:1',
+            'regional'          => 'required',
+            'area'              => 'required',
             'branch_address'    => 'required|min:10|max:255',
         ],
         // Create custom notification for the validation request
@@ -56,10 +61,8 @@ class BranchController extends Controller
             'branch_name.min'           => 'Ketikkan Nama Cabang minimal 5 huruf!',
             'branch_name.max'           => 'Ketikkan Nama Cabang maksimal 50 huruf!',
             'branch_name.unique'        => 'Nama Cabang sudah ada!',
-            'regional.required'         => 'Regional harus diisi!',
-            'regional.max'              => 'Maksimal 1 digit!',
-            'area.required'             => 'Area harus diisi!',
-            'area.max'                  => 'Maksimal 1 digit!',
+            'regional.required'         => 'Regional harus dipilih!',
+            'area.required'             => 'Area harus dipilih!',
             'branch_address.required'   => 'Alamat harus diisi!',
             'branch_address.min'        => 'Ketikkan Alamat minimal 10 huruf!',
             'branch_address.max'        => 'Ketikkan Alamat maksimal 255 huruf!',
@@ -71,7 +74,7 @@ class BranchController extends Controller
         $cost               = new Cost;
         $cost->cost_name    = $request['branch_name'];
         $cost->region       = $request['regional'];
-        $cost->company_name = "PT. MAULANA SUKSES SELALU";
+        $cost->company_name = "PT. Maulana Sukses Selalu";
         $cost->save();
 
         // Redirect to the branch view if create data succeded
@@ -92,10 +95,17 @@ class BranchController extends Controller
      */
     public function edit(Branch $branch)
     {
+        $regionals  = ["A", "B", "C", "D", "E", "F"];
+        $areas      = [1, 2];
+        $branch_name    = $branch->branch_name;
+
         return view('branch.edit', [
             "title"     => "Edit Data Cabang",
             "path"      => "Data Cabang",
             "path2"     => "Edit",
+            "regionals" => $regionals,
+            "areas"     => $areas,
+            "cost"      => Cost::where('cost_name', $branch_name)->first(),
             "branch"    => $branch
         ]);
     }
@@ -103,9 +113,52 @@ class BranchController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Branch $branch)
     {
-        //
+        // Validating data request from branch.create
+        $rules = [
+            'regional'          => 'required',
+            'area'              => 'required',
+            'branch_address'    => 'required|min:10|max:255',
+        ];
+
+        if($request->branch_name != $branch->branch_name){
+            $rules['branch_name'] = 'required|min:5|max:50|unique:branches';
+        }
+
+        if($request->branch_code != $branch->branch_code){
+            $rules['branch_code'] = 'required|max:3|unique:branches';
+        }
+
+        // Create custom notification for the validation request
+        $validatedData = $request->validate($rules,
+        [
+            'branch_code.required'      => 'Harus diisi!', 
+            'branch_code.max'           => 'Maksimal 3 huruf!',
+            'branch_code.unique'        => 'Kode Cabang sudah ada!',
+            'branch_name.required'      => 'Nama Cabang harus diisi!',
+            'branch_name.min'           => 'Ketikkan Nama Cabang minimal 5 huruf!',
+            'branch_name.max'           => 'Ketikkan Nama Cabang maksimal 50 huruf!',
+            'branch_name.unique'        => 'Nama Cabang sudah ada!',
+            'regional.required'         => 'Regional harus dipilih!',
+            'area.required'             => 'Area harus dipilih!',
+            'branch_address.required'   => 'Alamat harus diisi!',
+            'branch_address.min'        => 'Ketikkan Alamat minimal 10 huruf!',
+            'branch_address.max'        => 'Ketikkan Alamat maksimal 255 huruf!',
+        ]);
+
+        // Updating data to branches table
+        Branch::where('id', $branch->id)
+            ->update($validatedData);
+        
+        $costID = $request['cost_id'];
+        // Updating data to costs table too
+        $cost               = Cost::find($costID);
+        $cost->cost_name    = $request['branch_name'];
+        $cost->region       = $request['regional'];
+        $cost->save();
+        
+        return redirect('/branches')->with('success', 'Data cabang berhasil diubah!');
     }
 
     /**

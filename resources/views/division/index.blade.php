@@ -14,6 +14,7 @@
                                 <table class="table datatable">
                                     <thead class="bg-light" style="height: 45px;">
                                         <tr>
+                                            <th scope="col">KODE</th>
                                             <th scope="col">NAMA DIVISI</th>
                                             <th scope="col">LOKASI</th>
                                             <th scope="col">ALAMAT</th>
@@ -23,12 +24,13 @@
                                     <tbody class="text-uppercase">
                                         @foreach($divisions as $division)
                                         <tr>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $division->division_code }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $division->division_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $division->location }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $division->address }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
-                                                <a href="#{{ $division->id }}"><button class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                <a href="/divisions/{{ $division->id }}/edit"><button class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></button></a>
                                                 <!-- Button for delete data -->
                                                 <form action="/divisions/{{ $division->id }}" method="post" class="d-inline">
                                                     @method('delete')

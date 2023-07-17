@@ -7,9 +7,6 @@
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pt-3">
-                                <!-- Button for create new branch -->
-                                <a href="/employees/create"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-lg me-1"></i> Tambah</button></a>
-
                                 <!-- Showing data from employees table -->
                                 <table class="table datatable">
                                     <thead class="bg-light" style="height: 45px;">

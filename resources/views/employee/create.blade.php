@@ -42,16 +42,20 @@
 
                                     <div class="col-md-3">
                                         <div class="form-floating">
-                                            <select class="form-select @error('employee_position') is-invalid @enderror" name="employee_position" id="employee_position" value="{{ old('employee_position') }}">
+                                            <select class="form-select @error('position_id') is-invalid @enderror" name="position_id" id="employee_position" value="{{ old('position_id') }}">
                                                 <option selected disabled>Pilih Jabatan..</option>
                                                 @foreach($positions as $position)
-                                                <option value="{{ $position->position_name }}">{{ strtoupper($position->position_name) }}</option>
+                                                    @if(old('position_id') == $position->position_name)
+                                                    <option selected value="{{ $position->id }}">{{ strtoupper($position->position_name) }}</option>
+                                                    @else
+                                                    <option value="{{ $position->id }}">{{ strtoupper($position->position_name) }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             <label for="jabatan">Jabatan</label>
 
                                             <!-- Showing notification error for input validation -->
-                                            @error('employee_position')
+                                            @error('position_id')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -61,16 +65,20 @@
 
                                     <div class="col-md-3">
                                         <div class="form-floating">
-                                            <select class="form-select @error('employee_location') is-invalid @enderror" name="employee_location" id="employee_location" value="{{ old('employee_location') }}">
+                                            <select class="form-select @error('cost_id') is-invalid @enderror" name="cost_id" id="employee_location" value="{{ old('cost_id') }}">
                                                 <option selected disabled>Pilih Cabang / Divisi..</option>
                                                 @foreach($costs as $cost)
-                                                <option value="{{ $cost->cost_name }}">{{ strtoupper($cost->cost_name) }}</option>
+                                                    @if(old('cost_id') == $cost->cost_name)
+                                                    <option selected value="{{ $cost->id }}">{{ strtoupper($cost->cost_name) }}</option>
+                                                    @else
+                                                    <option value="{{ $cost->id }}">{{ strtoupper($cost->cost_name) }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             <label for="cost">Cabang / Divisi</label>
 
                                             <!-- Showing notification error for input validation -->
-                                            @error('employee_location')
+                                            @error('cost_id')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

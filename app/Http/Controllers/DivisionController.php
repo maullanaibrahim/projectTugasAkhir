@@ -81,9 +81,14 @@ class DivisionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Division $division)
     {
-        //
+        return view('division.edit', [
+            "title"     => "Edit Data Divisi",
+            "path"      => "Data Divisi",
+            "path2"     => "Edit",
+            "division"    => $division
+        ]);
     }
 
     /**

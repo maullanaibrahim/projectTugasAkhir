@@ -145,6 +145,8 @@ class PpbjeController extends Controller
         $ppbje_id   = $ppbje->id;
         $status     = "BELUM DISETUJUI";
 
+        if($data['maker_division'] == "Asset Management")
+
         $ppbje_approval            = new Ppbje_approval; 
         $ppbje_approval->ppbje_id  = $ppbje_id;
         $ppbje_approval->status1   = $status;

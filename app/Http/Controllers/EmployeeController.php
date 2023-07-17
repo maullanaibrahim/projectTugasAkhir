@@ -82,17 +82,54 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Employee $employee)
     {
-        //
+        return view('employee.edit', [
+            "title"     => "Edit Data Karyawan",
+            "path"      => "Data Karyawan",
+            "path2"     => "Edit",
+            "positions" => Position::orderBy('position_name', 'ASC')->get(),
+            "costs"     => Cost::orderBy('cost_name', 'ASC')->get(),
+            "employee"  => $employee
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Employee $employee)
     {
-        //
+        // Validating data request from branch.edit
+        $rules = [
+            'employee_name' => 'required|min:2|max:255',
+            'position_id'   => 'required',
+            'cost_id'       => 'required',
+            'company'       => 'required'
+        ];
+
+        if($request->nik != $employee->nik){
+            $rules['nik'] = 'required|min:5|max:255|unique:employees';
+        }
+
+        // Create custom notification for the validation request
+        $validatedData = $request->validate($rules,
+        [
+            'nik.required'                  => 'NIK harus diisi!',
+            'nik.min'                       => 'Ketik minimal 2 digit!',
+            'nik.max'                       => 'Ketik maksimal 255 digit!',
+            'unique'                        => 'NIK sudah ada!',
+            'employee_name.required'        => 'Nama Karyawan harus diisi!',
+            'employee_name.min'             => 'Ketik minimal 2 digit!',
+            'employee_name.max'             => 'Ketik maksimal 255 digit!',
+            'position_id.required'          => 'Jabatan harus dipilih!',
+            'cost_id.required'              => 'Cabang/Divisi harus dipilih!'
+        ]);
+
+        // Updating data to branches table
+        Employee::where('id', $employee->id)
+            ->update($validatedData);
+        
+        return redirect('/employees')->with('success', 'Data Karyawan berhasil diubah!');
     }
 
     /**

@@ -32,7 +32,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $employee->company }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
-                                                <a href="#{{ $employee->id }}"><button class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                <a href="/employees/{{ $employee->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
                                                 <!-- Button for delete data -->
                                                 <form action="/employees/{{ $employee->id }}" method="post" class="d-inline">
                                                     @method('delete')

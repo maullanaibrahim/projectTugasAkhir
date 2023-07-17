@@ -13,7 +13,6 @@
                                 <form class="row g-3 mb-3" action="/branches/{{ $branch->id }}" method="POST">
                                     @method('put')
                                     @csrf
-
                                     <input type="text" class="form-control text-uppercase" name="cost_id" id="cost_id" value="{{ $cost->id }}" required hidden>
 
                                     <div class="col-md-2">

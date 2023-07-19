@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.third')
 
 @section('content')
     <section class="section dashboard">
@@ -11,18 +11,19 @@
                                 <h5 class="card-title">{{ $title }}</h5>
 
                                 <!-- Showing form input new item -->
-                                <form class="row g-3 mb-3" action="/items" method="POST">
+                                <form class="row g-3 mb-3" action="/items/{{ $item->id }}" method="POST">
+                                    @method('put')
                                     @csrf
                                     <div class="col-md-1">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase bg-light" name="item_code" id="kodeItem" value="A{{ $count }}" readonly>
+                                            <input type="text" class="form-control text-uppercase bg-light" name="item_code" id="kodeItem" value="{{ $item->item_code }}" readonly>
                                             <label for="kodeItem">Kode</label>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase @error('item_name') is-invalid @enderror" name="item_name" id="namaItem" placeholder="Nama Item" value="{{ old('item_name') }}" required>
+                                            <input type="text" class="form-control text-uppercase @error('item_name') is-invalid @enderror" name="item_name" id="namaItem" placeholder="Nama Item" value="{{ old('item_name', $item->item_name) }}" required>
                                             <label for="namaItem">Nama Item</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -38,7 +39,7 @@
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">IDR</span>
                                             <div class="form-floating">
-                                                <input type="text" class="form-control @error('price') is-invalid @enderror" name="price" id="price" placeholder="Harga Item" value="{{ old('price') }}" required>
+                                                <input type="text" class="form-control @error('price') is-invalid @enderror" name="price" id="price" placeholder="Harga Item" value="{{ old('price', $item->price) }}" required>
                                                 <label for="harga">Harga</label>
                                             
                                                 <!-- Showing notification error for input validation -->
@@ -56,7 +57,7 @@
                                             <select class="form-select @error('unit') is-invalid @enderror" name="unit" id="satuan" required>
                                                 <option selected disabled>Pilih Satuan..</option>
                                                 @for($i=0; $i < count($units); $i++){
-                                                    @if(old('unit') == $units[$i])
+                                                    @if(old('unit', $item->unit) == $units[$i])
                                                     <option selected value="{{ $units[$i] }}">{{ $units[$i] }}</option>
                                                     @else
                                                     <option value="{{ $units[$i] }}">{{ $units[$i] }}</option>
@@ -79,7 +80,7 @@
                                             <select class="form-select @error('supplier_id') is-invalid @enderror" name="supplier_id" id="supplier" required>
                                                 <option selected disabled>Pilih Supplier..</option>
                                                 @foreach($suppliers as $supplier)
-                                                    @if(old('supplier_id') == $supplier->id)
+                                                    @if(old('supplier_id', $item->supplier_id) == $supplier->id)
                                                     <option selected class="text-uppercase" value="{{ $supplier->id }}">{{ strtoupper($supplier->supplier_name) }}</option>
                                                     @else
                                                     <option class="text-uppercase" value="{{ $supplier->id }}">{{ strtoupper($supplier->supplier_name) }}</option>
@@ -102,7 +103,7 @@
                                             <select class="form-select @error('item_type') is-invalid @enderror" name="item_type" id="jenisItem" required>
                                                 <option selected disabled>Pilih Jenis Item..</option>
                                                 @for($i=0; $i < count($types); $i++){
-                                                    @if(old('item_type') == $types[$i])
+                                                    @if(old('item_type', $item->item_type) == $types[$i])
                                                     <option selected value="{{ $types[$i] }}">{{ $types[$i] }}</option>
                                                     @else
                                                     <option value="{{ $types[$i] }}">{{ $types[$i] }}</option>

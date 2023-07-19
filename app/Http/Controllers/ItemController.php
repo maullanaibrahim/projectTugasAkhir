@@ -30,6 +30,8 @@ class ItemController extends Controller
         $hitung  = Item::count();
         $hitung1 = $hitung+1;
         $count   = sprintf("%04d", $hitung1);
+        $units   = ["BOX", "BUAH", "DRUM", "GALON", "JERIGEN", "KALENG", "KG", "LEMBAR", "LITER", "LS", "LUSIN", "M2", "PACK", "PAIL", "PCS", "SET", "UNIT"];
+        $types   = ["ASSET", "NON ASSET"];
 
         return view('item.create', [
             "title"     => "Tambah Data Item",
@@ -37,6 +39,8 @@ class ItemController extends Controller
             "path2"     => "Tambah",
             "items"     => Item::all(),
             "suppliers" => Supplier::all(),
+            "units"     => $units,
+            "types"     => $types,
             "count"     => $count
         ]);
     }
@@ -49,7 +53,7 @@ class ItemController extends Controller
         // Validating data request from branch.create
         $validatedData = $request->validate([
             'item_code'     => 'required',
-            'item_name'     => 'required|min:5|max:100',
+            'item_name'     => 'required|min:5|max:100|unique:items',
             'price'         => 'required',
             'unit'          => 'required',
             'supplier_id'   => 'required',
@@ -60,13 +64,22 @@ class ItemController extends Controller
             'item_name.required'    => 'Nama Item belum diisi!',
             'item_name.min'         => 'Ketikkan minimal 5 huruf!',
             'item_name.max'         => 'Ketikkan maksimal 100 huruf!',
+            'item_name.unique'      => 'Nama Item sudah ada!',
             'price.required'        => 'Harga belum diisi!',
             'unit.required'         => 'Satuan belum dipilih!',
             'supplier_id.required'  => 'Supplier belum dipilih!',
             'item_type.required'    => 'Jenis Item belum dipilih!',
         ]);
         // Saving data to items table
-        Item::create($validatedData);
+        $dataItem = array(
+            'item_code'     => $request['item_code'],
+            'item_name'     => $request['item_name'],
+            'price'         => str_replace('.','',$request->price),
+            'unit'          => $request['unit'],
+            'supplier_id'   => $request['supplier_id'],
+            'item_type'     => $request['item_type']
+        );
+        Item::create($dataItem);
 
         // Redirect to the item view if create data succeded
         $item_name = strtoupper($request['item_name']);
@@ -84,17 +97,58 @@ class ItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Item $item)
     {
-        //
+        $units   = ["BOX", "BUAH", "DRUM", "GALON", "JERIGEN", "KALENG", "KG", "LEMBAR", "LITER", "LS", "LUSIN", "M2", "PACK", "PAIL", "PCS", "SET", "UNIT"];
+        $types   = ["ASSET", "NON ASSET"];
+
+        return view('item.edit', [
+            "title"     => "Tambah Data Item",
+            "path"      => "Data Item",
+            "path2"     => "Tambah",
+            "suppliers" => Supplier::all(),
+            "item"      => $item,
+            "units"     => $units,
+            "types"     => $types,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Item $item)
     {
-        //
+        // Validating data request from branch.edit
+        $rules = [
+            'item_code'     => 'required',
+            'price'         => 'required',
+            'unit'          => 'required',
+            'supplier_id'   => 'required',
+            'item_type'     => 'required'
+        ];
+
+        if($request->item_name != $item->item_name){
+            $rules['item_name'] = 'required|min:5|max:100|unique:items';
+        }
+
+        // Create custom notification for the validation request
+        $validatedData = $request->validate($rules,
+        [
+            'item_name.required'    => 'Nama Item belum diisi!',
+            'item_name.min'         => 'Ketikkan minimal 5 huruf!',
+            'item_name.max'         => 'Ketikkan maksimal 100 huruf!',
+            'item_name.unique'      => 'Nama Item sudah ada!',
+            'price.required'        => 'Harga belum diisi!',
+            'unit.required'         => 'Satuan belum dipilih!',
+            'supplier_id.required'  => 'Supplier belum dipilih!',
+            'item_type.required'    => 'Jenis Item belum dipilih!',
+        ]);
+
+        // Updating data to branches table
+        Item::where('id', $item->id)
+            ->update($validatedData);
+        
+        return redirect('/items')->with('success', 'Data Item berhasil diubah!');
     }
 
     /**

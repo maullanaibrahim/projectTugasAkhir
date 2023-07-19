@@ -36,6 +36,33 @@
       function zoom() {
          document.body.style.zoom = "90%" 
       }
+
+      $(document).ready(function(){
+            var harga = document.getElementById("price");
+            harga.addEventListener("keyup", function(e) {
+                // tambahkan 'Rp.' pada saat form di ketik
+                // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+                harga.value = formatRupiah(this.value);
+            });
+
+            /* Fungsi formatRupiah */
+            function formatRupiah(angka, prefix) {
+                var number_string = angka.replace(/[^,\d]/g, "").toString(),
+                split = number_string.split(","),
+                sisa = split[0].length % 3,
+                harga = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                // tambahkan titik jika yang di input sudah menjadi angka ribuan
+                if (ribuan) {
+                separator = sisa ? "." : "";
+                harga += separator + ribuan.join(".");
+                }
+
+                harga = split[1] != undefined ? harga + "," + split[1] : harga;
+                return prefix == undefined ? harga : harga ? harga : "";
+            }
+        });
    </script>
 
    <!-- =======================================================

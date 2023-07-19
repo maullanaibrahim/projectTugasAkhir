@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Supplier;
+use App\Models\Item;
 
 class SupplierController extends Controller
 {
@@ -159,7 +160,9 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
+        $item = Item::where('supplier_id', $supplier->id)->get();
         Supplier::destroy($supplier->id);
+        Item::destroy($item);
         return redirect('/suppliers')->with('success', 'Supplier '.$supplier->nama_supplier.' berhasil dihapus!');
     }
 }

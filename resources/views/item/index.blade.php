@@ -29,13 +29,13 @@
                                         <tr>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->item_preview }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->item_name }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ number_format($item->price,2,',','.')." IDR" }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ "IDR ".number_format($item->price,2,',','.') }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->unit }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->supplier->supplier_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->item_type }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
-                                                <a href="#{{ $item->id }}"><button class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                <a href="/items/{{ $item->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
                                                 <!-- Button for delete data -->
                                                 <form action="/items/{{ $item->id }}" method="post" class="d-inline">
                                                     @method('delete')

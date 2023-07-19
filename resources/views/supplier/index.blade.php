@@ -41,7 +41,7 @@
                                                 <form action="/suppliers/{{ $supplier->id }}" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
-                                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus supplier {{ strtoupper($supplier->supplier_name) }}?')"><i class="bi bi-trash-fill"></i></button>
+                                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Seluruh Data Item untuk Supplier {{ strtoupper($supplier->supplier_name) }} akan ikut terhapus. Yakin ingin tetap menghapus?')"><i class="bi bi-trash-fill"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

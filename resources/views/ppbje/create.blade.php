@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.third')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -14,25 +14,29 @@
                                     <!-- Form PPBJe -->
                                     <div class="col-md-3" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $sendurl }}">
+                                            <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ old('sendUrl', $sendurl) }}">
                                             <label for="sendUrl">Send URL</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" name="maker" id="maker" value="{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}">
+                                            <input type="text" class="form-control" name="maker" id="maker" value="{{ old('maker', auth()->user()->first_name.' '.auth()->user()->last_name) }}">
                                             <label for="pembuat">Pembuat PPBJe</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" name="maker_division" id="maker_division" value="{{ auth()->user()->division->division_name }}">
-                                            <label for="divisi_pembuat">Divisi Pembuat</label>
+                                            <input type="text" class="form-control" name="maker_division" id="maker_division" value="{{ old('maker_division', auth()->user()->division->division_name) }}">
+                                            <input type="text" class="form-control" name="division_id" id="division_id" value="{{ old('division_id', auth()->user()->division_id) }}">
+                                            <input type="text" class="form-control" name="chief" id="getChief" value="{{ old('chief') }}">
+                                            <input type="text" class="form-control" name="manager" id="getManager" value="{{ old('manager') }}">
+                                            <input type="text" class="form-control" name="senior_manager" id="getSeniorManager" value="{{ old('senior_manager') }}">
+                                            <input type="text" class="form-control" name="direktur" id="getDirector" value="{{ old('direktur') }}">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control @error('ppbje_number') is-invalid @enderror" name="ppbje_number" id="noPpbje" placeholder="Nomor PPBJe" value="{{ old('ppbje_number') }}">
+                                            <input type="text" class="form-control bg-light @error('ppbje_number') is-invalid @enderror" name="ppbje_number" id="noPpbje" placeholder="Nomor PPBJe" value="{{ old('ppbje_number', $totalPpbje.'/PPBJe/'.$division->division_code.'/'.$getYear) }}" readonly>
                                             <label for="noPpbje">Nomor PPBJe</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -45,7 +49,7 @@
                                     </div>
                                     <div class="col-md-3" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" name="ppbje_type" id="jenisPpbje" value="{{ $ppbje_type }}">
+                                            <input type="text" class="form-control" name="ppbje_type" id="jenisPpbje" value="{{ old('ppbje_type', $ppbje_type) }}">
                                             <label for="jenisPpbje">Jenis PPBJe</label>
                                         </div>
                                     </div>
@@ -54,7 +58,11 @@
                                             <select class="form-select @error('cost_id') is-invalid @enderror" name="cost_id" id="bebanBiaya">
                                                 <option selected disabled>Pilih Beban Biaya..</option>
                                                 @foreach($costs as $cost)
-                                                <option value="{{ $cost->id }}">{{ strtoupper($cost->cost_name) }}</option>
+                                                    @if(old('cost_id') == $cost->id)
+                                                    <option selected value="{{ $cost->id }}">{{ strtoupper($cost->cost_name) }}</option>
+                                                    @else
+                                                    <option value="{{ $cost->id }}">{{ strtoupper($cost->cost_name) }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             <label for="bebanBiaya">Beban Biaya</label>
@@ -69,13 +77,13 @@
                                     </div>
                                     <div class="col-md-3" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" name="region" id="region" value="">
+                                            <input type="text" class="form-control" name="region" id="region" value="{{ old('region') }}">
                                             <label for="regional">Regional</label>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-floating">
-                                            <input type="date" class="form-control @error('date_of_need') is-invalid @enderror" name="date_of_need" id="tglKebutuhan" value="">
+                                            <input type="date" class="form-control @error('date_of_need') is-invalid @enderror" name="date_of_need" id="tglKebutuhan" value="{{ old('date_of_need') }}">
                                             <label for="tglKebutuhan">Tgl Kebutuhan</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -88,10 +96,14 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-floating">
-                                            <select class="form-select @error('employee_id') is-invalid @enderror" name="employee_id" id="pemohonfake">
+                                            <select class="form-select @error('employee_id') is-invalid @enderror" name="employee_id" id="pemohon">
                                                 <option selected disabled>Pilih Pemohon..</option>
                                                 @foreach($employees as $employee)
-                                                <option value="{{ $employee->id }}">{{ strtoupper($employee->employee_name) }}</option>
+                                                    @if(old('employee_id') == $employee->id)
+                                                    <option selected value="{{ $employee->id }}">{{ strtoupper($employee->employee_name) }}</option>
+                                                    @else
+                                                    <option value="{{ $employee->id }}">{{ strtoupper($employee->employee_name) }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                             <label for="pemohon">Pemohon</label>
@@ -104,16 +116,16 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase bg-light" name="employee_position" id="jabatanPemohon" readonly>
+                                            <input type="text" class="form-control text-uppercase bg-light" name="employee_position" id="employee_position" value="{{ old('employee_position') }}" readonly>
                                             <label for="jabatanPemohon">Jabatan Pemohon</label>
                                         </div>
                                     </div>
                                     <div class="col-md-2" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control bg-light" name="employee_division" id="divisiPemohon" readonly>
-                                            <label for="divisiPemohon">Divisi Pemohon</label>
+                                            <input type="text" class="form-control bg-light" name="employee_division" id="employee_division" value="{{ old('employee_division') }}" readonly>
+                                            <label for="divisiPemohon">Employee Division</label>
                                         </div>
                                     </div>
 
@@ -173,7 +185,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control @error('reason') is-invalid @enderror" placeholder="Alasan Permintaan" name="reason" id="alasan" style="height: 100px;">{{ old('reason') }}</textarea>
+                                            <textarea class="form-control text-uppercase @error('reason') is-invalid @enderror" placeholder="Alasan Permintaan" name="reason" id="alasan" style="height: 100px;">{{ old('reason') }}</textarea>
                                             <label for="alasan">Alasan Permintaan</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -217,9 +229,64 @@
                     }
                 });
             });
+
+            // GetApproval
+            var division = $('#division_id').val();
+
+            var url = '{{ route("getChief", ":id") }}';
+            url = url.replace(':id', division);
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                success: function(response){
+                    if(response != null){
+                        $('#getChief').val(response.employee_name);
+                    }
+                }
+            });
+
+            var url = '{{ route("getManager", ":id") }}';
+            url = url.replace(':id', division);
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                success: function(response){
+                    if(response != null){
+                        $('#getManager').val(response.employee_name);
+                    }
+                }
+            });
+
+            var url = '{{ route("getSeniorManager", ":id") }}';
+            url = url.replace(':id', division);
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                success: function(response){
+                    if(response != null){
+                        $('#getSeniorManager').val(response.employee_name);
+                    }
+                }
+            });
+
+            var url = '{{ route("getDirector", ":id") }}';
+            url = url.replace(':id', division);
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'json',
+                success: function(response){
+                    if(response != null){
+                        $('#getDirector').val(response.employee_name);
+                    }
+                }
+            });
             
             // Pemohon Autocomplete
-            $('#pemohonfake').change(function(){
+            $('#pemohon').change(function(){
                 var employee = $(this).val();
                 var url = '{{ route("getApplicant", ":id") }}';
                 url = url.replace(':id', employee);
@@ -229,13 +296,39 @@
                     dataType: 'json',
                     success: function(response){
                         if(response != null){
-                            $('#jabatanPemohon').val(response.employee_position);
-                            $('#divisiPemohon').val(response.employee_location);
+                            var position = response.position_id;
+                            var division = response.cost_id;
+
+                            var urlPosition = '{{ route("getPosition", ":id") }}';
+                            url = urlPosition.replace(':id', position);
+                            $.ajax({
+                                url: url,
+                                type: 'get',
+                                dataType: 'json',
+                                success: function(response){
+                                    if(response != null){
+                                        $('#employee_position').val(response.position_name);
+                                    }
+                                }
+                            });
+
+                            var urlDivision = '{{ route("getDivision", ":id") }}';
+                            url = urlDivision.replace(':id', division);
+                            $.ajax({
+                                url: url,
+                                type: 'get',
+                                dataType: 'json',
+                                success: function(response){
+                                    if(response != null){
+                                        $('#employee_division').val(response.cost_name);
+                                    }
+                                }
+                            });
                         }
                     }
                 });
             });
-
+            
             // Barang Autocomplete
             $('#item_id').change(function(){
                 var item = $(this).val();
@@ -262,7 +355,7 @@
                                 var	reverse = jumlah0.toString().split('').reverse().join(''),
                                 ribuan 	= reverse.match(/\d{1,3}/g);
                                 jumlah1	= ribuan.join('.').split('').reverse().join('');
-                                $('#total_price').val(jumlah1);
+                                $('#price_total').val(jumlah1);
                                 $('#jumlah').val(jumlah0);
                             });
                         }
@@ -277,7 +370,7 @@
                 $('#tBody').append(
                 '<tr>'+
                     '<td>'+
-                        '<select class="form-select border-0" name="item_id[]" id="item_id'+i+'">'+
+                        '<select class="form-select border-0 text-uppercase" name="item_id[]" id="item_id'+i+'">'+
                             '<option selected disabled>Pilih Nama Item..<\/option>'+
                             '@foreach($items as $item)'+
                             '<option value="{{ $item->id }}">{{ $item->item_name }}<\/option>'+
@@ -286,11 +379,11 @@
                     '<\/td>'+
                     '<td><input type="number" name="quantity[]" id="qty'+i+'" class="form-control border-0 text-center"></td>'+
                     '<td><input type="text" name="unit[]" id="satuan'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
-                    '<td><input type="text" name="harga[]" id="price'+i+'" class="form-control border-0 text-center bg-light" disabled></td>'+
+                    '<td><input type="text" name="harga[]" id="price'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
                     '<td hidden><input type="text" name="price[]" id="harga'+i+'" class="form-control border-0 text-center bg-light"></td>'+
                     '<td><input type="text" name="discount[]" id="diskon'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
-                    '<td><input type="text" name="jumlah[]" id="total_price'+i+'" class="form-control border-0 text-center bg-light" disabled></td>'+
-                    '<td hidden><input type="text" name="total_price[]" id="jumlah'+i+'" class="form-control border-0 text-center bg-light"></td>'+
+                    '<td><input type="text" name="jumlah[]" id="price_total'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
+                    '<td hidden><input type="text" name="price_total[]" id="jumlah'+i+'" class="form-control border-0 text-center bg-light"></td>'+
                     '<td><button type="button" name="remove" id="remove" class="btn btn-sm btn-warning float-end remove-table-row">-</button></td>'+
                 '</tr>'+
                 // Barang Autocomplete untuk Baris Input Baru
@@ -320,7 +413,7 @@
                                         'var reverse = jumlah0.toString().split("").reverse().join(""),'+
                                         'ribuan 	= reverse.match('+/\d{1,3}/g+');'+
                                         'jumlah1	= ribuan.join(".").split("").reverse().join("");'+
-                                        '$("#amount'+i+'").val(jumlah1);'+
+                                        '$("#price_total'+i+'").val(jumlah1);'+
                                         '$("#jumlah'+i+'").val(jumlah0);'+
                                     '});'+   
                                 '}'+

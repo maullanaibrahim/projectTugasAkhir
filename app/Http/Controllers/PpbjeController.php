@@ -8,6 +8,8 @@ use App\Models\Ppbje_detail;
 use App\Models\Ppbje_approval;
 use App\Models\Cost;
 use App\Models\Employee;
+use App\Models\Position;
+use App\Models\Division;
 use App\Models\Item;
 
 class PpbjeController extends Controller
@@ -44,9 +46,13 @@ class PpbjeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function createAsset()
+    public function createAsset($id = 0)
     {
-        $item_type = "ASSET";
+        $item_type          = "ASSET";
+        $getDivision        = Division::where('division_name', $id)->first();
+        $getYear            = date('Y',strtotime(now()));
+        $hitungPpbje        = Ppbje::where('maker_division', $id)->count();
+        $totalPpbje         = $hitungPpbje+1;
 
         return view('ppbje.create', [
             "sendurl"       => "asset",
@@ -57,13 +63,20 @@ class PpbjeController extends Controller
             "costs"         => Cost::all(),
             "employees"     => Employee::all(),
             "items"         => Item::where('item_type', $item_type)->get(),
-            "ppbje_type"    => $item_type
+            "ppbje_type"    => $item_type,
+            "getYear"       => $getYear,
+            "division"      => $getDivision,
+            "totalPpbje"    => $totalPpbje
         ]);
     }
 
-    public function createNonAsset()
+    public function createNonAsset($id = 0)
     {
-        $item_type = "NON ASSET";
+        $item_type          = "NON ASSET";
+        $getDivision        = Division::where('division_name', $id)->first();
+        $getYear            = date('Y',strtotime(now()));
+        $hitungPpbje        = Ppbje::where('maker_division', $id)->count();
+        $totalPpbje         = $hitungPpbje+1;
 
         return view('ppbje.create', [
             "sendurl"       => "nonAsset",
@@ -74,7 +87,10 @@ class PpbjeController extends Controller
             "costs"         => Cost::all(),
             "employees"     => Employee::all(),
             "items"         => Item::where('item_type', $item_type)->get(),
-            "ppbje_type"    => $item_type
+            "ppbje_type"    => $item_type,
+            "getYear"       => $getYear,
+            "division"      => $getDivision,
+            "totalPpbje"    => $totalPpbje
         ]);
     }
 
@@ -84,9 +100,51 @@ class PpbjeController extends Controller
         return response()->json($data);
     }
 
+    public function getChief($id = 0)
+    {
+        $data = Employee::where([['cost_id','=',$id],['position_id','=', "3"]])->first();
+        return response()->json($data);
+    }
+    
+    public function getManager($id = 0)
+    {
+        if ($id == 3 or $id == 4 or $id == 5){
+            $data = Employee::where([['cost_id','=',9],['position_id','=', 8]])->first();
+        }elseif ($id == 6 or $id == 7 or $id == 8){
+            $data = Employee::where([['cost_id','=',10],['position_id','=', 8]])->first();
+        }else{
+            $data = Employee::where([['cost_id','=',$id],['position_id','=', 8]])->first();
+        }
+        return response()->json($data);
+    }
+    
+    public function getSeniorManager($id = 0)
+    {
+        $data = Employee::where('position_id', 9)->first();
+        return response()->json($data);
+    }
+
+    public function getDirector($id = 0)
+    {
+        $data = Employee::where('position_id', 4)->first();
+        return response()->json($data);
+    }
+
     public function getApplicant($id = 0)
     {
         $data = Employee::where('id',$id)->first();
+        return response()->json($data);
+    }
+
+    public function getPosition($id = 0)
+    {
+        $data = Position::where('id',$id)->first();
+        return response()->json($data);
+    }
+
+    public function getDivision($id = 0)
+    {
+        $data = Cost::where('id',$id)->first();
         return response()->json($data);
     }
 
@@ -105,7 +163,7 @@ class PpbjeController extends Controller
             'date_of_need'  => 'required',
             'reason'        => 'required|min:15|max:255',
             'item_id'       => 'required',
-            'qantity'       => 'required',
+            'quantity'       => 'required',
         ],
         [
             'ppbje_number.required' => 'No. PPBJe belum diisi!', 
@@ -119,12 +177,13 @@ class PpbjeController extends Controller
             'reason.min'            => 'Ketikkan minimal 15 huruf!',
             'reason.max'            => 'Ketikkan maksimal 255 huruf!',
             'item_id'               => 'Nama Barang belum dipilih!',
-            'qantity'               => 'Isi!'
+            'quantity'               => 'Isi!'
         ]);
 
         $data           = $request->all();
         $price_total    = $data['price_total'];
         $cost_total     = array_sum($price_total);
+        $ppbje_note     = "belum disetujui";
 
         $ppbje                      = new Ppbje;
         $ppbje->ppbje_number        = $data['ppbje_number'];
@@ -139,20 +198,23 @@ class PpbjeController extends Controller
         $ppbje->ppbje_type          = $data['ppbje_type'];
         $ppbje->reason              = $data['reason'];
         $ppbje->cost_total          = $cost_total;
-        $ppbje->ppbje_note          = "berlangsung";
+        $ppbje->ppbje_note          = $ppbje_note;
         $ppbje->save();
 
-        $ppbje_id   = $ppbje->id;
-        $status     = "BELUM DISETUJUI";
+        $ppbje_id       = $ppbje->id;
+        $getDivision    = $ppbje->employee_division;
+        $status         = "BELUM DISETUJUI";
 
-        if($data['maker_division'] == "Asset Management")
-
-        $ppbje_approval            = new Ppbje_approval; 
-        $ppbje_approval->ppbje_id  = $ppbje_id;
-        $ppbje_approval->status1   = $status;
-        $ppbje_approval->status2   = $status;
-        $ppbje_approval->status3   = $status;
-        $ppbje_approval->status4   = $status;
+        $ppbje_approval                 = new Ppbje_approval; 
+        $ppbje_approval->ppbje_id       = $ppbje_id;
+        $ppbje_approval->status1        = $status;
+        $ppbje_approval->chief          = $data['chief'];
+        $ppbje_approval->status2        = $status;
+        $ppbje_approval->manager        = $data['manager'];
+        $ppbje_approval->status3        = $status;
+        $ppbje_approval->senior_manager = $data['senior_manager'];
+        $ppbje_approval->status4        = $status;
+        $ppbje_approval->direktur       = $data['direktur'];
         $ppbje_approval->save();
 
         $item     = count($data['item_id']);
@@ -177,9 +239,38 @@ class PpbjeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Ppbje $ppbje)
     {
-        //
+        $get_id         = $ppbje->id;
+        $ppbje_detail   = Ppbje_detail::where('ppbje_id', $get_id)->get();
+        $jml_barang     = count($ppbje_detail);
+        $no             = 1;
+
+        if($ppbje['ppbje_type'] == "ASSET"){
+            $url  = "-asset";
+            return view('ppbje.detail', [
+                "url"             => $url,
+                "title"           => "PPBJe Asset",
+                "path"            => "PPBJe Asset",
+                "path2"           => "Detail",
+                "ppbje"           => $ppbje,
+                "ppbje_details"   => $ppbje_detail,
+                "jml_barang"      => $jml_barang,
+                'no'              => $no
+            ]);
+        }else{
+            $url  = "-nonAsset";
+            return view('ppbje.detail', [
+                "url"             => $url,
+                "title"           => "PPBJe Non Asset",
+                "path"            => "PPBJe NonAsset",
+                "path2"           => "Detail",
+                "ppbje"           => $ppbje,
+                "ppbje_details"   => $ppbje_detail,
+                "jml_barang"      => $jml_barang,
+                'no'              => $no
+            ]);
+        }
     }
 
     /**
@@ -193,9 +284,17 @@ class PpbjeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Ppbje $ppbje)
     {
-        //
+        $validatedData = $request->validate([
+            'ppbje_note'     => 'required'
+        ]);
+        PPBJe::where('id', $ppbje->id)
+            ->update($validatedData);
+
+        $url = $request['sendUrl'];
+        $no_ppbj = $ppbje->ppbje_number;
+        return redirect('/ppbje-'.$url)->with('success', 'PPBJe '.$no_ppbj.' berhasil dibatalkan!');
     }
 
     /**
@@ -203,14 +302,16 @@ class PpbjeController extends Controller
      */
     public function destroy(Ppbje $ppbje)
     {
-        if ($ppbje['jenis_ppbje'] == "ASSET"){
+        if ($ppbje['ppbje_type'] == "ASSET"){
             Ppbje::destroy($ppbje->id);
             Ppbje_approval::destroy('ppbje_id', $ppbje->id);
 
             $ppbje_detail = Ppbje_detail::where('ppbje_id', $ppbje->id)->get();
 
             Ppbje_detail::destroy($ppbje_detail);
-            return redirect('/ppbje-asset')->with('success', 'PPBJe telah dihapus!');
+
+            $no_ppbj = $ppbje->ppbje_number;
+            return redirect('/ppbje-asset')->with('success', 'PPBJe '.$no_ppbj.' telah dihapus!');
         }else{
             Ppbje::destroy($ppbje->id);
             Ppbje_approval::destroy('ppbje_id', $ppbje->id);
@@ -218,7 +319,9 @@ class PpbjeController extends Controller
             $ppbje_detail = Ppbje_detail::where('ppbje_id', $ppbje->id)->get();
 
             Ppbje_detail::destroy($ppbje_detail);
-            return redirect('/ppbje-nonAsset')->with('success', 'PPBJe telah dihapus!');
+
+            $no_ppbj = $ppbje->ppbje_number;
+            return redirect('/ppbje-nonAsset')->with('success', 'PPBJe '.$no_ppbj.' telah dihapus!');
         }
     }
 }

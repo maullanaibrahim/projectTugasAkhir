@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $title }} <span>| 2023</span></h5>
                                 <!-- Button for create new ppbje -->
-                                <a href="{{ Request::is('ppbje-asset') ? '/ppbje-asset/create' : '/ppbje-nonAsset/create' }}"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-file-earmark-plus me-1"></i> Buat PPBJe</button></a>
+                                <a href="{{ Request::is('ppbje-asset') ? '/ppbje-asset/'.auth()->user()->division->division_name.'/create' : '/ppbje-nonAsset/'.auth()->user()->division->division_name.'/create' }}"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-file-earmark-plus me-1"></i> Buat PPBJe</button></a>
 
                                 <!-- Showing data from ppbjes table -->
                                 <table class="table datatable">
@@ -31,7 +31,8 @@
                                             <th scope="col">TANGGAL</th>
                                             <th scope="col">NOMOR PPBJe</th>
                                             <th scope="col">BEBAN BIAYA</th>
-                                            <th scope="col">TGL. KEBUTUHAN</th>
+                                            <th scope="col">TOTAL BIAYA</th>
+                                            <th scope="col">KEBUTUHAN</th>
                                             <th scope="col">STATUS</th>
                                             <th scope="col">AKSI</th>
                                         </tr>
@@ -42,23 +43,43 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($ppbje->ppbje_approval->updated_at)); }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->ppbje_number }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->cost->cost_name }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $ppbje->date_of_need }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ "IDR ".number_format($ppbje->cost_total,2,',','.') }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($ppbje->date_of_need)); }}</td>
+                                            @if($ppbje->ppbje_note == "selesai")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-success">{{ $ppbje->ppbje_note }}</td>
+                                            @elseif($ppbje->ppbje_note == "berlangsung")
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $ppbje->ppbje_note }}</td>
+                                            @elseif($ppbje->ppbje_note == "belum disetujui")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-secondary">{{ $ppbje->ppbje_note }}</td>
+                                            @else
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $ppbje->ppbje_note }}</td>
+                                            @endif
                                             <td style="font-size:13px;">
-                                                <!-- Button for look up the data -->
-                                                <a href="/ppbje-detail{{ $ppbje->id }}"><button class="btn btn-outline-primary btn-sm"><i class="bi bi-eye-fill"></i></button></a>
-                                                <!-- Button for delete data -->
-                                                <form action="/ppbje-delete{{ $ppbje->id }}" method="post" class="d-inline">  
+                                                <!-- Button for look detail PPBJe -->
+                                                <a href="/ppbje-{{ $sendurl }}/{{ $ppbje->id }}"><button class="btn btn-primary btn-sm"><i class="bi bi-file-earmark-text-fill"></i></button></a>
+                                                <!-- Button for canceling PPBJe -->
+                                                <form action="/ppbje-{{ $sendurl }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                @csrf
                                                     <!-- Sending URL definition (Asset or Non Asset). -->
                                                     <div class="col-md-3" hidden>
                                                         <div class="form-floating">
                                                             <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $sendurl }}">
-                                                            <label for="sendUrl">Send URL</label>
+                                                            <input type="text" class="form-control" name="ppbje_note" id="ppbje_note" value="batal">
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-warning btn-sm" onclick="return confirm('Yakin ingin membatalkan PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-bookmark-x-fill"></i></button>
+                                                </form>
+                                                <!-- Button for delete PPBJe -->
+                                                <form action="/ppbje-{{ $sendurl }}/{{ $ppbje->id }}" method="post" class="d-inline">  
+                                                    <!-- Sending URL definition (Asset or Non Asset). -->
+                                                    <div class="col-md-3" hidden>
+                                                        <div class="form-floating">
+                                                            <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $sendurl }}">
                                                         </div>
                                                     </div>
                                                     @method('delete')
                                                     @csrf
-                                                    <button class="btn btn-outline-warning btn-sm" onclick="return confirm('Yakin ingin membatalkan PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-trash-fill"></i></button>
+                                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-trash-fill"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

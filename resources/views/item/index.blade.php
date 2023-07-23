@@ -15,24 +15,26 @@
                                 <table class="table datatable">
                                     <thead class="bg-light" style="height: 45px;">
                                         <tr>
-                                            <th scope="col">PREVIEW</th>
+                                            <th scope="col">KODE ITEM</th>
                                             <th scope="col">NAMA ITEM</th>
                                             <th scope="col">HARGA</th>
                                             <th scope="col">SATUAN</th>
                                             <th scope="col">SUPPLIER</th>
                                             <th scope="col">JENIS ITEM</th>
+                                            <th scope="col">PREVIEW</th>
                                             <th scope="col">AKSI</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-uppercase">
                                         @foreach($items as $item)
                                         <tr>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $item->item_preview }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $item->item_code }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->item_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ "IDR ".number_format($item->price,2,',','.') }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->unit }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->supplier->supplier_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->item_type }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $item->item_preview }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
                                                 <a href="/items/{{ $item->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>

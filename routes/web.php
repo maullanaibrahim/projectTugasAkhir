@@ -42,27 +42,27 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
    ->middleware('auth')->name('dashboard');
 
 // Route PPBJe Asset
-Route::get('/ppbje-asset', [PPBJeController::class, 'asset'])
+Route::get('/ppbje-asset{id}', [PPBJeController::class, 'asset'])
     ->middleware('auth')->name('ppbje-asset');
 Route::get('/ppbje-asset/{id}/create', [PPBJeController::class, 'createAsset'])
     ->middleware('auth')->name('ppbje-createAsset');
-Route::get('/ppbje-asset/{ppbje}', [PPBJeController::class, 'show'])
+Route::get('/ppbje-asset{id}/{ppbje}', [PPBJeController::class, 'show'])
     ->middleware('auth')->name('ppbje-assetDetail');
-Route::post('/ppbje-asset/{ppbje}/update', [PPBJeController::class, 'update'])
+Route::post('/ppbje-asset{id}/{ppbje}/update', [PPBJeController::class, 'update'])
     ->middleware('auth')->name('ppbje-assetUpdate');
-Route::delete('/ppbje-asset/{ppbje}', [PPBJeController::class, 'destroy'])
+Route::delete('/ppbje-asset{id}/{ppbje}', [PPBJeController::class, 'destroy'])
     ->middleware('auth')->name('ppbje-assetDelete');
 
 // Route PPBJe NonAsset
-Route::get('/ppbje-nonAsset', [PPBJeController::class, 'nonAsset'])
+Route::get('/ppbje-nonAsset{id}', [PPBJeController::class, 'nonAsset'])
     ->middleware('auth')->name('ppbje-nonAsset');
 Route::get('/ppbje-nonAsset/{id}/create', [PPBJeController::class, 'createNonAsset'])
     ->middleware('auth')->name('ppbje-createNonAsset');
-Route::get('/ppbje-nonAsset/{ppbje}', [PPBJeController::class, 'show'])
+Route::get('/ppbje-nonAsset{id}/{ppbje}', [PPBJeController::class, 'show'])
     ->middleware('auth')->name('ppbje-nonAssetDetail');
-Route::post('/ppbje-nonAsset/{ppbje}/update', [PPBJeController::class, 'update'])
+Route::post('/ppbje-nonAsset{id}/{ppbje}/update', [PPBJeController::class, 'update'])
     ->middleware('auth')->name('ppbje-nonAssetUpdate');
-Route::delete('/ppbje-nonAsset/{ppbje}', [PPBJeController::class, 'destroy'])
+Route::delete('/ppbje-nonAsset{id}/{ppbje}', [PPBJeController::class, 'destroy'])
     ->middleware('auth')->name('ppbje-nonAssetDelete');
 
 Route::post('/ppbje-store', [PPBJeController::class, 'store'])

@@ -14,7 +14,7 @@
                                     <!-- Form PPBJe -->
                                     <div class="col-md-3" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ old('sendUrl', $sendurl) }}">
+                                            <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ old('sendUrl', $sendurl.$id) }}">
                                             <label for="sendUrl">Send URL</label>
                                         </div>
                                     </div>

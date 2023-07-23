@@ -14,12 +14,12 @@
                 </a>
                 <ul id="ppbje" class="nav-content collapse {{ Request::is('ppbje*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/ppbje-asset" class="{{ Request::is('ppbje-asset*') ? 'active' : '' }}">
+                        <a href="/ppbje-asset{{ encrypt(auth()->user()->division->division_name) }}" class="{{ Request::is('ppbje-asset*') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>Asset</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/ppbje-nonAsset" class="{{ Request::is('ppbje-nonAsset*') ? 'active' : '' }}">
+                        <a href="/ppbje-nonAsset{{ encrypt(auth()->user()->division->division_name) }}" class="{{ Request::is('ppbje-nonAsset*') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>Non Asset</span>
                         </a>
                     </li>

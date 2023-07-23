@@ -17,28 +17,40 @@ class PpbjeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function asset()
+    public function asset($id = 0)
     {
+        $id2 = decrypt($id);
         $ppbje_type = "ASSET";
-        $ppbjes     = Ppbje::where('ppbje_type', $ppbje_type)->get();
+        if ($id2 == "Procurement"){
+            $ppbjes = Ppbje::where('ppbje_type', $ppbje_type)->get();
+        }else{
+            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', $id2]])->get();
+        }
         
         return view('ppbje.index', [
             "sendurl"   => "asset",
             "title"     => "PPBJe Asset",
             "path"      => "PPBJe Asset",
+            "id"        => $id,
             "ppbjes"    => $ppbjes
         ]);
     }
 
-    public function nonAsset()
+    public function nonAsset($id = 0)
     {
+        $id2 = decrypt($id);
         $ppbje_type = "NON ASSET";
-        $ppbjes     = Ppbje::where('ppbje_type', $ppbje_type)->get();
+        if ($id2 == "Procurement"){
+            $ppbjes = Ppbje::where('ppbje_type', $ppbje_type)->get();
+        }else{
+            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', $id2]])->get();
+        }
 
         return view('ppbje.index', [
             "sendurl"   => "nonAsset",
             "title"     => "PPBJe Non Asset",
             "path"      => "PPBJe Non Asset",
+            "id"        => $id,
             "ppbjes"    => $ppbjes
         ]);
     }
@@ -49,9 +61,10 @@ class PpbjeController extends Controller
     public function createAsset($id = 0)
     {
         $item_type          = "ASSET";
-        $getDivision        = Division::where('division_name', $id)->first();
+        $id2                = decrypt($id);
+        $getDivision        = Division::where('division_name', $id2)->first();
         $getYear            = date('Y',strtotime(now()));
-        $hitungPpbje        = Ppbje::where('maker_division', $id)->count();
+        $hitungPpbje        = Ppbje::where('maker_division', $id2)->count();
         $totalPpbje         = $hitungPpbje+1;
 
         return view('ppbje.create', [
@@ -66,6 +79,7 @@ class PpbjeController extends Controller
             "ppbje_type"    => $item_type,
             "getYear"       => $getYear,
             "division"      => $getDivision,
+            "id"            => $id,
             "totalPpbje"    => $totalPpbje
         ]);
     }
@@ -73,9 +87,10 @@ class PpbjeController extends Controller
     public function createNonAsset($id = 0)
     {
         $item_type          = "NON ASSET";
-        $getDivision        = Division::where('division_name', $id)->first();
+        $id2                = decrypt($id);
+        $getDivision        = Division::where('division_name', $id2)->first();
         $getYear            = date('Y',strtotime(now()));
-        $hitungPpbje        = Ppbje::where('maker_division', $id)->count();
+        $hitungPpbje        = Ppbje::where('maker_division', $id2)->count();
         $totalPpbje         = $hitungPpbje+1;
 
         return view('ppbje.create', [
@@ -90,6 +105,7 @@ class PpbjeController extends Controller
             "ppbje_type"    => $item_type,
             "getYear"       => $getYear,
             "division"      => $getDivision,
+            "id"            => $id,
             "totalPpbje"    => $totalPpbje
         ]);
     }
@@ -239,7 +255,7 @@ class PpbjeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ppbje $ppbje)
+    public function show($id = 0, Ppbje $ppbje)
     {
         $get_id         = $ppbje->id;
         $ppbje_detail   = Ppbje_detail::where('ppbje_id', $get_id)->get();
@@ -247,7 +263,7 @@ class PpbjeController extends Controller
         $no             = 1;
 
         if($ppbje['ppbje_type'] == "ASSET"){
-            $url  = "-asset";
+            $url  = "-asset".$id;
             return view('ppbje.detail', [
                 "url"             => $url,
                 "title"           => "PPBJe Asset",
@@ -259,7 +275,7 @@ class PpbjeController extends Controller
                 'no'              => $no
             ]);
         }else{
-            $url  = "-nonAsset";
+            $url  = "-nonAsset".$id;
             return view('ppbje.detail', [
                 "url"             => $url,
                 "title"           => "PPBJe Non Asset",
@@ -284,7 +300,7 @@ class PpbjeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ppbje $ppbje)
+    public function update($id = 0, Request $request, Ppbje $ppbje)
     {
         $validatedData = $request->validate([
             'ppbje_note'     => 'required'
@@ -294,13 +310,13 @@ class PpbjeController extends Controller
 
         $url = $request['sendUrl'];
         $no_ppbj = $ppbje->ppbje_number;
-        return redirect('/ppbje-'.$url)->with('success', 'PPBJe '.$no_ppbj.' berhasil dibatalkan!');
+        return redirect('/ppbje-'.$url.$id)->with('success', 'PPBJe '.$no_ppbj.' berhasil dibatalkan!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ppbje $ppbje)
+    public function destroy($id = 0, Ppbje $ppbje)
     {
         if ($ppbje['ppbje_type'] == "ASSET"){
             Ppbje::destroy($ppbje->id);
@@ -311,7 +327,7 @@ class PpbjeController extends Controller
             Ppbje_detail::destroy($ppbje_detail);
 
             $no_ppbj = $ppbje->ppbje_number;
-            return redirect('/ppbje-asset')->with('success', 'PPBJe '.$no_ppbj.' telah dihapus!');
+            return redirect('/ppbje-asset'.$id)->with('success', 'PPBJe '.$no_ppbj.' telah dihapus!');
         }else{
             Ppbje::destroy($ppbje->id);
             Ppbje_approval::destroy('ppbje_id', $ppbje->id);
@@ -321,7 +337,7 @@ class PpbjeController extends Controller
             Ppbje_detail::destroy($ppbje_detail);
 
             $no_ppbj = $ppbje->ppbje_number;
-            return redirect('/ppbje-nonAsset')->with('success', 'PPBJe '.$no_ppbj.' telah dihapus!');
+            return redirect('/ppbje-nonAsset'.$id)->with('success', 'PPBJe '.$no_ppbj.' telah dihapus!');
         }
     }
 }

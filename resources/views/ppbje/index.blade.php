@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $title }} <span>| 2023</span></h5>
                                 <!-- Button for create new ppbje -->
-                                <a href="{{ Request::is('ppbje-asset') ? '/ppbje-asset/'.auth()->user()->division->division_name.'/create' : '/ppbje-nonAsset/'.auth()->user()->division->division_name.'/create' }}"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-file-earmark-plus me-1"></i> Buat PPBJe</button></a>
+                                <a href="{{ Request::is('ppbje-asset'.$id) ? '/ppbje-asset/'.$id.'/create' : '/ppbje-nonAsset/'.$id.'/create' }}"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-file-earmark-plus me-1"></i> Buat PPBJe</button></a>
 
                                 <!-- Showing data from ppbjes table -->
                                 <table class="table datatable">
@@ -56,9 +56,11 @@
                                             @endif
                                             <td style="font-size:13px;">
                                                 <!-- Button for look detail PPBJe -->
-                                                <a href="/ppbje-{{ $sendurl }}/{{ $ppbje->id }}"><button class="btn btn-primary btn-sm"><i class="bi bi-file-earmark-text-fill"></i></button></a>
+                                                <a href="/ppbje-{{ $sendurl }}{{ $id }}/{{ $ppbje->id }}"><button class="btn btn-primary btn-sm"><i class="bi bi-file-earmark-text-fill"></i></button></a>
+                                                @if($ppbje->maker_division != auth()->user()->division->division_name)
+                                                @else
                                                 <!-- Button for canceling PPBJe -->
-                                                <form action="/ppbje-{{ $sendurl }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                <form action="/ppbje-{{ $sendurl}}{{ $id }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
                                                 @csrf
                                                     <!-- Sending URL definition (Asset or Non Asset). -->
                                                     <div class="col-md-3" hidden>
@@ -70,7 +72,7 @@
                                                     <button class="btn btn-warning btn-sm" onclick="return confirm('Yakin ingin membatalkan PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-bookmark-x-fill"></i></button>
                                                 </form>
                                                 <!-- Button for delete PPBJe -->
-                                                <form action="/ppbje-{{ $sendurl }}/{{ $ppbje->id }}" method="post" class="d-inline">  
+                                                <form action="/ppbje-{{ $sendurl }}{{ $id }}/{{ $ppbje->id }}" method="post" class="d-inline">  
                                                     <!-- Sending URL definition (Asset or Non Asset). -->
                                                     <div class="col-md-3" hidden>
                                                         <div class="form-floating">
@@ -81,6 +83,7 @@
                                                     @csrf
                                                     <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-trash-fill"></i></button>
                                                 </form>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach

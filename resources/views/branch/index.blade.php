@@ -20,6 +20,8 @@
                                             <th scope="col">ALAMAT</th>
                                             <th scope="col">REGIONAL</th>
                                             <th scope="col">AREA</th>
+                                            <th scope="col">STATUS</th>
+                                            <th scope="col">UPDATE</th>
                                             <th scope="col">AKSI</th>
                                         </tr>
                                     </thead>
@@ -31,15 +33,21 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $branch->branch_address }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $branch->regional }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $branch->area }}</td>
+                                            @if($branch->status == "aktif")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-success">{{ $branch->status }}</td>
+                                            @else
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $branch->status }}</td>
+                                            @endif
+                                            <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($branch->updated_at)); }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
                                                 <a href="/branches/{{ $branch->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
-                                                <!-- Button for delete data -->
+                                                <!-- Button for delete data
                                                 <form action="/branches/{{ $branch->id }}" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus cabang {{ strtoupper($branch->branch_name) }}?')"><i class="bi bi-trash-fill"></i></button>
-                                                </form>
+                                                </form> -->
                                             </td>
                                         </tr>
                                         @endforeach

@@ -38,12 +38,12 @@
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
                                                 <a href="/items/{{ $item->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
-                                                <!-- Button for delete data -->
+                                                <!-- Button for delete data
                                                 <form action="/items/{{ $item->id }}" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus item {{ strtoupper($item->item_name) }}?')"><i class="bi bi-trash-fill"></i></button>
-                                                </form>
+                                                </form> -->
                                             </td>
                                         </tr>
                                         @endforeach

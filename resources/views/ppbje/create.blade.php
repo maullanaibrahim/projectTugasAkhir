@@ -9,7 +9,7 @@
                             <div class="card-body pb-0">
                                 <h5 class="card-title">{{ $title }}</h5>
 
-                                <form class="row g-3 mb-3" action="/ppbje-store" method="POST">
+                                <form class="row g-3 mb-3" action="/ppbje-store{{ $id }}" method="POST">
                                     @csrf
                                     <!-- Form PPBJe -->
                                     <div class="col-md-3" hidden>
@@ -200,7 +200,7 @@
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary float-end ms-2"><i class="bi bi-save me-1"></i> Simpan</button>
                                         <button type="reset" class="btn btn-warning float-end ms-2"><i class="bi bi-arrow-counterclockwise me-1"></i> Reset</button>
-                                        <a href="{{ Request::is('ppbje-asset/create') ? '/ppbje-asset' : '/ppbje-nonAsset' }}"><button type="button" class="btn btn-secondary float-start"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
+                                        <a href="{{ Request::is('ppbje-asset/'.$id.'/create') ? '/ppbje-asset'.$id : '/ppbje-nonAsset'.$id }}"><button type="button" class="btn btn-secondary float-start"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
                                     </div>
                                 </form><!-- End floating Labels Form -->
                             </div> <!-- End Card Body -->

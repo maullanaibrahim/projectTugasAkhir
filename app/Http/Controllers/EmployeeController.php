@@ -68,7 +68,7 @@ class EmployeeController extends Controller
 
         // Redirect to the employee view if create data succeded
         $employee_name = strtoupper($request['employee_name']);
-        return redirect('/employees')->with('success', $employee_name.' berhasil ditambahkan!');
+        return redirect('/employees')->with('success', $employee_name.' telah ditambahkan!');
     }
 
     /**
@@ -129,7 +129,7 @@ class EmployeeController extends Controller
         Employee::where('id', $employee->id)
             ->update($validatedData);
         
-        return redirect('/employees')->with('success', 'Data Karyawan berhasil diubah!');
+        return redirect('/employees')->with('success', 'Data Karyawan telah diubah!');
     }
 
     /**
@@ -138,6 +138,6 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         Employee::destroy($employee->id);
-        return redirect('/employees')->with('success', strtoupper($employee->employee_name).' berhasil dihapus!');
+        return redirect('/employees')->with('success', strtoupper($employee->employee_name).' telah dihapus!');
     }
 }

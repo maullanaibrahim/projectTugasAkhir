@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $title }} <span>| 2023</span></h5>
                                 <!-- Button for create new ppbje -->
-                                <a href="{{ Request::is('ppbje-asset'.$id) ? '/ppbje-asset/'.$id.'/create' : '/ppbje-nonAsset/'.$id.'/create' }}"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-file-earmark-plus me-1"></i> Buat PPBJe</button></a>
+                                <a href="{{ Request::is('ppbje-asset'.$id) ? '/ppbje-asset/'.$id.'/create' : '/ppbje-nonAsset/'.$id.'/create' }}"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-circle me-1"></i> Buat PPBJe</button></a>
 
                                 <!-- Showing data from ppbjes table -->
                                 <table class="table datatable">
@@ -49,6 +49,8 @@
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-success">{{ $ppbje->ppbje_note }}</td>
                                             @elseif($ppbje->ppbje_note == "berlangsung")
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $ppbje->ppbje_note }}</td>
+                                            @elseif($ppbje->ppbje_note == "cek asset")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $ppbje->ppbje_note }}</td>
                                             @elseif($ppbje->ppbje_note == "belum disetujui")
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-secondary">{{ $ppbje->ppbje_note }}</td>
                                             @else
@@ -69,19 +71,7 @@
                                                             <input type="text" class="form-control" name="ppbje_note" id="ppbje_note" value="batal">
                                                         </div>
                                                     </div>
-                                                    <button class="btn btn-warning btn-sm" onclick="return confirm('Yakin ingin membatalkan PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-bookmark-x-fill"></i></button>
-                                                </form>
-                                                <!-- Button for delete PPBJe -->
-                                                <form action="/ppbje-{{ $sendurl }}{{ $id }}/{{ $ppbje->id }}" method="post" class="d-inline">  
-                                                    <!-- Sending URL definition (Asset or Non Asset). -->
-                                                    <div class="col-md-3" hidden>
-                                                        <div class="form-floating">
-                                                            <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $sendurl }}">
-                                                        </div>
-                                                    </div>
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-trash-fill"></i></button>
+                                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin membatalkan PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-x-circle"></i></button>
                                                 </form>
                                                 @endif
                                             </td>

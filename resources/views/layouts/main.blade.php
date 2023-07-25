@@ -29,12 +29,13 @@
 
    <script src="dist/js/config.js"></script>
    <script src="dist/js/jquery-3.6.3.min.js"></script>
+   <script src="dist/js/sweetalert.min.js"></script>
 
    <script src="dist/js/dashboards-analytics.js"></script>
 
    <script type="text/javascript">
       function zoom() {
-         document.body.style.zoom = "90%" 
+         document.body.style.zoom = "90%";
       }
    </script>
 
@@ -64,11 +65,9 @@
    <main id="main" class="main">
       <!-- Showing notification succeded for input new branch -->
       @if(session()->has('success'))
-      <div class="alert alert-light alert-dismissible fade show w-auto position-fixed end-0 text-success" style="margin-right:30px;" role="alert">
-         <i class="bi bi-check-circle me-1"></i>
-         {{ session('success') }}
-         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+         <script>
+            swal("Berhasil!", "{{ session('success') }}", "success");
+         </script>
       @endif
       
       <!-- Title Bar -->

@@ -79,7 +79,7 @@ class SupplierController extends Controller
 
         // Redirect to the supplier view if create data succeded
         $supplier_name = strtoupper($request['supplier_name']);
-        return redirect('/suppliers')->with('success', 'Supplier '.$supplier_name.' berhasil ditambahkan!');
+        return redirect('/suppliers')->with('success', 'Supplier '.$supplier_name.' telah ditambahkan!');
     }
 
     /**
@@ -152,7 +152,7 @@ class SupplierController extends Controller
         Supplier::where('id', $supplier->id)
             ->update($validatedData);
         
-        return redirect('/suppliers')->with('success', 'Data Supplier berhasil diubah!');
+        return redirect('/suppliers')->with('success', 'Data Supplier telah diubah!');
     }
 
     /**
@@ -160,9 +160,9 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        $item = Item::where('supplier_id', $supplier->id)->get();
-        Supplier::destroy($supplier->id);
-        Item::destroy($item);
-        return redirect('/suppliers')->with('success', 'Supplier '.$supplier->nama_supplier.' berhasil dihapus!');
+        // $item = Item::where('supplier_id', $supplier->id)->get();
+        // Supplier::destroy($supplier->id);
+        // Item::destroy($item);
+        // return redirect('/suppliers')->with('success', 'Supplier '.$supplier->nama_supplier.' berhasil dihapus!');
     }
 }

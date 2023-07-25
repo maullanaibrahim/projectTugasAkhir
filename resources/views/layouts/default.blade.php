@@ -27,6 +27,8 @@
 
     <!-- Template Main CSS File -->
     <link href="dist/css/style.css" rel="stylesheet">
+
+    <script src="dist/js/sweetalert.min.js"></script>
     
     <script type="text/javascript">
         // Zoom In Page 90%
@@ -43,6 +45,14 @@
                 x.type = "password";
             }
         }
+
+        function register() {
+         swal({
+            title: "Mohon Maaf",
+            text: "Silakan hubungi Administrator IT untuk Daftar Akun!",
+            icon: "info",
+         });
+      }
     </script>
 
     <!-- =======================================================

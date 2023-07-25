@@ -249,7 +249,7 @@ class PpbjeController extends Controller
         }
         // $url : function to determine the url redirect (Asset or Non Asset)
         $url = $data['sendUrl'];
-        return redirect('/ppbje-'.$url)->with('success', 'PPBJe baru berhasil dibuat!');
+        return redirect('/ppbje-'.$url)->with('success', 'PPBJe baru telah dibuat!');
     }
 
     /**
@@ -310,7 +310,7 @@ class PpbjeController extends Controller
 
         $url = $request['sendUrl'];
         $no_ppbj = $ppbje->ppbje_number;
-        return redirect('/ppbje-'.$url.$id)->with('success', 'PPBJe '.$no_ppbj.' berhasil dibatalkan!');
+        return redirect('/ppbje-'.$url.$id)->with('success', 'PPBJe '.$no_ppbj.' telah dibatalkan!');
     }
 
     /**

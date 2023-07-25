@@ -101,6 +101,8 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <input name="status" value="aktif" hidden>
                                     
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary float-end ms-2"><i class="bi bi-save2 me-1"></i> Simpan</button>

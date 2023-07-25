@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('branch_address');
             $table->string('regional');
             $table->string('area');
+            $table->string('status');
             $table->timestamps();
         });
     }

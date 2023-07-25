@@ -65,7 +65,7 @@ Route::post('/ppbje-nonAsset{id}/{ppbje}/update', [PPBJeController::class, 'upda
 Route::delete('/ppbje-nonAsset{id}/{ppbje}', [PPBJeController::class, 'destroy'])
     ->middleware('auth')->name('ppbje-nonAssetDelete');
 
-Route::post('/ppbje-store', [PPBJeController::class, 'store'])
+Route::post('/ppbje-store{id}', [PPBJeController::class, 'store'])
     ->middleware('auth')->name('ppbje-store');
 
    

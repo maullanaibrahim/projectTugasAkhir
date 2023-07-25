@@ -16,6 +16,7 @@ class RegisterController extends Controller
     {
         return view('register.index', [
             "title"     => "Register Account",
+            "path"      => "Data User",
             // Sending data from position and division table to register view with Ascending data sorted
             "positions" => Position::orderBy('position_name', 'ASC')->get(),
             "divisions" => Division::orderBy('division_name', 'ASC')->get(),
@@ -27,7 +28,7 @@ class RegisterController extends Controller
         // Validating data request from register.index
         $validatedData = $request->validate([
             'first_name'    => 'required|min:2|max:255',
-            'last_name'     => 'required|min:2|max:255',
+            'last_name'     => 'max:255',
             'nik'           => ['required', 'unique:users'],
             'password'      => 'required|min:5|max:255',
             'position_id'   => 'required',
@@ -38,8 +39,6 @@ class RegisterController extends Controller
             'first_name.required'   => 'Nama Depan Harus diisi!', 
             'first_name.min'        => 'Ketikkan Nama Depan minimal 2 digit!',
             'first_name.max'        => 'Ketikkan Nama Depan maksimal 255 digit!',
-            'last_name.required'    => 'Nama Belakang harus diisi!', 
-            'last_name.min'         => 'Ketikkan Nama Belakang minimal 2 digit!',
             'last_name.max'         => 'Ketikkan Nama Belakang maksimal 255 digit!',
             'nik.required'          => 'Nomor Induk Karyawan harus diisi!', 
             'unique'                => 'Nomor Induk Karyawan telah digunakan!',
@@ -68,6 +67,6 @@ class RegisterController extends Controller
 
         // Redirect to the register view if create data succeded
         $first_name = strtoupper($request['first_name']);
-        return redirect('/register')->with('success', 'User '.$first_name.' berhasil di daftarkan!');
+        return redirect('/users')->with('success', 'User '.$first_name.' telah di daftarkan!');
     }
 }

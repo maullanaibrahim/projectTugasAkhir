@@ -7,6 +7,8 @@
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pt-3">
+                                <a href="/register"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-person-plus me-1"></i> Tambah</button></a>
+
                                 <!-- Showing data from employees table -->
                                 <table class="table datatable">
                                     <thead class="bg-light" style="height: 45px;">
@@ -27,7 +29,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $user->division->division_name }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Hidden delete button for super admin -->
-                                                @if($user->nik == '123456789')
+                                                @if($user->nik == '12345')
                                                 @else
                                                 <!-- Button for delete data -->
                                                 <form action="/users/{{ $user->id }}" method="post" class="d-inline">

@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
-            $table->string('last_name');
+            $table->string('last_name')->nullable();
             $table->string('nik')->unique();
             $table->string('password');
             $table->string('position_id');
@@ -26,7 +26,7 @@ return new class extends Migration
         DB::table('users')->insert([
             ['first_name'   => 'Administrator', 
              'last_name'    => 'IT', 
-             'nik'          => '123456789',
+             'nik'          => '12345',
              'password'     => Hash::make('password'), 
              'position_id'  => '1', 
              'division_id'  => '1', 

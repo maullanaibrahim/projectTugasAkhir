@@ -44,7 +44,7 @@
                                     </div>
 
                                     <!-- Pilih Regional -->
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="form-floating">
                                             <select class="form-select @error('regional') is-invalid @enderror" name="regional" id="regional">
                                                 <option selected disabled>Pilih Regional..</option>
@@ -68,7 +68,7 @@
                                     </div>
 
                                     <!-- Pilih Area -->
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="form-floating">
                                             <select class="form-select @error('area') is-invalid @enderror" name="area" id="area">
                                                 <option selected disabled>Pilih Area..</option>
@@ -84,6 +84,30 @@
 
                                             <!-- Showing notification error for input validation -->
                                             @error('area')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <!-- Pilih Status -->
+                                    <div class="col-md-2">
+                                        <div class="form-floating">
+                                            <select class="form-select @error('status') is-invalid @enderror" name="status" id="status">
+                                                <option selected disabled>Pilih Status..</option>
+                                                @for($i=0; $i < count($statuses); $i++){
+                                                    @if(old('status', $branch->status) == $statuses[$i])
+                                                    <option selected value="{{ $statuses[$i] }}">{{ strtoupper($statuses[$i]) }}</option>
+                                                    @else
+                                                    <option value="{{ $statuses[$i] }}">{{ strtoupper($statuses[$i]) }}</option>
+                                                    @endif
+                                                }@endfor
+                                            </select>
+                                            <label for="status">Status</label>
+
+                                            <!-- Showing notification error for input validation -->
+                                            @error('status')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

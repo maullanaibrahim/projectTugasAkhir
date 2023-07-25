@@ -26,7 +26,7 @@ class DivisionController extends Controller
      */
     public function create()
     {
-        $locations  = ["HEAD OFFICE", "DISTRIBUTION CENTER"];
+        $locations  = ["head office", "distribution center"];
 
         return view('division.create', [
             "title"     => "Tambah Data Divisi",
@@ -70,11 +70,12 @@ class DivisionController extends Controller
         $cost->cost_name    = $request['division_name'];
         $cost->region       = $request['location'];
         $cost->company_name = "PT. Maulana Sukses Selalu";
+        $cost->status       = "aktif";
         $cost->save();
 
         // Redirect to the division view if create data succeded
         $division_name = strtoupper($request['division_name']);
-        return redirect('/divisions')->with('success', 'Divisi '.$division_name.' berhasil ditambahkan!');
+        return redirect('/divisions')->with('success', 'Divisi '.$division_name.' telah ditambahkan!');
     }
 
     /**
@@ -90,7 +91,7 @@ class DivisionController extends Controller
      */
     public function edit(Division $division)
     {
-        $locations  = ["HEAD OFFICE", "DISTRIBUTION CENTER"];
+        $locations  = ["head office", "distribution center"];
         $division_name  = $division->division_name;
 
         return view('division.edit', [
@@ -146,9 +147,10 @@ class DivisionController extends Controller
         $cost               = Cost::find($costID);
         $cost->cost_name    = $request['division_name'];
         $cost->region       = $request['location'];
+        $cost->status       = "aktif";
         $cost->save();
         
-        return redirect('/divisions')->with('success', 'Data Divisi berhasil diubah!');
+        return redirect('/divisions')->with('success', 'Data Divisi telah diubah!');
     }
 
     /**
@@ -156,9 +158,9 @@ class DivisionController extends Controller
      */
     public function destroy(Division $division)
     {
-        $cost = Cost::where('cost_name', $division->division_name)->get();
-        Division::destroy($division->id);
-        Cost::destroy($cost);
-        return redirect('/divisions')->with('success', 'Divisi '.strtoupper($division->division_name).' berhasil dihapus!');
+        // $cost = Cost::where('cost_name', $division->division_name)->get();
+        // Division::destroy($division->id);
+        // Cost::destroy($cost);
+        // return redirect('/divisions')->with('success', 'Divisi '.strtoupper($division->division_name).' telah dihapus!');
     }
 }

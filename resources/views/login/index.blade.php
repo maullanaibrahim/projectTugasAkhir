@@ -5,11 +5,9 @@
             <div class="container">
                 <!-- Showing Notification Login Error -->
                 @if(session()->has('loginError'))
-                <div class="alert alert-light alert-dismissible fade show w-auto position-fixed end-0 text-danger" style="margin-right:30px;" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
-                    {{ session('loginError') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <script>
+                    swal("Login Gagal!", "{{ session('loginError') }}", "warning");
+                </script>
                 @endif
 
                 <!-- Content -->
@@ -35,7 +33,7 @@
                                     <!-- Input Email ID -->
                                     <div class="col-12">
                                         <div class="border border-3 border-primary d-inline py-2"></div>
-                                        <input type="text" name="nik" class="form-control d-inline rounded-0" id="nik" placeholder="No. Induk Karyawan" required />
+                                        <input type="number" name="nik" class="form-control d-inline rounded-0" id="nik" placeholder="No. Induk Karyawan" required />
                                     </div> <!-- End Input Email ID -->
 
                                     <!-- Input Password -->
@@ -55,7 +53,7 @@
                                         
                                     <!-- Lupa Password -->
                                     <div class="col-12">
-                                        <p class="small mb-0 text-center">Belum punya akun? Silakan <a href="#" onclick="return confirm('Silakan hubungi Administrator IT untuk Daftar Akun!')">Daftar</a></p>
+                                        <p class="small mb-0 text-center">Belum punya akun? Silakan <a href="#" onclick="register()">Daftar</a></p>
                                     </div> <!-- End Lupa Password -->
                                 </form> <!-- End Login Form -->
                             </div> <!-- End card-body -->

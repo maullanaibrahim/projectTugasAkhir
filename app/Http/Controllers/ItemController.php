@@ -83,7 +83,7 @@ class ItemController extends Controller
 
         // Redirect to the item view if create data succeded
         $item_name = strtoupper($request['item_name']);
-        return redirect('/items')->with('success', 'Item '.$item_name.' berhasil ditambahkan!');
+        return redirect('/items')->with('success', 'Item '.$item_name.' telah ditambahkan!');
     }
 
     /**
@@ -143,12 +143,19 @@ class ItemController extends Controller
             'supplier_id.required'  => 'Supplier belum dipilih!',
             'item_type.required'    => 'Jenis Item belum dipilih!',
         ]);
+        $dataItem = array(
+            'item_name'     => $request['item_name'],
+            'price'         => str_replace('.','',$request->price),
+            'unit'          => $request['unit'],
+            'supplier_id'   => $request['supplier_id'],
+            'item_type'     => $request['item_type']
+        );
 
         // Updating data to branches table
         Item::where('id', $item->id)
-            ->update($validatedData);
+            ->update($dataItem);
         
-        return redirect('/items')->with('success', 'Data Item berhasil diubah!');
+        return redirect('/items')->with('success', 'Data Item telah diubah!');
     }
 
     /**
@@ -156,7 +163,7 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        Item::destroy($item->id);
-        return redirect('/items')->with('success', 'Item '.strtoupper($item->item_name).' berhasil dihapus!');
+        // Item::destroy($item->id);
+        // return redirect('/items')->with('success', 'Item '.strtoupper($item->item_name).' berhasil dihapus!');
     }
 }

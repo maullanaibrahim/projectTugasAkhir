@@ -102,13 +102,13 @@
                                     <!-- Input Last Name -->
                                     <div class="col-6">
                                         <div class="border border-3 border-primary d-inline py-2"></div>
-                                        <input type="text" name="last_name" class="form-control text-capitalize d-inline rounded-0" id="last_name" placeholder="Nama Belakang" value="{{ old('last_name') }}" required>
+                                        <input type="text" name="last_name" class="form-control text-capitalize d-inline rounded-0" id="last_name" placeholder="Nama Belakang" value="{{ old('last_name') }}">
                                     </div> <!-- End Input Last Name -->
 
                                     <!-- Input Email -->
                                     <div class="col-12">
                                         <div class="border border-3 border-primary d-inline py-2"></div>
-                                        <input type="text" name="nik" class="form-control d-inline rounded-0" id="nik" placeholder="No. Induk Karyawan" value="{{ old('nik') }}" required>
+                                        <input type="number" name="nik" class="form-control d-inline rounded-0" id="nik" placeholder="No. Induk Karyawan" value="{{ old('nik') }}" required>
                                     </div> <!-- End Input Email -->
 
                                     <!-- Input Password -->
@@ -160,7 +160,7 @@
                                     </div> <!-- End Register Button -->
 
                                     <div class="col-12">
-                                        <p class="small mb-0 text-center">Sudah punya akun? Silakan <a href="/">Masuk</a></p>
+                                        <p class="small mb-0 text-center"><a href="/">Kembali </a>ke Dashboard</p>
                                     </div>
                                 </form><!-- End Register Form -->
                             </div> <!-- End card-body -->

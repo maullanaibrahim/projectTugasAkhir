@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Employee;
 
 class UserController extends Controller
 {
@@ -66,6 +67,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         User::destroy($user->id);
-        return redirect('/users')->with('success', 'User '.strtoupper($user->first_name).' '.strtoupper($user->lasts_name).' berhasil dihapus!');
+        $employee = Employee::where('nik', $user->nik)->get();
+        Employee::destroy($employee);
+        return redirect('/users')->with('success', 'User '.strtoupper($user->first_name).' '.strtoupper($user->lasts_name).' telah dihapus!');
     }
 }

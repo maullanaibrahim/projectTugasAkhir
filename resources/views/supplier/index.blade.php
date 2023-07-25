@@ -21,6 +21,7 @@
                                             <th scope="col">ALAMAT</th>
                                             <th scope="col">PPN</th>
                                             <th scope="col">TERMIN</th>
+                                            <th scope="col">TERDAFTAR</th>
                                             <th scope="col">AKSI</th>
                                         </tr>
                                     </thead>
@@ -34,15 +35,16 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $supplier->supplier_address }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $supplier->tax }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $supplier->term }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($supplier->created_at)); }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
                                                 <a href="/suppliers/{{ $supplier->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
-                                                <!-- Button for delete data -->
+                                                <!-- Button for delete data
                                                 <form action="/suppliers/{{ $supplier->id }}" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
-                                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Seluruh Data Item untuk Supplier {{ strtoupper($supplier->supplier_name) }} akan ikut terhapus. Yakin ingin tetap menghapus?')"><i class="bi bi-trash-fill"></i></button>
-                                                </form>
+                                                    <button class="btn btn-danger btn-sm" onclick="askDelete()"><i class="bi bi-trash-fill"></i></button>
+                                                </form> -->
                                             </td>
                                         </tr>
                                         @endforeach

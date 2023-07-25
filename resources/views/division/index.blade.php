@@ -32,11 +32,11 @@
                                                 <!-- Button for edit data -->
                                                 <a href="/divisions/{{ $division->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
                                                 <!-- Button for delete data -->
-                                                <form action="/divisions/{{ $division->id }}" method="post" class="d-inline">
+                                                <!-- <form action="/divisions/{{ $division->id }}" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus divisi {{ strtoupper($division->division_name) }}?')"><i class="bi bi-trash-fill"></i></button>
-                                                </form>
+                                                </form> -->
                                             </td>
                                         </tr>
                                         @endforeach

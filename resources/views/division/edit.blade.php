@@ -51,9 +51,9 @@
                                                 <option selected disabled>Pilih Lokasi..</option>
                                                 @for($i=0; $i < count($locations); $i++){
                                                     @if(old('location', $division->location) == $locations[$i])
-                                                    <option selected value="{{ $locations[$i] }}">{{ $locations[$i] }}</option>
+                                                    <option selected value="{{ $locations[$i] }}">{{ strtoupper($locations[$i]) }}</option>
                                                     @else
-                                                    <option value="{{ $locations[$i] }}">{{ $locations[$i] }}</option>
+                                                    <option value="{{ $locations[$i] }}">{{ strtoupper($locations[$i]) }}</option>
                                                     @endif
                                                 }@endfor
                                             </select>

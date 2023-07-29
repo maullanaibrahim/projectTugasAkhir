@@ -26,22 +26,26 @@
                                 <table class="table table-bordered">
                                     <tbody class="text-uppercase" style="font-size:13px;">
                                         <tr>
-                                            <td><span style="margin-right: 10px;">Nama Pemohon </span>: {{ $ppbje->employee->employee_name }}</td>
+                                            <td><span style="margin-right: 20px;">Nama Pemohon </span>: {{ $ppbje->applicant_name }}</td>
                                             <td class="col-3 bg-light"><center>Biaya Dibebankan Ke :</center></td>
                                             <td class="col-3 bg-light"><center>Kepada Yth. (PJB Terkait) :</center></td>
                                             <td class="col-2 bg-light"><center>Jenis Barang/Jasa :</center></td>
                                         </tr>
                                         <tr>
-                                            <td><span style="margin-right: 64px;">Jabatan </span>: {{ $ppbje->employee_position}}</td>
+                                            <td><span style="margin-right:5px;">Jabatan Pemohon </span>: {{ $ppbje->applicant_position}}</td>
                                             <td rowspan="3" style="padding-top:38px"><center><h6><b>{{ $ppbje->cost->cost_name }}</b></h6></center></td>
+                                            @if($ppbje->ppbje_type == "NON ASSET")
                                             <td rowspan="3" style="padding-top:38px"><center><h6><b>Procurement</b></h6></center></td>
+                                            @else
+                                            <td rowspan="3" style="padding-top:38px"><center><h6><b>Asset Management / Procurement</b></h6></center></td>
+                                            @endif
                                             <td rowspan="3" style="padding-top:40px"><center><h6><b>{{ $ppbje->ppbje_type }}</b></h6></center></center></td>
                                         </tr>
                                         <tr>
-                                            <td><span style="margin-right: 34px;">No. Pegawai </span>: {{ $ppbje->employee->nik }}</td>
+                                            <td><span style="margin-right: 38px;">NIK Pemohon </span>: {{ $ppbje->applicant_nik }}</td>
                                         </tr>
                                         <tr>
-                                            <td><span style="margin-right: 49px;">Dept / Cab </span>: {{ $ppbje->employee_division }}</td>
+                                            <td><span style="margin-right: 62px;">Dept / Cab </span>: {{ $ppbje->applicant_division }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

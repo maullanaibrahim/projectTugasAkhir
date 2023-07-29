@@ -45,16 +45,16 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->cost->cost_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ "IDR ".number_format($ppbje->cost_total,2,',','.') }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($ppbje->date_of_need)); }}</td>
-                                            @if($ppbje->ppbje_note == "selesai")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-success">{{ $ppbje->ppbje_note }}</td>
-                                            @elseif($ppbje->ppbje_note == "berlangsung")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $ppbje->ppbje_note }}</td>
-                                            @elseif($ppbje->ppbje_note == "cek asset")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $ppbje->ppbje_note }}</td>
-                                            @elseif($ppbje->ppbje_note == "belum disetujui")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-secondary">{{ $ppbje->ppbje_note }}</td>
+                                            @if($ppbje->ppbje_status == "selesai")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-success">{{ $ppbje->ppbje_status }}</td>
+                                            @elseif($ppbje->ppbje_status == "berlangsung")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $ppbje->ppbje_status }}</td>
+                                            @elseif($ppbje->ppbje_status == "cek asset")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $ppbje->ppbje_status }}</td>
+                                            @elseif($ppbje->ppbje_status == "belum disetujui")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-secondary">{{ $ppbje->ppbje_status }}</td>
                                             @else
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $ppbje->ppbje_note }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $ppbje->ppbje_status }}</td>
                                             @endif
                                             <td style="font-size:13px;">
                                                 <!-- Button for look detail PPBJe -->
@@ -68,7 +68,7 @@
                                                     <div class="col-md-3" hidden>
                                                         <div class="form-floating">
                                                             <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $sendurl }}">
-                                                            <input type="text" class="form-control" name="ppbje_note" id="ppbje_note" value="batal">
+                                                            <input type="text" class="form-control" name="ppbje_status" id="ppbje_status" value="batal">
                                                         </div>
                                                     </div>
                                                     <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin membatalkan PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-x-circle"></i></button>

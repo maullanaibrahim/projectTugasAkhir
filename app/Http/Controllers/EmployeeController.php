@@ -45,7 +45,7 @@ class EmployeeController extends Controller
     {
         // Validating data request from employee.create
         $validatedData = $request->validate([
-            'nik'           => 'required|min:5|max:255|unique:employees',
+            'nik'           => 'required|min:9|max:9|unique:employees',
             'employee_name' => 'required|min:2|max:255',
             'position_id'   => 'required',
             'cost_id'       => 'required',
@@ -54,8 +54,8 @@ class EmployeeController extends Controller
         // Create custom notification for the validation request
         [
             'nik.required'                  => 'NIK harus diisi!',
-            'nik.min'                       => 'Ketik minimal 2 digit!',
-            'nik.max'                       => 'Ketik maksimal 255 digit!',
+            'nik.min'                       => 'Ketik minimal 9 digit!',
+            'nik.max'                       => 'Ketik maksimal 9 digit!',
             'unique'                        => 'NIK sudah ada!',
             'employee_name.required'        => 'Nama Karyawan harus diisi!',
             'employee_name.min'             => 'Ketik minimal 2 digit!',

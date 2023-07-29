@@ -116,16 +116,28 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-md-3" hidden>
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control text-uppercase bg-light" name="applicant_nik" id="applicant_nik" value="{{ old('applicant_nik') }}" readonly>
+                                            <label for="applicant_nik">NIK Pemohon</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" hidden>
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control text-uppercase bg-light" name="applicant_name" id="applicant_name" value="{{ old('applicant_name') }}" readonly>
+                                            <label for="applicant_name">Nama Pemohon</label>
+                                        </div>
+                                    </div>
                                     <div class="col-md-3">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase bg-light" name="employee_position" id="employee_position" value="{{ old('employee_position') }}" readonly>
-                                            <label for="jabatanPemohon">Jabatan Pemohon</label>
+                                            <input type="text" class="form-control text-uppercase bg-light" name="applicant_position" id="applicant_position" value="{{ old('applicant_position') }}" readonly>
+                                            <label for="applicant_position">Jabatan Pemohon</label>
                                         </div>
                                     </div>
                                     <div class="col-md-2" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control bg-light" name="employee_division" id="employee_division" value="{{ old('employee_division') }}" readonly>
-                                            <label for="divisiPemohon">Employee Division</label>
+                                            <input type="text" class="form-control bg-light" name="applicant_division" id="applicant_division" value="{{ old('applicant_division') }}" readonly>
+                                            <label for="applicant_division">Employee Division</label>
                                         </div>
                                     </div>
 
@@ -296,6 +308,8 @@
                     dataType: 'json',
                     success: function(response){
                         if(response != null){
+                            $('#applicant_nik').val(response.nik);
+                            $('#applicant_name').val(response.employee_name);
                             var position = response.position_id;
                             var division = response.cost_id;
 
@@ -307,7 +321,7 @@
                                 dataType: 'json',
                                 success: function(response){
                                     if(response != null){
-                                        $('#employee_position').val(response.position_name);
+                                        $('#applicant_position').val(response.position_name);
                                     }
                                 }
                             });
@@ -320,7 +334,7 @@
                                 dataType: 'json',
                                 success: function(response){
                                     if(response != null){
-                                        $('#employee_division').val(response.cost_name);
+                                        $('#applicant_division').val(response.cost_name);
                                     }
                                 }
                             });

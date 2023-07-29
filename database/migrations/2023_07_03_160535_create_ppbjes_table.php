@@ -18,14 +18,16 @@ return new class extends Migration
             $table->string('maker_division');
             $table->bigInteger('cost_id');
             $table->string('region');
-            $table->bigInteger('employee_id');
-            $table->string('employee_position');
-            $table->string('employee_division');
+            $table->string('applicant_nik');
+            $table->string('applicant_name');
+            $table->string('applicant_position');
+            $table->string('applicant_division');
             $table->string('ppbje_type');
             $table->date('date_of_need');
             $table->string('reason');
             $table->double('cost_total');
-            $table->string('ppbje_note');
+            $table->string('ppbje_status');
+            $table->string('ppbje_note')->nullable();
             $table->timestamps();
         });
     }

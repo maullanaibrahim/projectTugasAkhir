@@ -36,7 +36,7 @@ class LoginController extends Controller
         }
  
         // Back to the login view if login failed
-        return back()->with('loginError', 'Nomor Induk atau Password salah!');
+        return back()->with('loginError', 'No. Induk Karyawan atau Password salah!');
     }
 
     public function logout(Request $request)

@@ -20,13 +20,14 @@
                         </div><!-- End Logo -->
                             
                         <div class="card mb-3 px-4 py-2">
-                            <div class="card-body">
+                            <div class="card-header p-0 mb-4">
                                 <!-- Login Title -->
-                                <div class="pb-4">
-                                    <h5 class="card-title text-primary text-center pb-0 fs-4 fw-bold">Form Login</h5>
-                                    <p class="text-center small px-2">Masukkan Nomor Induk dan Kata Sandi akun anda untuk dapat masuk & mulai bekerja.</p>
+                                <div class="col-12">
+                                    <h5 class="card-title text-primary text-center pb-2 fs-4 fw-bold">Form Login</h5>
+                                    <p class="text-center small px-3">Masukkan Nomor Induk dan Kata Sandi akun anda untuk dapat masuk & mulai bekerja.</p>
                                 </div>
-
+                            </div>
+                            <div class="card-body">
                                 <!-- Login Form -->
                                 <form class="row g-3" action="/login" method="post">
                                     @csrf
@@ -37,7 +38,7 @@
                                     </div> <!-- End Input Email ID -->
 
                                     <!-- Input Password -->
-                                    <div class="col-12 pb-4">
+                                    <div class="col-12 pb-2">
                                         <span class="border border-3 border-primary d-inline py-2"></span>
                                         <input type="password" name="password" class="form-control d-inline rounded-0 mb-2" id="password" placeholder="Kata Sandi" required />
                                         <div class="form-check form-check-inline">
@@ -45,6 +46,8 @@
                                             <label class="form-check-label" for="inlineCheckbox1">Tampilkan Kata Sandi</label>
                                         </div>
                                     </div> <!-- End Input Password -->
+
+                                    <div class="card-footer p-0"></div>
 
                                     <!-- Login Button -->
                                     <div class="col-12">

@@ -199,7 +199,7 @@ class PpbjeController extends Controller
         $data           = $request->all();
         $price_total    = $data['price_total'];
         $cost_total     = array_sum($price_total);
-        $ppbje_note     = "belum disetujui";
+        $ppbje_status   = "belum disetujui";
 
         $ppbje                      = new Ppbje;
         $ppbje->ppbje_number        = $data['ppbje_number'];
@@ -207,14 +207,15 @@ class PpbjeController extends Controller
         $ppbje->maker_division      = $data['maker_division'];
         $ppbje->cost_id             = $data['cost_id'];
         $ppbje->region              = $data['region'];
-        $ppbje->employee_id         = $data['employee_id'];
-        $ppbje->employee_position   = $data['employee_position'];
-        $ppbje->employee_division   = $data['employee_division'];
+        $ppbje->applicant_nik       = $data['applicant_nik'];
+        $ppbje->applicant_name      = $data['applicant_name'];
+        $ppbje->applicant_position  = $data['applicant_position'];
+        $ppbje->applicant_division  = $data['applicant_division'];
         $ppbje->date_of_need        = $data['date_of_need'];
         $ppbje->ppbje_type          = $data['ppbje_type'];
         $ppbje->reason              = $data['reason'];
         $ppbje->cost_total          = $cost_total;
-        $ppbje->ppbje_note          = $ppbje_note;
+        $ppbje->ppbje_status        = $ppbje_status;
         $ppbje->save();
 
         $ppbje_id       = $ppbje->id;
@@ -303,7 +304,7 @@ class PpbjeController extends Controller
     public function update($id = 0, Request $request, Ppbje $ppbje)
     {
         $validatedData = $request->validate([
-            'ppbje_note'     => 'required'
+            'ppbje_status'     => 'required'
         ]);
         PPBJe::where('id', $ppbje->id)
             ->update($validatedData);

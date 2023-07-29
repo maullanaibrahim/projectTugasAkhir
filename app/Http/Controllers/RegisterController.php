@@ -67,6 +67,6 @@ class RegisterController extends Controller
 
         // Redirect to the register view if create data succeded
         $first_name = strtoupper($request['first_name']);
-        return redirect('/users')->with('success', 'User '.$first_name.' telah di daftarkan!');
+        return redirect('/users')->with('success', 'User '.$first_name.' telah di tambahkan!');
     }
 }

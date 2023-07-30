@@ -80,8 +80,8 @@ class DashboardController extends Controller
         }
         elseif($pos == "Manager"){
             if($div == "Procurement"){
-                $ppbje_totals       = Ppbje::where([['cost_total', '>', 2000000],['approved', '=', 'yes'],['ppbje_note', '=', 'beli']])->count();
-                $ppbje_approving    = Ppbje::where([['cost_total', '>', 2000000],['approved', '=', 'no']])->count();
+                $ppbje_totals       = Ppbje::where([['maker_division', '=', $div],['cost_total', '>', 2000000],['approved', '=', 'yes'],['ppbje_note', '=', 'beli']])->count();
+                $ppbje_approving    = Ppbje::where([['maker_division', '=', $div],['cost_total', '>', 2000000],['approved', '=', 'no']])->count();
                 $ppbje_processes    = Ppbje::where([['cost_total', '>', 2000000],['ppbje_status', '=', 'berlangsung'],['ppbje_note', '=', 'beli']])->count();
                 $ppbje_finishes     = Ppbje::where([['cost_total', '>', 2000000],['ppbje_status', '=', 'selesai'],['ppbje_note', '=', 'beli']])->count();
                 $po_totals          = Purchase::where('purchase_total', '>', 2000000)->count();

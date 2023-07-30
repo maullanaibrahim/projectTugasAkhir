@@ -27,7 +27,7 @@
                                         <i class="bi bi-file-earmark-lock2"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6>{{ $approving }}</h6>
+                                        <h6>{{ $ppbje_approving }}</h6>
                                         <span class="text-secondary small pt-1 fw-bold">PPBJe</span>
                                     </div>
                                 </div>

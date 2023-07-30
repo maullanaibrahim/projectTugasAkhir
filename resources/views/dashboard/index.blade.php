@@ -5,13 +5,17 @@
             <div class="col-lg-12">
                 <div class="row">
                     @if(auth()->user()->division->division_name == "Procurement")
-                    @include('partials.dashboardPrc')
+                        @if(auth()->user()->position->position_name == "Manager")
+                        @include('partials.dashboardSMDir')
+                        @else
+                        @include('partials.dashboardPrc')
+                        @endif
                     @elseif(auth()->user()->division->division_name == "Asset Management")
-                    @include('partials.dashboardAsset')
+                        @include('partials.dashboardAsset')
                     @elseif(auth()->user()->division->division_name == "Maull Center")
-                    @include('partials.dashboardSMDir')
+                        @include('partials.dashboardSMDir')
                     @else
-                    @include('partials.dashboardOther')
+                        @include('partials.dashboardOther')
                     @endif
                 </div> <!-- End row -->
             </div> <!-- End col-lg-12 -->

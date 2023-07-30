@@ -1,15 +1,15 @@
 <!-- ======= Header ======= -->
     <nav class="header-nav ms-auto">
-        <ul class="d-flex align-items-center">
+        <ul class="align-items-center">
             <!-- Welcome message -->
             <li class="nav-item dropdown pe-3">
                 <p class="d-inline">Hai, </p>
-                <a class="nav-link nav-profile d-inline align-items-center" href="#" data-bs-toggle="dropdown">
+                <a class="nav-link nav-profile d-inline" href="#" data-bs-toggle="dropdown">
                     <span class="d-inline text-capitalize dropdown-toggle pe-3">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
                 </a><!-- End Welcome message -->
 
                 <!-- Profile Dropdown Items -->
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile ms-5 w-100">
+                <ul class="dropdown-menu dropdown-menu-arrow profile me-5 w-100">
                     <li class="dropdown-header">
                         <h6 class="text-primary text-capitalize fw-bold">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</h6>
                         <span class="text-capitalize">{{ auth()->user()->position->position_name }} {{ auth()->user()->division->division_name }}</span>

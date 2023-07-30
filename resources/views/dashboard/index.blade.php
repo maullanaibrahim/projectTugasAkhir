@@ -8,6 +8,8 @@
                     @include('partials.dashboardPrc')
                     @elseif(auth()->user()->division->division_name == "Asset Management")
                     @include('partials.dashboardAsset')
+                    @elseif(auth()->user()->division->division_name == "Maull Center")
+                    @include('partials.dashboardSMDir')
                     @else
                     @include('partials.dashboardOther')
                     @endif

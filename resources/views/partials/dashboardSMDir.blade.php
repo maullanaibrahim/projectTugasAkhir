@@ -1,8 +1,8 @@
-                    <!-- PPBJe Dibuat -->
+                    <!-- Total PPBJe -->
                     <div class="col-xxl-3 col-md-3">
                         <div class="card info-card primary-card">
                             <div class="card-body">
-                                <h5 class="card-title">PPBJe Masuk <span>| {{ $thisYear }}</span></h5>
+                                <h5 class="card-title">Total PPBJe <span>| {{ $thisYear }}</span></h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-file-text"></i>
@@ -15,51 +15,51 @@
                             </div> <!-- End card-body -->
                         </div> <!-- End success-card -->
                     </div> <!-- End col-xxl-3 col-xl-3 -->
-                    <!-- End PPBJe Masuk -->
+                    <!-- End Total PPBJe -->
 
-                    <!-- PPBJe Berlangsung -->
-                    <div class="col-xxl-3 col-md-3">
-                        <div class="card info-card warning-card">
-                            <div class="card-body">
-                                <h5 class="card-title">PPBJe Berlangsung <span>| {{ $thisYear }}</span></h5>
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-arrow-clockwise"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>{{ $ppbje_processes }}</h6>
-                                        <span class="text-warning small pt-1 fw-bold">PPBJe</span>
-                                    </div>
-                                </div>
-                            </div> <!-- End card-body -->
-                        </div> <!-- End success-card -->
-                    </div> <!-- End col-xxl-3 col-xl-3 -->
-                    <!-- End PPBJe Berlangsung -->
-
-                    <!-- Showing: PPBJe Selesai -->
-                    <div class="col-xxl-3 col-xl-3">
-                        <div class="card info-card success-card">
-                            <div class="card-body">
-                                <h5 class="card-title">PPBJe Selesai <span>| {{ $thisYear }}</span></h5>
-                                <div class="d-flex align-items-center">
-                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-file-earmark-check"></i>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>{{ $ppbje_finishes }}</h6>
-                                        <span class="text-success small pt-1 fw-bold">PPBJe</span>
-                                    </div>
-                                </div>
-                            </div> <!-- End card-body -->
-                        </div> <!-- End success-card -->
-                    </div> <!-- End col-xxl-3 col-xl-3 -->
-                    <!-- End PPBJe Selesai -->
-                    
-                    <!-- Showing: PO Belum Disetujui -->
+                    <!-- PPBJe Belum Disetujui -->
                     <div class="col-xxl-3 col-xl-3">
                         <div class="card info-card secondary-card">
                             <div class="card-body">
-                                <h5 class="card-title">PO Belum Disetujui <span>| {{ $thisYear }}</span></h5>
+                                <h5 class="card-title">Belum Disetujui <span>| {{ $thisYear }}</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-file-earmark-lock2"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{{ $ppbje_approving }}</h6>
+                                        <span class="text-secondary small pt-1 fw-bold">PPBJe</span>
+                                    </div>
+                                </div>
+                            </div> <!-- End card-body -->
+                        </div> <!-- End success-card -->
+                    </div> <!-- End col-xxl-3 col-xl-3 -->
+                    <!-- End PPBJe Belum Disetujui -->
+
+                    <!-- Total PO -->
+                    <div class="col-xxl-3 col-md-3">
+                        <div class="card info-card primary-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total PO <span>| {{ $thisYear }}</span></h5>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-file-text"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{{ $po_totals }}</h6>
+                                        <span class="text-primary small pt-1 fw-bold">Purchase Order</span>
+                                    </div>
+                                </div>
+                            </div> <!-- End card-body -->
+                        </div> <!-- End success-card -->
+                    </div> <!-- End col-xxl-3 col-xl-3 -->
+                    <!-- End PPBJe Masuk -->
+
+                    <!-- PO Belum Disetujui -->
+                    <div class="col-xxl-3 col-xl-3">
+                        <div class="card info-card secondary-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Belum Disetujui <span>| {{ $thisYear }}</span></h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-file-earmark-lock2"></i>

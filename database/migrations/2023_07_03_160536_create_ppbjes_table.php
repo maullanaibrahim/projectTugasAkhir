@@ -26,6 +26,7 @@ return new class extends Migration
             $table->date('date_of_need');
             $table->string('reason');
             $table->double('cost_total');
+            $table->string('approved');
             $table->string('ppbje_status');
             $table->string('ppbje_note')->nullable();
             $table->timestamps();

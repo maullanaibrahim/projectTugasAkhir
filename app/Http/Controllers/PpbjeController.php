@@ -22,7 +22,7 @@ class PpbjeController extends Controller
         $id2 = decrypt($id);
         $ppbje_type = "ASSET";
         if ($id2 == "Procurement"){
-            $ppbjes = Ppbje::where('ppbje_type', $ppbje_type)->get();
+            $ppbjes = Ppbje::where([['ppbje_type', $ppbje_type], ['approved', 'yes'], ['ppbje_note', 'beli']])->orWhere([['ppbje_type', $ppbje_type], ['maker_division', 'Procurement']])->get();
         }else{
             $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', $id2]])->get();
         }
@@ -41,7 +41,7 @@ class PpbjeController extends Controller
         $id2 = decrypt($id);
         $ppbje_type = "NON ASSET";
         if ($id2 == "Procurement"){
-            $ppbjes = Ppbje::where('ppbje_type', $ppbje_type)->get();
+            $ppbjes = Ppbje::where([['ppbje_type', $ppbje_type], ['approved', 'yes']])->orWhere([['ppbje_type', $ppbje_type], ['maker_division', 'Procurement']])->get();
         }else{
             $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', $id2]])->get();
         }
@@ -199,6 +199,7 @@ class PpbjeController extends Controller
         $data           = $request->all();
         $price_total    = $data['price_total'];
         $cost_total     = array_sum($price_total);
+        $approved       = "no";
         $ppbje_status   = "belum disetujui";
 
         $ppbje                      = new Ppbje;
@@ -215,12 +216,13 @@ class PpbjeController extends Controller
         $ppbje->ppbje_type          = $data['ppbje_type'];
         $ppbje->reason              = $data['reason'];
         $ppbje->cost_total          = $cost_total;
+        $ppbje->approved            = $approved;
         $ppbje->ppbje_status        = $ppbje_status;
         $ppbje->save();
 
         $ppbje_id       = $ppbje->id;
         $getDivision    = $ppbje->employee_division;
-        $status         = "BELUM DISETUJUI";
+        $status         = "belum disetujui";
 
         $ppbje_approval                 = new Ppbje_approval; 
         $ppbje_approval->ppbje_id       = $ppbje_id;

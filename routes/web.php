@@ -38,7 +38,7 @@ Route::post('/register', [RegisterController::class, 'store'])
    ->name('register.store');
 
 // Route Dashboard
-Route::get('/dashboard{id}', [DashboardController::class, 'index'])
+Route::get('/dashboard{div}-{pos}', [DashboardController::class, 'index'])
    ->middleware('auth')->name('dashboard');
 
 // Route PPBJe Asset

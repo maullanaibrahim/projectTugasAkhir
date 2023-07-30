@@ -862,9 +862,9 @@ h6 {
   background: #e0f8e9;
 }
 
-.dashboard .danger-card .card-icon {
-  color: #ca452e;
-  background: #f8e6e0;
+.dashboard .secondary-card .card-icon {
+  color: #555555;
+  background: #ececec;
 }
 
 /* Thead Table Header */

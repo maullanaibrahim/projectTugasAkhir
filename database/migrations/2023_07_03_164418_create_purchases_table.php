@@ -21,6 +21,8 @@ return new class extends Migration
             $table->double('purchase_total');
             $table->bigInteger('ppbje_id');
             $table->bigInteger('cost_id');
+            $table->string('approved');
+            $table->string('purchase_status')->nullable();
             $table->string('purchase_note')->nullable();
             $table->string('receiving_number')->nullable();
             $table->timestamps();

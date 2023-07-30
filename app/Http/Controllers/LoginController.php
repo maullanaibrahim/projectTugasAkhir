@@ -32,7 +32,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
  
             // Redirect to the dashboard view if login succeded
-            return redirect()->intended('/dashboard'.encrypt(auth()->user()->division->division_name) );
+            return redirect()->intended('/dashboard'.encrypt(auth()->user()->division->division_name).'-'.encrypt(auth()->user()->position->position_name) );
         }
  
         // Back to the login view if login failed

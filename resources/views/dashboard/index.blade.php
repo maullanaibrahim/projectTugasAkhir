@@ -6,14 +6,14 @@
                 <div class="row">
                     @if(auth()->user()->division->division_name == "Procurement")
                         @if(auth()->user()->position->position_name == "Manager")
-                        @include('partials.dashboardSMDir')
+                        @include('partials.dashboardApprover')
                         @else
                         @include('partials.dashboardPrc')
                         @endif
                     @elseif(auth()->user()->division->division_name == "Asset Management")
                         @include('partials.dashboardAsset')
                     @elseif(auth()->user()->division->division_name == "Maull Center")
-                        @include('partials.dashboardSMDir')
+                        @include('partials.dashboardApprover')
                     @else
                         @include('partials.dashboardOther')
                     @endif

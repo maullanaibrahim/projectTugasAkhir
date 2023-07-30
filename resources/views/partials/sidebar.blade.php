@@ -2,7 +2,7 @@
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard*') ? '' : 'collapsed' }}" href="/dashboard">
+                <a class="nav-link {{ Request::is('dashboard*') ? '' : 'collapsed' }}" href="/dashboard{{ encrypt(auth()->user()->division->division_name) }}">
                     <i class="bi bi-house-door"></i>
                     <span>Dashboard</span>
                 </a>

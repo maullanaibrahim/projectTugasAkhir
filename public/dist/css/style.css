@@ -863,6 +863,11 @@ h6 {
   background: #e0f8e9;
 }
 
+.dashboard .danger-card .card-icon {
+  color: #ca452e;
+  background: #f8e6e0;
+}
+
 /* Thead Table Header */
 .dashboard .thead {
   font-size: 14px;

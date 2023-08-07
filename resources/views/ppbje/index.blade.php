@@ -22,10 +22,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $title }} <span>| 2023</span></h5>
                                 <!-- Button for create new ppbje -->
-                                <a href="{{ Request::is('ppbje-asset'.$id) ? '/ppbje-asset/'.$id.'/create' : '/ppbje-nonAsset/'.$id.'/create' }}"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-circle me-1"></i> Buat PPBJe</button></a>
+                                <a href="{{ Request::is('ppbje-asset'.$div.'-'.$pos) ? '/ppbje-asset/'.$div.'-'.$pos.'/create' : '/ppbje-nonAsset/'.$div.'-'.$pos.'/create' }}"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-circle me-1"></i> Buat PPBJe</button></a>
 
                                 <!-- Showing data from ppbjes table -->
-                                <table class="table datatable">
+                                <table id="example" class="table datatable">
                                     <thead class="bg-light" style="height: 45px;">
                                         <tr>
                                             <th scope="col">TANGGAL</th>
@@ -40,7 +40,7 @@
                                     <tbody class="text-uppercase">
                                         @foreach($ppbjes as $ppbje)
                                         <tr>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($ppbje->ppbje_approval->updated_at)); }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($ppbje->updated_at)); }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->ppbje_number }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->cost->cost_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ "IDR ".number_format($ppbje->cost_total,2,',','.') }}</td>
@@ -49,21 +49,40 @@
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-success">{{ $ppbje->ppbje_status }}</td>
                                             @elseif($ppbje->ppbje_status == "berlangsung")
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $ppbje->ppbje_status }}</td>
-                                            @elseif($ppbje->ppbje_status == "cek asset")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $ppbje->ppbje_status }}</td>
                                             @elseif($ppbje->ppbje_status == "belum disetujui")
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-secondary">{{ $ppbje->ppbje_status }}</td>
-                                            @else
+                                            @elseif($ppbje->ppbje_status == "batal")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $ppbje->ppbje_status }}</td>
+                                            @elseif($ppbje->ppbje_status == "tidak disetujui")
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $ppbje->ppbje_status }}</td>
                                             @endif
                                             <td style="font-size:13px;">
                                                 <!-- Button for look detail PPBJe -->
-                                                <a href="/ppbje-{{ $sendurl }}{{ $id }}/{{ $ppbje->id }}"><button class="btn btn-primary btn-sm"><i class="bi bi-file-earmark-text-fill"></i></button></a>
-                                                @if($ppbje->maker_division != auth()->user()->division->division_name)
-                                                @else
+                                                <a href="/ppbje-{{ $sendurl }}{{ $div }}-{{ $pos }}/{{ $ppbje->id }}"><button class="btn btn-outline-secondary btn-sm"><i class="bi bi-file-earmark-text-fill"></i></button></a>
+                                                @if($ppbje->maker_division == auth()->user()->division->division_name)
+                                                    @if(auth()->user()->position->position_name == "Admin")
+                                                        @if($ppbje->ppbje_status == "batal")
+                                                        @elseif($ppbje->ppbje_status == "tidak disetujui")
+                                                        @else
+                                                        <!-- Button for canceling PPBJe -->
+                                                        <form action="/ppbje-{{ $sendurl }}{{ $div }}-{{ $pos }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                        @csrf
+                                                            <!-- Sending URL definition (Asset or Non Asset). -->
+                                                            <div class="col-md-3" hidden>
+                                                                <div class="form-floating">
+                                                                    <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $sendurl }}">
+                                                                    <input type="text" class="form-control" name="status" id="status" value="batal">
+                                                                </div>
+                                                            </div>
+                                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin membatalkan PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-x-circle"></i> Batal</button>
+                                                        </form>
+                                                        @endif
+                                                    @else
+                                                    @endif
+                                                @elseif(auth()->user()->division->division_name == "Procurement")
                                                 <!-- Button for canceling PPBJe -->
-                                                <form action="/ppbje-{{ $sendurl}}{{ $id }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
-                                                @csrf
+                                                <form action="/ppbje-{{ $sendurl}}{{ $div }}-{{ $pos }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                    @csrf
                                                     <!-- Sending URL definition (Asset or Non Asset). -->
                                                     <div class="col-md-3" hidden>
                                                         <div class="form-floating">
@@ -71,8 +90,8 @@
                                                             <input type="text" class="form-control" name="ppbje_status" id="ppbje_status" value="batal">
                                                         </div>
                                                     </div>
-                                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin membatalkan PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-x-circle"></i></button>
-                                                </form>
+                                                    <button class="btn btn-outline-primary btn-sm"><i class="bi bi-cart-plus-fill"></i> Buat PO</button>
+                                                 </form>
                                                 @endif
                                             </td>
                                         </tr>

@@ -78,7 +78,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Grafik PPBJe <span>| {{ $thisYear }}</span></h5>
+                                <h5 class="card-title">Grafik PPBJe Masuk <span>| {{ $thisYear }}</span></h5>
                                 <!-- Line Chart -->
                                 <canvas id="lineChart" style="max-height: 400px;"></canvas>
                                 <script>

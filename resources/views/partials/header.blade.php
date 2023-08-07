@@ -3,7 +3,7 @@
         <ul class="align-items-center">
             <!-- Welcome message -->
             <li class="nav-item dropdown pe-3">
-                <p class="d-inline">Hai, </p>
+                <p class="d-inline">Halo, </p>
                 <a class="nav-link nav-profile d-inline" href="#" data-bs-toggle="dropdown">
                     <span class="d-inline text-capitalize dropdown-toggle pe-3">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
                 </a><!-- End Welcome message -->

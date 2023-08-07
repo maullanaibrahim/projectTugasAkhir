@@ -9,12 +9,12 @@
                             <div class="card-body pb-0">
                                 <h5 class="card-title">{{ $title }}</h5>
 
-                                <form class="row g-3 mb-3" action="/ppbje-store{{ $id }}" method="POST">
+                                <form class="row g-3 mb-3" action="/ppbje-store{{ $div }}-{{ $pos }}" method="POST">
                                     @csrf
                                     <!-- Form PPBJe -->
                                     <div class="col-md-3" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ old('sendUrl', $sendurl.$id) }}">
+                                            <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ old('sendUrl', $sendurl.$div.'-'.$pos) }}">
                                             <label for="sendUrl">Send URL</label>
                                         </div>
                                     </div>
@@ -212,7 +212,7 @@
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary float-end ms-2"><i class="bi bi-save me-1"></i> Simpan</button>
                                         <button type="reset" class="btn btn-warning float-end ms-2"><i class="bi bi-arrow-counterclockwise me-1"></i> Reset</button>
-                                        <a href="{{ Request::is('ppbje-asset/'.$id.'/create') ? '/ppbje-asset'.$id : '/ppbje-nonAsset'.$id }}"><button type="button" class="btn btn-secondary float-start"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
+                                        <a href="{{ Request::is('ppbje-asset/'.$div.'-'.$pos.'/create') ? '/ppbje-asset'.$div.'-'.$pos : '/ppbje-nonAsset'.$div.'-'.$pos }}"><button type="button" class="btn btn-secondary float-start"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
                                     </div>
                                 </form><!-- End floating Labels Form -->
                             </div> <!-- End Card Body -->

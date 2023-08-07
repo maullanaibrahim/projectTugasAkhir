@@ -27,6 +27,12 @@
    <!-- Template Main CSS File -->
    <link href="dist/css/style.css" rel="stylesheet">
 
+   <!-- DataTables -->
+   <link href="dist/DataTables/datatables.min.css" rel="stylesheet">
+   <script src="dist/DataTables/datatables.min.js"></script>
+   <script src="dist/DataTables/DataTables-1.13.6/js/jquery.dataTables.min.js"></script>
+   <script src="dist/DataTables/DataTables-1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
    <script src="dist/js/config.js"></script>
    <script src="dist/js/jquery-3.6.3.min.js"></script>
    <script src="dist/js/sweetalert.min.js"></script>
@@ -37,6 +43,8 @@
       function zoom() {
          document.body.style.zoom = "90%";
       }
+
+      $('#example').DataTable();
    </script>
 
    <!-- =======================================================

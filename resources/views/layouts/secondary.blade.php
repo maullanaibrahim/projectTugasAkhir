@@ -29,6 +29,7 @@
 
     <script src="../dist/js/config.js"></script>
     <script src="../dist/js/jquery-3.6.3.min.js"></script>
+    <script src="../dist/js/sweetalert.min.js"></script>
 
     <script src="../dist/js/dashboards-analytics.js"></script>
 
@@ -89,6 +90,12 @@
 
     <!-- ======= Main Content ======= -->
     <main id="main" class="main">
+        <!-- Showing notification succeded for input new branch -->
+        @if(session()->has('success'))
+            <script>
+                swal("Berhasil!", "{{ session('success') }}", "success");
+            </script>
+        @endif
         <div class="pagetitle">
             <h1>{{ $path }}</h1>
             <nav>

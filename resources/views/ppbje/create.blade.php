@@ -360,6 +360,14 @@
                             var reverse = harga0.toString().split('').reverse().join(''),
                                 ribuan 	= reverse.match(/\d{1,3}/g);
                                 harga1	= ribuan.join('.').split('').reverse().join('');
+                                var qty = $('#qty').val();
+                                var harga = parseInt(response.price);
+                                var jumlah0 = qty*harga;
+                                var	reverse = jumlah0.toString().split('').reverse().join(''),
+                                ribuan 	= reverse.match(/\d{1,3}/g);
+                                jumlah1	= ribuan.join('.').split('').reverse().join('');
+                                $('#price_total').val(jumlah1);
+                                $('#jumlah').val(jumlah0);
                             $('#price').val(harga1);
                             $('#harga').val(harga0);
                             $('#qty').change(function(){

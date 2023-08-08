@@ -24,8 +24,12 @@ return new class extends Migration
             $table->string('note2')->nullable();
             $table->string('status3');
             $table->string('date3')->nullable();
-            $table->string('direktur');
+            $table->string('senior_manager');
             $table->string('note3')->nullable();
+            $table->string('status4');
+            $table->string('date4')->nullable();
+            $table->string('direktur');
+            $table->string('note4')->nullable();
             $table->timestamps();
         });
     }

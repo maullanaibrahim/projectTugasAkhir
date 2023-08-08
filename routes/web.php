@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PPBJeController;
+use App\Http\Controllers\PpbjeController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\BranchController;
@@ -88,6 +89,10 @@ Route::get('/ppbje-create8/{id}', [PPBJeController::class, 'getSeniorManager'])
    ->middleware('auth')->name('getSeniorManager');
 Route::get('/ppbje-create9/{id}', [PPBJeController::class, 'getDirector'])
    ->middleware('auth')->name('getDirector');
+
+// Route Purchase Order
+Route::resource('/purchases', PurchaseController::class)
+   ->middleware('auth');
 
 // Route User
 Route::resource('/users', UserController::class)

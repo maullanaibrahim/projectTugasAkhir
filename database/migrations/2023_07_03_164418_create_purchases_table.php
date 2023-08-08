@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->string('purchase_number')->unique();
-            $table->date('purchase_date');
             $table->date('purchase_expired');
             $table->string('purchase_maker');
             $table->string('supplier_name');
@@ -24,7 +23,6 @@ return new class extends Migration
             $table->string('approved');
             $table->string('purchase_status')->nullable();
             $table->string('purchase_note')->nullable();
-            $table->string('receiving_number')->nullable();
             $table->timestamps();
         });
     }

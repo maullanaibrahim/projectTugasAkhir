@@ -6,8 +6,10 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
-                            <div class="card-body pt-3">
-                                <!-- Button for create new branch -->
+                            <div class="card-body">
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-people me-2"></i>{{ $title }}</h5>
+
+                                <!-- Button for create new employee -->
                                 <a href="/employees/create"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-lg me-1"></i> Tambah</button></a>
 
                                 <!-- Showing data from employees table -->

@@ -21,7 +21,7 @@
                         <a href="/register">
                             <button class="dropdown-item d-flex align-items-center">
                                 <i class="bi bi-person-plus"></i>
-                                <span>Tambah Akun</span>
+                                <span>Registrasi Akun</span>
                             </button>
                         </a>
                     </li>

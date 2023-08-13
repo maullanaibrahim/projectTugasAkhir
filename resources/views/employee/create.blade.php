@@ -7,7 +7,7 @@
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pb-0">
-                                <h5 class="card-title">{{ $title }}</h5>
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-people me-2">+</i>{{ $title }}</h5>
                                 
                                 <!-- Showing form input new employee -->
                                 <form class="row g-3 mb-3" action="/employees" method="POST">
@@ -91,6 +91,10 @@
                                             <input type="text" class="form-control text-uppercase" name="company" id="company" value="PT. Maulana Sukses Selalu" required>
                                             <label for="perusahaan">Perusahaan</label>
                                         </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <p class="border-bottom mt-2 mb-0"></p>
                                     </div>
                                     
                                     <div class="col-md-12">

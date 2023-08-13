@@ -6,8 +6,10 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
-                            <div class="card-body pt-3">
-                                <!-- Button for create new Division -->
+                            <div class="card-body">
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-diagram-3 me-2"></i>{{ $title }}</h5>
+
+                                <!-- Button for create new division -->
                                 <a href="/divisions/create"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-lg me-1"></i> Tambah</button></a>
 
                                 <!-- Showing data from divisions table -->

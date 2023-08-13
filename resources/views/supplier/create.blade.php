@@ -7,7 +7,7 @@
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pb-0">
-                                <h5 class="card-title">{{ $title }}</h5>
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-truck me-2">+</i>{{ $title }}</h5>
 
                                 <!-- Showing form input new supplier -->
                                 <form class="row g-3 mb-3" action="/suppliers" method="POST">
@@ -100,6 +100,11 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                    <div class="col-md-12">
+                                        <p class="border-bottom mt-2 mb-0"></p>
+                                    </div>
+
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary float-end ms-2"><i class="bi bi-save2 me-1"></i> Simpan</button>
                                         <button type="reset" class="btn btn-warning float-end ms-2"><i class="bi bi-trash me-1"></i> Reset</button>

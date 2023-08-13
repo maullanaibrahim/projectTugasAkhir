@@ -80,10 +80,9 @@
       
       <!-- Title Bar -->
       <div class="pagetitle">
-         <h1>{{ $path }}</h1>
          <nav>
                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="/dashboard"><i class="bi bi-house-door"></i></a></li>
+                  <li class="breadcrumb-item"><a href="/dashboard{{ encrypt(auth()->user()->division->division_name) }}-{{ encrypt(auth()->user()->position->position_name) }}"><i class="bi bi-house-door"></i></a></li>
                   <li class="breadcrumb-item active">{{ $path }}</li>
                </ol>
          </nav>

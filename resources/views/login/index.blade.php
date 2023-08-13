@@ -51,7 +51,7 @@
 
                                     <!-- Login Button -->
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100 rounded-5" type="submit">MASUK</button>
+                                        <button class="btn btn-primary w-100 rounded-5" type="submit">Masuk<i class="bi bi-box-arrow-in-right ms-2"></i></button>
                                     </div> <!-- End Login Button -->
                                         
                                     <!-- Lupa Password -->

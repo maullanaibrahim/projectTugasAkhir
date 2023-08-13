@@ -103,9 +103,9 @@ class ItemController extends Controller
         $types   = ["ASSET", "NON ASSET"];
 
         return view('item.edit', [
-            "title"     => "Tambah Data Item",
+            "title"     => "Ubah Data Item",
             "path"      => "Data Item",
-            "path2"     => "Tambah",
+            "path2"     => "Ubah",
             "suppliers" => Supplier::all(),
             "item"      => $item,
             "units"     => $units,

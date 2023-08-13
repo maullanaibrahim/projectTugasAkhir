@@ -6,8 +6,10 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
-                            <div class="card-body pt-3">
-                                <!-- Create New Supplier Button -->
+                            <div class="card-body">
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-truck me-2"></i>{{ $title }}</h5>
+
+                                <!-- Button for create new branch -->
                                 <a href="/suppliers/create"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-lg me-1"></i> Tambah</button></a>
 
                                 <!-- Showing Supplier Table -->

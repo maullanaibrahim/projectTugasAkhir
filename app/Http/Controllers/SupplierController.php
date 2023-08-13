@@ -99,9 +99,9 @@ class SupplierController extends Controller
         $taxes      = ["PPN", "NON PPN"];
 
         return view('supplier.edit', [
-            "title"     => "Edit Data Supplier",
+            "title"     => "Ubah Data Supplier",
             "path"      => "Data Supplier",
-            "path2"     => "Edit",
+            "path2"     => "Ubah",
             "terms"     => $terms,
             "taxes"     => $taxes,
             "supplier"  => $supplier

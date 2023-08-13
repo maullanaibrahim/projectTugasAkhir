@@ -6,15 +6,18 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
-                            <div class="card-body pt-3">
-                                <a href="/register"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-person-plus me-1"></i> Tambah</button></a>
+                            <div class="card-body">
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-person-circle me-2"></i>{{ $title }}</h5>
 
+                                <!-- Button for Register new User -->
+                                <a href="/register"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-person-plus me-1"></i> Registrasi</button></a>
+                                
                                 <!-- Showing data from employees table -->
                                 <table class="table datatable">
                                     <thead class="bg-light" style="height: 45px;">
                                         <tr>
                                             <th scope="col">NIK</th>
-                                            <th scope="col">NAMA USER</th>
+                                            <th scope="col">NAMA PENGGUNA</th>
                                             <th scope="col">JABATAN</th>
                                             <th scope="col">CABANG / DIVISI</th>
                                             <th scope="col">AKSI</th>

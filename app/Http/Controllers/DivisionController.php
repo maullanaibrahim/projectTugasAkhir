@@ -95,9 +95,9 @@ class DivisionController extends Controller
         $division_name  = $division->division_name;
 
         return view('division.edit', [
-            "title"     => "Edit Data Divisi",
+            "title"     => "Ubah Data Divisi",
             "path"      => "Data Divisi",
-            "path2"     => "Edit",
+            "path2"     => "Ubah",
             "cost"      => Cost::where('cost_name', $division_name)->first(),
             "locations" => $locations,
             "division"  => $division

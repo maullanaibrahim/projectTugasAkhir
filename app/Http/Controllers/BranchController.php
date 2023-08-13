@@ -103,9 +103,9 @@ class BranchController extends Controller
         $branch_name    = $branch->branch_name;
 
         return view('branch.edit', [
-            "title"     => "Edit Data Cabang",
+            "title"     => "Ubah Data Cabang",
             "path"      => "Data Cabang",
-            "path2"     => "Edit",
+            "path2"     => "Ubah",
             "regionals" => $regionals,
             "areas"     => $areas,
             "statuses"  => $statuses,

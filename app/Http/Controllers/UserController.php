@@ -15,8 +15,8 @@ class UserController extends Controller
     {
         $users = User::all();
         return view('user.index', [
-            "title" => "Data User",
-            "path"  => "Data User",
+            "title" => "Data Akun",
+            "path"  => "Data Akun",
             "users" => $users
         ]);
     }

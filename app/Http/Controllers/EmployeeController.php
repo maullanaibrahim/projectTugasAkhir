@@ -85,9 +85,9 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         return view('employee.edit', [
-            "title"     => "Edit Data Karyawan",
+            "title"     => "Ubah Data Karyawan",
             "path"      => "Data Karyawan",
-            "path2"     => "Edit",
+            "path2"     => "Ubah",
             "positions" => Position::orderBy('position_name', 'ASC')->get(),
             "costs"     => Cost::orderBy('cost_name', 'ASC')->get(),
             "employee"  => $employee

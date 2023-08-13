@@ -45,7 +45,7 @@
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('users*') ? '' : 'collapsed' }}" href="/users">
                     <i class="bi bi-person-circle"></i>
-                    <span>Data User</span>
+                    <span>Data Akun</span>
                 </a>
             </li><!-- End Data Karyawan -->
             

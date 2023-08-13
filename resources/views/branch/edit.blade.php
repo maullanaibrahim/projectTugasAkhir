@@ -6,8 +6,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
-                            <div class="card-body pb-0">
-                                <h5 class="card-title">{{ $title }}</h5>
+                            <div class="card-body">
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-pencil-square me-2"></i>{{ $title }}</h5>
 
                                 <!-- Showing form input new branch -->
                                 <form class="row g-3 mb-3" action="/branches/{{ $branch->id }}" method="POST">
@@ -127,6 +127,10 @@
                                             </div>
                                             @enderror
                                         </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <p class="border-bottom mt-2 mb-0"></p>
                                     </div>
                                     
                                     <div class="col-md-12">

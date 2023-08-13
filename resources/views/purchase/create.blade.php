@@ -7,7 +7,7 @@
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pb-0">
-                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-cart me-2"></i>{{ $title }}</h5>
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-cart-plus me-2"></i>{{ $title }}</h5>
 
                                 <!-- Showing form input new supplier -->
                                 <form class="row g-3 mb-3" action="/purchases" method="POST">

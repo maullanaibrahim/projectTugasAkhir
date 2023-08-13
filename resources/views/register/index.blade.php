@@ -156,11 +156,11 @@
 
                                     <!-- Register Button -->
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100 rounded-5" id="btnRegister" type="submit">DAFTAR</button>
+                                        <button class="btn btn-primary w-100 rounded-5" id="btnRegister" type="submit"><i class="bi bi-save2 me-2"></i>Simpan</button>
                                     </div> <!-- End Register Button -->
 
                                     <div class="col-12">
-                                        <p class="small mb-0 text-center"><a href="/dashboard{{ encrypt(auth()->user()->division->division_name) }}-{{ encrypt(auth()->user()->position->position_name) }}">Kembali </a>ke Dashboard</p>
+                                        <p class="small mb-0 text-center"><a href="/users"><i class="bi bi-box-arrow-in-left me-2"></i>Kembali </a></p>
                                     </div>
                                 </form><!-- End Register Form -->
                             </div> <!-- End card-body -->

@@ -8,7 +8,26 @@
                         <div class="card recent-sales overflow-auto">
                             <div class="card-body pt-4">
                                 <a href="/ppbje{{ $url }}"><button type="button" class="btn btn-outline-secondary shadow-sm"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
-                                <a href="/ppbje"><button type="button" class="btn btn-outline-primary shadow-sm ms-1"><i class="bi bi-printer-fill me-1"></i> Cetak</button></a>
+                                <a href="/ppbje"><button type="button" class="btn btn-outline-success shadow-sm ms-1"><i class="bi bi-printer-fill me-1"></i> Cetak</button></a>
+                                @if(auth()->user()->division->division_name == "Procurement")
+                                    <!-- Button for canceling PPBJe -->
+                                    <form action="/ppbje-{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                        @csrf
+                                        <!-- Sending URL definition (Asset or Non Asset). -->
+                                        <div class="btn-group ms-1" role="group">
+                                            <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
+                                            <input type="text" class="form-control" name="ppbje_status" id="ppbje_status" value="batal" hidden>
+                                            <button type="button" class="btn btn-primary shadow-sm dropdown-toggle rounded" data-bs-toggle="dropdown">
+                                                <i class="bi bi-cart-plus-fill"></i> Buat PO
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                @foreach($getSuppliers as $getSupplier)
+                                                <li><a class="dropdown-item" href="/purchases/create{{ encrypt($ppbje->id) }}-{{ encrypt($getSupplier->supplier->id) }}">{{ strtoupper($getSupplier->supplier->supplier_name) }}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </form>
+                                @endif
                                 @if($ppbje->ppbje_status == "belum disetujui")
                                 <div class="badge bg-secondary float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
                                 @elseif($ppbje->ppbje_status == "berlangsung")

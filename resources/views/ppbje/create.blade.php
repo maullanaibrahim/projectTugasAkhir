@@ -7,7 +7,7 @@
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pb-0">
-                                <h5 class="card-title">{{ $title }}</h5>
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-file-text me-2"></i>{{ $title }}</h5>
 
                                 <form class="row g-3 mb-3" action="/ppbje-store{{ $div }}-{{ $pos }}" method="POST">
                                     @csrf
@@ -143,7 +143,9 @@
 
                                     <!-- Form Detail PPBJe -->
                                     <div class="col-md-12">
-                                        <table class="table table-bordered w-auto">
+                                        <p class="border-bottom">Detail Barang</p>
+
+                                        <table class="table table-bordered w-auto m-0">
                                             <thead>
                                                 <tr class="text-center">
                                                 <th class="col-md-4">NAMA BARANG</th>
@@ -184,6 +186,7 @@
                                                         </div>
                                                         @enderror
                                                     </td>
+                                                    <td hidden><input type="text" name="supplier_id[]" id="supplier_id" class="form-control border-0 text-center bg-light" readonly></td>
                                                     <td><input type="text" name="unit[]" id="satuan" class="form-control border-0 text-center bg-light" readonly></td>
                                                     <td><input type="text" name="harga[]" id="price" class="form-control border-0 text-center bg-light" readonly></td>
                                                     <td hidden><input type="text" name="price[]" id="harga" class="form-control border-0 text-center bg-light"></td>
@@ -196,6 +199,7 @@
                                         </table>
                                     </div>
                                     <div class="col-12">
+                                        <p class="border-bottom">Keterangan</p>
                                         <div class="form-floating">
                                             <textarea class="form-control text-uppercase @error('reason') is-invalid @enderror" placeholder="Alasan Permintaan" name="reason" id="alasan" style="height: 100px;">{{ old('reason') }}</textarea>
                                             <label for="alasan">Alasan Permintaan</label>
@@ -209,6 +213,9 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-md-12">
+                                        <p class="border-bottom mt-2 mb-0"></p>
+                                    </div>
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary float-end ms-2"><i class="bi bi-save me-1"></i> Simpan</button>
                                         <button type="reset" class="btn btn-warning float-end ms-2"><i class="bi bi-arrow-counterclockwise me-1"></i> Reset</button>
@@ -354,20 +361,21 @@
                     dataType: 'json',
                     success: function(response){
                         if(response != null){
+                            $('#supplier_id').val(response.supplier_id);
                             $('#harga').val(response.price);
                             $('#satuan').val(response.unit);
                             var harga0 = parseInt(response.price);
                             var reverse = harga0.toString().split('').reverse().join(''),
                                 ribuan 	= reverse.match(/\d{1,3}/g);
                                 harga1	= ribuan.join('.').split('').reverse().join('');
-                                var qty = $('#qty').val();
-                                var harga = parseInt(response.price);
-                                var jumlah0 = qty*harga;
-                                var	reverse = jumlah0.toString().split('').reverse().join(''),
-                                ribuan 	= reverse.match(/\d{1,3}/g);
-                                jumlah1	= ribuan.join('.').split('').reverse().join('');
-                                $('#price_total').val(jumlah1);
-                                $('#jumlah').val(jumlah0);
+                            var qty = $('#qty').val();
+                            var harga = parseInt(response.price);
+                            var jumlah0 = qty*harga;
+                            var	reverse = jumlah0.toString().split('').reverse().join(''),
+                            ribuan 	= reverse.match(/\d{1,3}/g);
+                            jumlah1	= ribuan.join('.').split('').reverse().join('');
+                            $('#price_total').val(jumlah1);
+                            $('#jumlah').val(jumlah0);
                             $('#price').val(harga1);
                             $('#harga').val(harga0);
                             $('#qty').change(function(){
@@ -392,14 +400,15 @@
                 $('#tBody').append(
                 '<tr>'+
                     '<td>'+
-                        '<select class="form-select border-0 text-uppercase" name="item_id[]" id="item_id'+i+'">'+
+                        '<select class="form-select border-0" name="item_id[]" id="item_id'+i+'">'+
                             '<option selected disabled>Pilih Nama Item..<\/option>'+
                             '@foreach($items as $item)'+
-                            '<option value="{{ $item->id }}">{{ $item->item_name }}<\/option>'+
+                            '<option value="{{ $item->id }}">{{ strtoupper($item->item_name) }}<\/option>'+
                             '@endforeach'+
                         '<\/select>'+
                     '<\/td>'+
                     '<td><input type="number" name="quantity[]" id="qty'+i+'" class="form-control border-0 text-center"></td>'+
+                    '<td hidden><input type="number" name="supplier_id[]" id="supplier_id'+i+'" class="form-control border-0 text-center"></td>'+
                     '<td><input type="text" name="unit[]" id="satuan'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
                     '<td><input type="text" name="harga[]" id="price'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
                     '<td hidden><input type="text" name="price[]" id="harga'+i+'" class="form-control border-0 text-center bg-light"></td>'+
@@ -420,12 +429,21 @@
                             'dataType: "json",'+
                             'success: function(response){'+
                                 'if(response != null){'+
+                                    '$("#supplier_id'+i+'").val(response.supplier_id);'+
                                     '$("#harga'+i+'").val(response.price);'+
                                     '$("#satuan'+i+'").val(response.unit);'+
                                     'var harga0 = parseInt(response.price);'+
                                     'var reverse = harga0.toString().split("").reverse().join(""),'+
                                     'ribuan 	= reverse.match('+/\d{1,3}/g+');'+
                                     'harga1	= ribuan.join(".").split("").reverse().join("");'+
+                                    'var qty = $("#qty'+i+'").val();'+
+                                    'var harga = parseInt(response.price);'+
+                                    'var jumlah0 = qty*harga;'+
+                                    'var reverse = jumlah0.toString().split("").reverse().join(""),'+
+                                    'ribuan 	= reverse.match('+/\d{1,3}/g+');'+
+                                    'jumlah1	= ribuan.join(".").split("").reverse().join("");'+
+                                    '$("#price_total'+i+'").val(jumlah1);'+
+                                    '$("#jumlah'+i+'").val(jumlah0);'+
                                     '$("#price'+i+'").val(harga1);'+
                                     '$("#harga'+i+'").val(harga0);'+
                                     '$("#qty'+i+'").change(function(){'+

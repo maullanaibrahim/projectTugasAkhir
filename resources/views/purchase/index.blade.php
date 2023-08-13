@@ -6,8 +6,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
-                            <div class="card-body pt-3">
-                                <!-- Create New Supplier Button -->
+                            <div class="card-body">
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-cart me-2"></i>{{ $title }}</h5>
 
                                 <!-- Showing Supplier Table -->
                                 <table class="table datatable">
@@ -18,6 +18,7 @@
                                             <th scope="col">BEBAN BIAYA</th>
                                             <th scope="col">NAMA SUPPLIER</th>
                                             <th scope="col">PEMBUAT</th>
+                                            <th scope="col">STATUS</th>
                                             <th scope="col">AKSI</th>
                                         </tr>
                                     </thead>
@@ -25,15 +26,26 @@
                                         @foreach($purchases as $purchase)
                                         <tr>
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($purchase->created_at)); }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $purchase->puchase_number }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $purchase->purchase_number }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->cost->cost_name }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $purchase->supplier_name }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $purchase->supplier->supplier_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->purchase_maker }}</td>
+                                            @if($purchase->purchase_status == "selesai")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-success">{{ $purchase->purchase_status }}</td>
+                                            @elseif($purchase->purchase_status == "berlangsung")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $purchase->purchase_status }}</td>
+                                            @elseif($purchase->purchase_status == "belum disetujui")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-secondary">{{ $purchase->purchase_status }}</td>
+                                            @elseif($purchase->purchase_status == "batal")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $purchase->purchase_status }}</td>
+                                            @elseif($purchase->purchase_status == "tidak disetujui")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $purchase->purchase_status }}</td>
+                                            @endif
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
-                                                <a href="/suppliers/{{ $supplier->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                <a href="/purchases/{{ $purchase->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
                                                 <!-- Button for delete data
-                                                <form action="/suppliers/{{ $supplier->id }}" method="post" class="d-inline">
+                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn btn-danger btn-sm" onclick="askDelete()"><i class="bi bi-trash-fill"></i></button>

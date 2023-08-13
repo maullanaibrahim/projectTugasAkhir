@@ -14,12 +14,15 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->string('purchase_number')->unique();
-            $table->date('purchase_expired');
+            $table->string('purchase_expired');
             $table->string('purchase_maker');
-            $table->string('supplier_name');
+            $table->bigInteger('supplier_id');
             $table->double('purchase_total');
             $table->bigInteger('ppbje_id');
             $table->bigInteger('cost_id');
+            $table->string('shipping_address');
+            $table->string('shipping_date');
+            $table->string('receiver_pic');
             $table->string('approved');
             $table->string('purchase_status')->nullable();
             $table->string('purchase_note')->nullable();

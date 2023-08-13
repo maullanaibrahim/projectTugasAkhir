@@ -19,6 +19,11 @@ class Purchase extends Model
     {
         return $this->hasOne('App\Models\Purchase_approval');
     }
+
+    public function supplier()
+    {
+        return $this->belongsTo('App\Models\Supplier');
+    }
     
     public function ppbje()
     {

@@ -160,7 +160,7 @@
                                     </div> <!-- End Register Button -->
 
                                     <div class="col-12">
-                                        <p class="small mb-0 text-center"><a href="/">Kembali </a>ke Dashboard</p>
+                                        <p class="small mb-0 text-center"><a href="/dashboard{{ encrypt(auth()->user()->division->division_name) }}-{{ encrypt(auth()->user()->position->position_name) }}">Kembali </a>ke Dashboard</p>
                                     </div>
                                 </form><!-- End Register Form -->
                             </div> <!-- End card-body -->

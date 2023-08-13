@@ -271,6 +271,7 @@ class PpbjeController extends Controller
                 $data2 = array(
                 'ppbje_id'      => $ppbje->id,
                 'item_id'       => $data['item_id'][$item],
+                'supplier_id'   => $data['supplier_id'][$item],
                 'quantity'      => $data['quantity'][$item],
                 'price'         => $data['price'][$item],
                 'price_total'   => $data['price_total'][$item]
@@ -290,7 +291,8 @@ class PpbjeController extends Controller
     {
         $get_id         = $ppbje->id;
         $ppbje_detail   = Ppbje_detail::where('ppbje_id', $get_id)->get();
-        $jml_barang     = count($ppbje_detail);
+        $getSuppliers   = Ppbje_detail::where([['ppbje_id', $get_id], ['purchase_id', NULL]])->select('supplier_id')->distinct()->get();
+        // $jml_barang     = count($ppbje_detail);
         $no             = 1;
 
         if($ppbje['ppbje_type'] == "ASSET"){
@@ -302,7 +304,8 @@ class PpbjeController extends Controller
                 "path2"           => "Detail",
                 "ppbje"           => $ppbje,
                 "ppbje_details"   => $ppbje_detail,
-                "jml_barang"      => $jml_barang,
+                "getSuppliers"    => $getSuppliers,
+                // "jml_barang"      => $jml_barang,
                 'no'              => $no
             ]);
         }else{
@@ -314,7 +317,8 @@ class PpbjeController extends Controller
                 "path2"           => "Detail",
                 "ppbje"           => $ppbje,
                 "ppbje_details"   => $ppbje_detail,
-                "jml_barang"      => $jml_barang,
+                "getSuppliers"    => $getSuppliers,
+                // "jml_barang"      => $jml_barang,
                 'no'              => $no
             ]);
         }

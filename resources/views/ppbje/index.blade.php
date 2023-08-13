@@ -6,21 +6,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card recent-sales overflow-auto">
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">2023</a></li>
-                                    <li><a class="dropdown-item" href="#">2022</a></li>
-                                    <li><a class="dropdown-item" href="#">2021</a></li>
-                                </ul>
-                            </div>
-
                             <div class="card-body">
-                                <h5 class="card-title">{{ $title }} <span>| 2023</span></h5>
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-file-text me-2"></i>{{ $title }}</h5>
                                 <!-- Button for create new ppbje -->
                                 <a href="{{ Request::is('ppbje-asset'.$div.'-'.$pos) ? '/ppbje-asset/'.$div.'-'.$pos.'/create' : '/ppbje-nonAsset/'.$div.'-'.$pos.'/create' }}"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-circle me-1"></i> Buat PPBJe</button></a>
 
@@ -79,19 +66,6 @@
                                                         @endif
                                                     @else
                                                     @endif
-                                                @elseif(auth()->user()->division->division_name == "Procurement")
-                                                <!-- Button for canceling PPBJe -->
-                                                <form action="/ppbje-{{ $sendurl}}{{ $div }}-{{ $pos }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
-                                                    @csrf
-                                                    <!-- Sending URL definition (Asset or Non Asset). -->
-                                                    <div class="col-md-3" hidden>
-                                                        <div class="form-floating">
-                                                            <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $sendurl }}">
-                                                            <input type="text" class="form-control" name="ppbje_status" id="ppbje_status" value="batal">
-                                                        </div>
-                                                    </div>
-                                                    <button class="btn btn-outline-primary btn-sm"><i class="bi bi-cart-plus-fill"></i> Buat PO</button>
-                                                 </form>
                                                 @endif
                                             </td>
                                         </tr>

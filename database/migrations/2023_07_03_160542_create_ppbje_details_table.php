@@ -15,9 +15,12 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('ppbje_id');
             $table->bigInteger('item_id');
+            $table->bigInteger('supplier_id');
             $table->double('quantity');
             $table->double('price');
             $table->double('price_total');
+            $table->bigInteger('purchase_id')->nullable();
+            $table->bigInteger('receiving_id')->nullable();
             $table->timestamps();
         });
     }

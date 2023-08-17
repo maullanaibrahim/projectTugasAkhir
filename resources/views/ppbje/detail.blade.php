@@ -9,8 +9,9 @@
                             <div class="card-body pt-4">
                                 <a href="/ppbje{{ $url }}"><button type="button" class="btn btn-outline-secondary shadow-sm"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
                                 <a href="/ppbje"><button type="button" class="btn btn-outline-success shadow-sm ms-1"><i class="bi bi-printer-fill me-1"></i> Cetak</button></a>
-                                @if(auth()->user()->division->division_name == "Procurement")
-                                    <!-- Button for canceling PPBJe -->
+                                    @can('procurement')
+                                    @if($ppbje->approved == "yes")
+                                    <!-- Button for Create Purchase Order -->
                                     <form action="/ppbje-{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
                                         @csrf
                                         <!-- Sending URL definition (Asset or Non Asset). -->
@@ -27,11 +28,15 @@
                                             </ul>
                                         </div>
                                     </form>
-                                @endif
+                                    @else
+                                    @endif
+                                    @endcan
                                 @if($ppbje->ppbje_status == "belum disetujui")
                                 <div class="badge bg-secondary float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
                                 @elseif($ppbje->ppbje_status == "berlangsung")
                                 <div class="badge bg-warning float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
+                                @elseif($ppbje->ppbje_status == "menunggu kiriman")
+                                <div class="badge bg-primary float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
                                 @elseif($ppbje->ppbje_status == "selesai")
                                 <div class="badge bg-success float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
                                 @elseif($ppbje->ppbje_status == "batal")
@@ -96,15 +101,15 @@
                                         <tr class="text-center text-uppercase" style="background-color:#fff;">
                                             <td>{{ $no++ }}.</td>
                                             <td class="col-5" style="text-align:left">{{ $ppbje_detail->item->item_name }}</td>
-                                            <td>{{ $ppbje_detail->quantity }}</td>
+                                            <td>{{ number_format($ppbje_detail->quantity,0,',','.') }}</td>
                                             <td>{{ $ppbje_detail->item->unit }}</td>
-                                            <td>{{ "IDR " . number_format($ppbje_detail->price,2,',','.') }}</td>
-                                            <td>{{ "IDR " . number_format($ppbje_detail->price_total,2,',','.') }}</td>
+                                            <td><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price,2,',','.') }}</div></td>
+                                            <td><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price_total,2,',','.') }}</div></td>
                                         </tr>
                                         @endforeach
                                         <tr style="background-color:#fff;">
                                             <td colspan="5"><center><b>JUMLAH TOTAL</b></center></td>
-                                            <td class="col-2" colspan="2" style="text-align:left"><center><b>{{ "IDR " . number_format($ppbje->cost_total,2,',','.') }}</b></center></td>
+                                            <td class="w-auto" colspan="2" style="text-align:left"><center><b><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje->cost_total,2,',','.') }}</div></b></center></td>
                                         </tr>
                                     </tbody>
                                 </table>

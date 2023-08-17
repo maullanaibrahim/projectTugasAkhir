@@ -67,11 +67,11 @@
                                             <thead>
                                                 <tr class="text-center">
                                                     <th colspan="2">Barang</th>
-                                                    <th rowspan="2" class="col-md-1 align-middle">Qty</th>
-                                                    <th rowspan="2" class="col-md-1 align-middle">Satuan</th>
-                                                    <th rowspan="2" class="col-md-2 align-middle">Harga Satuan</th>
-                                                    <th rowspan="2" class="col-md-2 align-middle">Diskon</th>
-                                                    <th rowspan="2" class="col-md-2 align-middle">Total Harga</th>
+                                                    <th rowspan="2" class="align-middle">Qty</th>
+                                                    <th rowspan="2" class="align-middle">Satuan</th>
+                                                    <th rowspan="2" class="align-middle">Harga Satuan</th>
+                                                    <th rowspan="2" class="align-middle">Diskon</th>
+                                                    <th rowspan="2" class="align-middle">Total Harga</th>
                                                 </tr>    
                                                 <tr class="text-center">
                                                     <th>Kode</th>
@@ -83,26 +83,26 @@
                                                 <tr style="height:60px;">
                                                     <td class="text-uppercase">{{ $ppbje_detail->item->item_code }}</td>
                                                     <td class="text-uppercase">{{ $ppbje_detail->item->item_name }}</td>
-                                                    <td class="text-uppercase text-center">{{ $ppbje_detail->quantity }}</td>
+                                                    <td class="text-uppercase text-center">{{ number_format($ppbje_detail->quantity,0,',','.') }}</td>
                                                     <td class="text-uppercase text-center">{{ $ppbje_detail->item->unit }}</td>
-                                                    <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price,2,',','.') }}</div></td>
-                                                    <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->discount,2,',','.') }}</div></td>
-                                                    <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price_total,2,',','.') }}</div></td>
+                                                    <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price,2,'.',',') }}</div></td>
+                                                    <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->discount,2,'.',',') }}</div></td>
+                                                    <td class="text-uppercase text-center w-auto"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price_total,2,'.',',') }}</div></td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
                                             <tbody>
                                                 <tr>
-                                                    <td colspan="6" class="text-uppercase text-end pe-3"><b>SUB TOTAL</b></td>
-                                                    <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($costTotal,2,',','.') }}</div></td>
+                                                    <td colspan="6" class="text-uppercase text-end pe-3 w-auto"><b>SUB TOTAL</b></td>
+                                                    <td class="text-uppercase text-center w-auto"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($costTotal,2,'.',',') }}</div></td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="6" class="text-uppercase text-end pe-3"><b>PPN (11%)</b></td>
-                                                    <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppn,2,',','.') }}</div></td>
+                                                    <td colspan="6" class="text-uppercase text-end pe-3 w-auto"><b>PPN (11%)</b></td>
+                                                    <td class="text-uppercase text-center w-auto"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppn,2,'.',',') }}</div></td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="6" class="text-uppercase text-end pe-3"><b>GRAND TOTAL</b></td>
-                                                    <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($costTotal+$ppn,2,',','.') }}</div></td>
+                                                    <td colspan="6" class="text-uppercase text-end pe-3 w-auto"><b>GRAND TOTAL</b></td>
+                                                    <td class="text-uppercase text-center w-auto"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($costTotal+$ppn,2,'.',',') }}</div></td>
                                                 </tr>
                                             </tbody>
                                         </table>

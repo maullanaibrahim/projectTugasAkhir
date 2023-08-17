@@ -74,7 +74,7 @@ class ItemController extends Controller
         $dataItem = array(
             'item_code'     => $request['item_code'],
             'item_name'     => $request['item_name'],
-            'price'         => str_replace('.','',$request->price),
+            'price'         => str_replace(',','',$request->price),
             'unit'          => $request['unit'],
             'supplier_id'   => $request['supplier_id'],
             'item_type'     => $request['item_type']

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('item_code')->unique();
             $table->string('item_preview')->nullable();
             $table->string('item_name');
-            $table->double('price');
+            $table->decimal('price', 12, 2);
             $table->string('unit');
             $table->bigInteger('supplier_id');
             $table->string('item_type');

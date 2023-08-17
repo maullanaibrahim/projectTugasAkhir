@@ -41,7 +41,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->item_code }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->item_name }}</td>
                                             @can('procurement')
-                                            <td class="text-uppercase" style="font-size:13px;">{{ "IDR ".number_format($item->price,2,',','.') }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($item->price,2,'.',',') }}</div></td>
                                             @endcan
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->unit }}</td>
                                             @can('procurement')

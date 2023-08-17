@@ -192,8 +192,15 @@
                                                     <td hidden><input type="text" name="price[]" id="harga" class="form-control border-0 text-center bg-light"></td>
                                                     <td><input type="text" name="discount[]" id="diskon" class="form-control border-0 text-center bg-light" readonly></td>
                                                     <td><input type="text" name="jumlah[]" id="price_total" class="form-control border-0 text-center bg-light" readonly></td>
-                                                    <td hidden><input type="text" name="price_total[]" id="jumlah" class="form-control border-0 text-center bg-light"></td>
-                                                    <td><button type="button" name="add" id="add" class="btn btn-sm btn-success float-end">+</button></td>
+                                                    <td hidden><input type="text" name="price_total[]" id="jumlah" class="form-control jumlah border-0 text-center bg-light"></td>
+                                                    <td><button type="button" name="add" id="add" class="btn btn-sm btn-success rounded-circle float-end"><i class="bi bi-plus-lg"></i></button></td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="text-center pt-3" colspan="5"><b>TOTAL BIAYA</b></td>
+                                                    <td><input type="text" name="costTotal" id="costTotal" class="form-control border-0 text-center bg-light" readonly></td>
+                                                    <td class="bg-light"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -350,7 +357,7 @@
                 });
             });
             
-            // Barang Autocomplete
+            // Total Harga dan Total Biaya ikut berubah saat nama barang dipilih
             $('#item_id').change(function(){
                 var item = $(this).val();
                 var url = '{{ route("getItem", ":id") }}';
@@ -364,29 +371,39 @@
                             $('#supplier_id').val(response.supplier_id);
                             $('#harga').val(response.price);
                             $('#satuan').val(response.unit);
-                            var harga0 = parseInt(response.price);
-                            var reverse = harga0.toString().split('').reverse().join(''),
-                                ribuan 	= reverse.match(/\d{1,3}/g);
-                                harga1	= ribuan.join('.').split('').reverse().join('');
+                            var harga0 = parseFloat(response.price);
+                            var harga1	= accounting.formatMoney(harga0);
                             var qty = $('#qty').val();
-                            var harga = parseInt(response.price);
+                            var harga = parseFloat(response.price);
                             var jumlah0 = qty*harga;
-                            var	reverse = jumlah0.toString().split('').reverse().join(''),
-                            ribuan 	= reverse.match(/\d{1,3}/g);
-                            jumlah1	= ribuan.join('.').split('').reverse().join('');
+                            var jumlah1 = accounting.formatMoney(jumlah0);
                             $('#price_total').val(jumlah1);
                             $('#jumlah').val(jumlah0);
                             $('#price').val(harga1);
                             $('#harga').val(harga0);
+                            var jumlah = document.getElementsByClassName("jumlah");
+                            var sum = 0;
+                            for (var i = 0; i < jumlah.length; i++) {
+                                sum += parseFloat(jumlah[i].value);
+                            }
+                            var	sum1 = accounting.formatMoney(sum);
+                            $('#costTotal').val(sum1);
+
+                            // Total Harga dan Total Biaya ikut berubah saat quantity berubah
                             $('#qty').change(function(){
                                 var qty = $(this).val();
-                                var harga = parseInt(response.price);
+                                var harga = parseFloat(response.price);
                                 var jumlah0 = qty*harga;
-                                var	reverse = jumlah0.toString().split('').reverse().join(''),
-                                ribuan 	= reverse.match(/\d{1,3}/g);
-                                jumlah1	= ribuan.join('.').split('').reverse().join('');
+                                var jumlah1 = accounting.formatMoney(jumlah0);
                                 $('#price_total').val(jumlah1);
                                 $('#jumlah').val(jumlah0);
+                                var jumlah = document.getElementsByClassName("jumlah");
+                                var sum = 0;
+                                for (var i = 0; i < jumlah.length; i++) {
+                                    sum += parseFloat(jumlah[i].value);
+                                }
+                                var	sum1 = accounting.formatMoney(sum);
+                                $('#costTotal').val(sum1);
                             });
                         }
                     }
@@ -414,11 +431,11 @@
                     '<td hidden><input type="text" name="price[]" id="harga'+i+'" class="form-control border-0 text-center bg-light"></td>'+
                     '<td><input type="text" name="discount[]" id="diskon'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
                     '<td><input type="text" name="jumlah[]" id="price_total'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
-                    '<td hidden><input type="text" name="price_total[]" id="jumlah'+i+'" class="form-control border-0 text-center bg-light"></td>'+
-                    '<td><button type="button" name="remove" id="remove" class="btn btn-sm btn-warning float-end remove-table-row">-</button></td>'+
+                    '<td hidden><input type="text" name="price_total[]" id="jumlah'+i+'" class="form-control jumlah border-0 text-center bg-light" value="0"></td>'+
+                    '<td><button type="button" name="remove" id="remove" class="btn btn-sm btn-danger rounded-circle float-end remove-table-row"><i class="bi bi-x-lg"></i></button></td>'+
                 '</tr>'+
-                // Barang Autocomplete untuk Baris Input Baru
                 '<script>'+
+                    // Total Harga dan Total Biaya ikut berubah saat nama barang dipilih
                     '$("#item_id'+i+'").change(function(){'+
                         'var item = $(this).val();'+
                         'var url = "{{ route('getItem', ':id') }}";'+
@@ -432,29 +449,39 @@
                                     '$("#supplier_id'+i+'").val(response.supplier_id);'+
                                     '$("#harga'+i+'").val(response.price);'+
                                     '$("#satuan'+i+'").val(response.unit);'+
-                                    'var harga0 = parseInt(response.price);'+
-                                    'var reverse = harga0.toString().split("").reverse().join(""),'+
-                                    'ribuan 	= reverse.match('+/\d{1,3}/g+');'+
-                                    'harga1	= ribuan.join(".").split("").reverse().join("");'+
+                                    'var harga0 = parseFloat(response.price);'+
+                                    'var harga1	= accounting.formatMoney(harga0);'+
                                     'var qty = $("#qty'+i+'").val();'+
-                                    'var harga = parseInt(response.price);'+
+                                    'var harga = parseFloat(response.price);'+
                                     'var jumlah0 = qty*harga;'+
-                                    'var reverse = jumlah0.toString().split("").reverse().join(""),'+
-                                    'ribuan 	= reverse.match('+/\d{1,3}/g+');'+
-                                    'jumlah1	= ribuan.join(".").split("").reverse().join("");'+
+                                    'var jumlah1 = accounting.formatMoney(jumlah0);'+
                                     '$("#price_total'+i+'").val(jumlah1);'+
                                     '$("#jumlah'+i+'").val(jumlah0);'+
                                     '$("#price'+i+'").val(harga1);'+
                                     '$("#harga'+i+'").val(harga0);'+
+                                    'var jumlah = document.getElementsByClassName("jumlah");'+
+                                    'var sum = 0;'+
+                                    'for (var i = 0; i < jumlah.length; i++) {'+
+                                        'sum += parseFloat(jumlah[i].value);'+
+                                    '}'+
+                                    'var sum1 = accounting.formatMoney(sum);'+
+                                    '$("#costTotal").val(sum1);'+
+                                    
+                                    // Total Harga dan Total Biaya ikut berubah saat quantity berubah
                                     '$("#qty'+i+'").change(function(){'+
                                         'var qty = $(this).val();'+
-                                        'var harga = parseInt(response.price);'+
+                                        'var harga = parseFloat(response.price);'+
                                         'var jumlah0 = qty*harga;'+
-                                        'var reverse = jumlah0.toString().split("").reverse().join(""),'+
-                                        'ribuan 	= reverse.match('+/\d{1,3}/g+');'+
-                                        'jumlah1	= ribuan.join(".").split("").reverse().join("");'+
+                                        'var jumlah1 = accounting.formatMoney(jumlah0);'+
                                         '$("#price_total'+i+'").val(jumlah1);'+
                                         '$("#jumlah'+i+'").val(jumlah0);'+
+                                        'var jumlah = document.getElementsByClassName("jumlah");'+
+                                        'var sum = 0;'+
+                                        'for (var i = 0; i < jumlah.length; i++) {'+
+                                            'sum += parseFloat(jumlah[i].value);'+
+                                        '}'+
+                                        'var sum1 = accounting.formatMoney(sum);'+
+                                        '$("#costTotal").val(sum1);'+
                                     '});'+   
                                 '}'+
                             '}'+
@@ -467,6 +494,13 @@
             // Menambahkan Tombol Hapus Baris Input Baru
             $(document).on('click', '.remove-table-row', function(){
                 $(this).parents('tr').remove();
+                var jumlah = document.getElementsByClassName("jumlah");
+                var sum = 0;
+                for (var i = 0; i < jumlah.length; i++) {
+                    sum += parseFloat(jumlah[i].value);
+                }
+                var sum1= accounting.formatMoney(sum);
+                $('#costTotal').val(sum1);
             });
         });
     </script>

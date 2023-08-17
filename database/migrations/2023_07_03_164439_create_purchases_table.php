@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('purchase_expired');
             $table->string('purchase_maker');
             $table->bigInteger('supplier_id');
-            $table->double('purchase_total');
+            $table->decimal('purchase_total', 12, 2);
             $table->bigInteger('ppbje_id');
             $table->bigInteger('cost_id');
             $table->string('shipping_address');

@@ -30,18 +30,40 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($ppbje->updated_at)); }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->ppbje_number }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->cost->cost_name }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ "IDR ".number_format($ppbje->cost_total,2,',','.') }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje->cost_total,2,'.',',') }}</div></td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($ppbje->date_of_need)); }}</td>
                                             @if($ppbje->ppbje_status == "selesai")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-success">{{ $ppbje->ppbje_status }}</td>
-                                            @elseif($ppbje->ppbje_status == "berlangsung")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $ppbje->ppbje_status }}</td>
+                                            <td class="text-capitalize" style="font-size:13px;">
+                                                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar progress-bar-striped bg-success px-2" style="width: 100%">{{ $ppbje->ppbje_status }}</div>
+                                                </div>
+                                            </td>
                                             @elseif($ppbje->ppbje_status == "belum disetujui")
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-secondary">{{ $ppbje->ppbje_status }}</td>
+                                            @elseif($ppbje->ppbje_status == "berlangsung")
+                                            <td class="text-capitalize" style="font-size:13px;">
+                                                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning px-2" style="width: 35%">{{ $ppbje->ppbje_status }}</div>
+                                                </div>
+                                            </td>
+                                            @elseif($ppbje->ppbje_status == "menunggu kiriman")
+                                            <td class="text-capitalize" style="font-size:13px;">
+                                                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary px-2" style="width: 75%">{{ $ppbje->ppbje_status }}</div>
+                                                </div>
+                                            </td>
                                             @elseif($ppbje->ppbje_status == "batal")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $ppbje->ppbje_status }}</td>
+                                            <td class="text-capitalize" style="font-size:13px;">
+                                                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar progress-bar-striped bg-danger px-2" style="width: 100%">{{ $ppbje->ppbje_status }}</div>
+                                                </div>
+                                            </td>
                                             @elseif($ppbje->ppbje_status == "tidak disetujui")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $ppbje->ppbje_status }}</td>
+                                            <td class="text-capitalize" style="font-size:13px;">
+                                                <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar progress-bar-striped bg-danger px-2" style="width: 100%">{{ $ppbje->ppbje_status }}</div>
+                                                </div>
+                                            </td>
                                             @endif
                                             <td style="font-size:13px;">
                                                 <!-- Button for look detail PPBJe -->

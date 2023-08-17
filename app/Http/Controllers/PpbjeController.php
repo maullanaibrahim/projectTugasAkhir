@@ -207,7 +207,7 @@ class PpbjeController extends Controller
             'date_of_need'  => 'required',
             'reason'        => 'required|min:15|max:255',
             'item_id'       => 'required',
-            'quantity'       => 'required',
+            'quantity'      => 'required',
         ],
         [
             'ppbje_number.required' => 'No. PPBJe belum diisi!', 
@@ -252,7 +252,7 @@ class PpbjeController extends Controller
         $getDivision    = $ppbje->employee_division;
         $status         = "belum disetujui";
 
-        $ppbje_approval                 = new Ppbje_approval; 
+        $ppbje_approval                 = new Ppbje_approval;
         $ppbje_approval->ppbje_id       = $ppbje_id;
         $ppbje_approval->status1        = $status;
         $ppbje_approval->chief          = $data['chief'];

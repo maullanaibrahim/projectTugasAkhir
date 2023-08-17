@@ -26,22 +26,25 @@
                 </ul>
             </li><!-- End PPBJe -->
 
+            @can('procurement')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('purchases*') ? '' : 'collapsed' }}" href="/purchases">
                     <i class="bi bi-cart"></i>
                     <span>Purchase Order</span>
                 </a>
             </li><!-- End Purchase Order -->
+            @endcan
 
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('receivings*') ? '' : 'collapsed' }}" href="/receivings">
                     <i class="bi bi-cart-check"></i>
-                    <span>Receiving Order</span>
+                    <span>Receiving</span>
                 </a>
             </li><!-- End Receiving -->
 
             <li class="nav-heading">MASTER DATA</li>
             
+            @can('it')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('users*') ? '' : 'collapsed' }}" href="/users">
                     <i class="bi bi-person-circle"></i>
@@ -55,6 +58,7 @@
                     <span>Data Karyawan</span>
                 </a>
             </li><!-- End Data Karyawan -->
+            @endcan
 
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('branches*') ? '' : 'collapsed' }}" href="/branches">
@@ -77,12 +81,14 @@
                 </a>
             </li><!-- End Data Item -->
 
+            @can('procurement')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('suppliers*') ? '' : 'collapsed' }}" href="/suppliers">
                     <i class="bi bi-truck"></i>
                     <span>Data Supplier</span>
                 </a>
             </li><!-- End Data Supplier -->
+            @endcan
         </ul>
     </aside><!-- End Sidebar-->
 <!-- ======= End Sidebar ======= -->

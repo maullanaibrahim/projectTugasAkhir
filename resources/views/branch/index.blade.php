@@ -11,7 +11,9 @@
                                 <h5 class="card-title border-bottom mb-3"><i class="bi bi-shop-window me-2"></i>{{ $title }}</h5>
 
                                 <!-- Button for create new branch -->
+                                @can('procurement')
                                 <a href="/branches/create"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-lg me-1"></i> Tambah</button></a>
+                                @endcan
 
                                 <!-- Showing data from branches table -->
                                 <table class="table datatable">
@@ -24,7 +26,9 @@
                                             <th scope="col">AREA</th>
                                             <th scope="col">STATUS</th>
                                             <th scope="col">UPDATE</th>
+                                            @can('procurement')
                                             <th scope="col">AKSI</th>
+                                            @endcan
                                         </tr>
                                     </thead>
                                     <tbody class="text-uppercase">
@@ -41,6 +45,7 @@
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $branch->status }}</td>
                                             @endif
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($branch->updated_at)); }}</td>
+                                            @can('procurement')
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
                                                 <a href="/branches/{{ $branch->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
@@ -51,6 +56,7 @@
                                                     <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus cabang {{ strtoupper($branch->branch_name) }}?')"><i class="bi bi-trash-fill"></i></button>
                                                 </form> -->
                                             </td>
+                                            @endcan
                                         </tr>
                                         @endforeach
                                     </tbody>

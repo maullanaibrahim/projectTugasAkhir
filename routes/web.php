@@ -92,19 +92,19 @@ Route::get('/ppbje-create9/{id}', [PPBJeController::class, 'getDirector'])
 
 // Route Purchase Order
 Route::get('/purchases', [PurchaseController::class, 'index'])
-   ->middleware('auth')->name('purchase.index');
+   ->middleware('procurement')->name('purchase.index');
 Route::get('/purchases/create{ppbje}-{supplier}', [PurchaseController::class, 'create'])
-   ->middleware('auth')->name('purchase.create');
+   ->middleware('procurement')->name('purchase.create');
 Route::post('/purchases', [PurchaseController::class, 'store'])
-   ->middleware('auth')->name('purchase.store');
+   ->middleware('procurement')->name('purchase.store');
 
 // Route User
 Route::resource('/users', UserController::class)
-   ->middleware('auth');
+   ->middleware('it');
 
 // Route Employee
 Route::resource('/employees', EmployeeController::class)
-   ->middleware('auth');
+   ->middleware('it');
 
 // Route Branch
 Route::resource('/branches', BranchController::class)
@@ -120,4 +120,4 @@ Route::resource('/items', ItemController::class)
 
 // Route Supplier
 Route::resource('/suppliers', SupplierController::class)
-   ->middleware('auth');
+   ->middleware('procurement');

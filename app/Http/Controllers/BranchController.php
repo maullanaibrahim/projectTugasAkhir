@@ -26,6 +26,8 @@ class BranchController extends Controller
      */
     public function create()
     {
+        $this->authorize('procurement');
+        
         $regionals  = ["A", "B", "C", "D", "E", "F"];
         $areas      = [1, 2];
 
@@ -97,6 +99,8 @@ class BranchController extends Controller
      */
     public function edit(Branch $branch)
     {
+        $this->authorize('procurement');
+        
         $regionals  = ["A", "B", "C", "D", "E", "F"];
         $areas      = [1, 2];
         $statuses   = ["aktif", "tutup"];

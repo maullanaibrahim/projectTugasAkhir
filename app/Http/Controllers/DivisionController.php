@@ -26,6 +26,8 @@ class DivisionController extends Controller
      */
     public function create()
     {
+        $this->authorize('procurement');
+        
         $locations  = ["head office", "distribution center"];
 
         return view('division.create', [
@@ -91,6 +93,8 @@ class DivisionController extends Controller
      */
     public function edit(Division $division)
     {
+        $this->authorize('procurement');
+
         $locations  = ["head office", "distribution center"];
         $division_name  = $division->division_name;
 

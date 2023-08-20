@@ -148,15 +148,15 @@
                                         <table class="table table-bordered w-auto m-0">
                                             <thead>
                                                 <tr class="text-center">
-                                                <th class="col-md-4">NAMA BARANG</th>
-                                                <th class="col-md-1">QTY</th>
-                                                <th class="col-md-1">SATUAN</th>
-                                                <th class="col-md-2">HARGA</th>
-                                                <th class="col-md-2" hidden>HARGA</th>
-                                                <th class="col-md-2">DISKON</th>
-                                                <th class="col-md-2">JUMLAH</th>
-                                                <th class="col-md-2" hidden>JUMLAH</th>
-                                                <th class="col-md-2">AKSI</th>
+                                                    <th class="col-md-4">NAMA BARANG</th>
+                                                    <th class="col-md-1">QTY</th>
+                                                    <th class="col-md-1">SATUAN</th>
+                                                    <th class="col-md-2">HARGA</th>
+                                                    <th class="col-md-2" hidden>HARGA</th>
+                                                    <th class="col-md-2">DISKON</th>
+                                                    <th class="col-md-2">JUMLAH</th>
+                                                    <th class="col-md-2" hidden>JUMLAH</th>
+                                                    <th class="col-md-2">AKSI</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tBody">
@@ -432,10 +432,10 @@
                     '<td><input type="text" name="discount[]" id="diskon'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
                     '<td><input type="text" name="jumlah[]" id="price_total'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
                     '<td hidden><input type="text" name="price_total[]" id="jumlah'+i+'" class="form-control jumlah border-0 text-center bg-light" value="0"></td>'+
-                    '<td><button type="button" name="remove" id="remove" class="btn btn-sm btn-danger rounded-circle float-end remove-table-row"><i class="bi bi-x-lg"></i></button></td>'+
+                    '<td><button type="button" name="remove" id="remove" class="btn btn-sm btn-danger rounded-circle float-end"><i class="bi bi-x-lg"></i></button></td>'+
                 '</tr>'+
                 '<script>'+
-                    // Total Harga dan Total Biaya ikut berubah saat nama barang dipilih
+                    // Harga Satuan, Total Harga dan Total Biaya ikut berubah saat nama barang dipilih
                     '$("#item_id'+i+'").change(function(){'+
                         'var item = $(this).val();'+
                         'var url = "{{ route('getItem', ':id') }}";'+
@@ -492,8 +492,9 @@
             });
 
             // Menambahkan Tombol Hapus Baris Input Baru
-            $(document).on('click', '.remove-table-row', function(){
+            $(document).on('click', '#remove', function(){
                 $(this).parents('tr').remove();
+                // Merubah Total Biaya setelah baris input item dihapus
                 var jumlah = document.getElementsByClassName("jumlah");
                 var sum = 0;
                 for (var i = 0; i < jumlah.length; i++) {

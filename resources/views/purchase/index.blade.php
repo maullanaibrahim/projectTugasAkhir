@@ -17,6 +17,7 @@
                                             <th scope="col">NOMOR PO</th>
                                             <th scope="col">BEBAN BIAYA</th>
                                             <th scope="col">NAMA SUPPLIER</th>
+                                            <th scope="col">JENIS PO</th>
                                             <th scope="col">PEMBUAT</th>
                                             <th scope="col">STATUS</th>
                                             <th scope="col">AKSI</th>
@@ -29,6 +30,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->purchase_number }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->cost->cost_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->supplier->supplier_name }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $purchase->ppbje->ppbje_type }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->purchase_maker }}</td>
                                             @if($purchase->purchase_status == "selesai")
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-success">{{ $purchase->purchase_status }}</td>

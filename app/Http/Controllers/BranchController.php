@@ -77,7 +77,7 @@ class BranchController extends Controller
         $cost               = new Cost;
         $cost->cost_name    = $request['branch_name'];
         $cost->region       = $request['regional'];
-        $cost->company_name = "PT. Maulana Sukses Selalu";
+        $cost->company_name = "pt. konohagakure";
         $cost->status       = $request['status'];
         $cost->save();
 

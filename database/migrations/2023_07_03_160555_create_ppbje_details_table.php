@@ -19,8 +19,8 @@ return new class extends Migration
             $table->decimal('quantity', 12, 1);
             $table->decimal('price', 12, 2);
             $table->decimal('price_total', 12, 2);
-            $table->bigInteger('purchase_id')->nullable();
-            $table->bigInteger('receiving_id')->nullable();
+            $table->string('purchase_number')->nullable();
+            $table->string('receiving_number')->nullable();
             $table->timestamps();
         });
     }

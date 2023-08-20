@@ -48,7 +48,13 @@ Route::get('/ppbje-asset{div}-{pos}', [PPBJeController::class, 'asset'])
 Route::get('/ppbje-asset/{div}-{pos}/create', [PPBJeController::class, 'createAsset'])
     ->middleware('auth')->name('ppbje-createAsset');
 Route::get('/ppbje-asset{div}-{pos}/{ppbje}', [PPBJeController::class, 'show'])
-    ->middleware('auth')->name('ppbje-assetDetail');
+   ->middleware('auth')->name('ppbje-assetDetail');
+Route::get('/ppbje-asset/progress{id}-{type}', [PPBJeController::class, 'progress'])
+    ->middleware('auth')->name('ppbje-progress');
+Route::get('/ppbje-asset/stock{ppbje}', [PPBJeController::class, 'stock'])
+    ->middleware('asset')->name('ppbje-assetStock');
+Route::post('/ppbje-asset/{detail}/update-stock', [PPBJeController::class, 'updateStock'])
+    ->middleware('asset')->name('ppbje-assetUpdateStock');
 Route::post('/ppbje-asset{div}-{pos}/{ppbje}/update', [PPBJeController::class, 'update'])
     ->middleware('auth')->name('ppbje-assetUpdate');
 Route::delete('/ppbje-asset{div}-{pos}/{ppbje}', [PPBJeController::class, 'destroy'])
@@ -61,6 +67,8 @@ Route::get('/ppbje-nonAsset/{div}-{pos}/create', [PPBJeController::class, 'creat
     ->middleware('auth')->name('ppbje-createNonAsset');
 Route::get('/ppbje-nonAsset{div}-{pos}/{ppbje}', [PPBJeController::class, 'show'])
     ->middleware('auth')->name('ppbje-nonAssetDetail');
+Route::get('/ppbje-nonAsset/progress{id}-{type}', [PPBJeController::class, 'progress'])
+    ->middleware('auth')->name('ppbje-progress');
 Route::post('/ppbje-nonAsset{div}-{pos}/{ppbje}/update', [PPBJeController::class, 'update'])
     ->middleware('auth')->name('ppbje-nonAssetUpdate');
 Route::delete('/ppbje-nonAsset{div}-{pos}/{ppbje}', [PPBJeController::class, 'destroy'])

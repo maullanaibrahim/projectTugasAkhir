@@ -28,6 +28,7 @@
     <!-- Template Main CSS File -->
     <link href="dist/css/style.css" rel="stylesheet">
 
+    <!-- Javascript -->
     <script src="dist/js/sweetalert.min.js"></script>
     
     <script type="text/javascript">

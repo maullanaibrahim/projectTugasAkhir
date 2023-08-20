@@ -33,6 +33,7 @@
    <script src="dist/DataTables/DataTables-1.13.6/js/jquery.dataTables.min.js"></script>
    <script src="dist/DataTables/DataTables-1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
+   <!-- Javascript -->
    <script src="dist/js/config.js"></script>
    <script src="dist/js/jquery-3.6.3.min.js"></script>
    <script src="dist/js/sweetalert.min.js"></script>

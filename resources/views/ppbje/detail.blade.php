@@ -10,15 +10,15 @@
                                 <a href="/ppbje{{ $url }}"><button type="button" class="btn btn-outline-secondary shadow-sm"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
                                 <a href="/ppbje"><button type="button" class="btn btn-outline-success shadow-sm ms-1"><i class="bi bi-printer-fill me-1"></i> Cetak</button></a>
                                     @can('procurement')
-                                    @if($ppbje->approved == "yes")
-                                    <!-- Button for Create Purchase Order -->
-                                    <form action="/ppbje-{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
-                                        @csrf
-                                        <!-- Sending URL definition (Asset or Non Asset). -->
+                                    @if($ppbje->ppbje_note == "beli")
+                                        @if(auth()->user()->position_id == 1 or auth()->user()->position_id == 10)
+                                        <!-- Button for Create Purchase Order -->
                                         <div class="btn-group ms-1" role="group">
-                                            <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
-                                            <input type="text" class="form-control" name="ppbje_status" id="ppbje_status" value="batal" hidden>
+                                            @if($ppbje->ppbje_status == "persetujuan po")
+                                            <button type="button" class="btn btn-primary shadow-sm dropdown-toggle rounded" data-bs-toggle="dropdown" disabled>
+                                            @else
                                             <button type="button" class="btn btn-primary shadow-sm dropdown-toggle rounded" data-bs-toggle="dropdown">
+                                            @endif
                                                 <i class="bi bi-cart-plus-fill"></i> Buat PO
                                             </button>
                                             <ul class="dropdown-menu">
@@ -27,14 +27,28 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                    </form>
+                                        @endif
+                                    @else
+                                    @endif
+                                    @endcan
+
+                                    @can('asset')
+                                    @if($ppbje->ppbje_note == "cek stock")
+                                    <!-- Tombol untuk Cek Stock Asset -->
+                                    <a href="/ppbje-asset/stock{{ $ppbje->id }}" method="post" class="d-inline">  
+                                        <button class="btn btn-primary shadow-sm rounded"><i class="bi bi-tags-fill"></i> Tandai Stock</button>
+                                    </a>
                                     @else
                                     @endif
                                     @endcan
                                 @if($ppbje->ppbje_status == "belum disetujui")
                                 <div class="badge bg-secondary float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
                                 @elseif($ppbje->ppbje_status == "berlangsung")
-                                <div class="badge bg-warning float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
+                                    @if($ppbje->ppbje_note == "cek stock")
+                                    <div class="badge bg-info float-end text-uppercase px-3">{{ $ppbje->ppbje_note }}</div>
+                                    @else
+                                    <div class="badge bg-warning float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
+                                    @endif
                                 @elseif($ppbje->ppbje_status == "menunggu kiriman")
                                 <div class="badge bg-primary float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
                                 @elseif($ppbje->ppbje_status == "selesai")
@@ -53,7 +67,7 @@
                                         </tr>
                                         <tr style="background-color:#fff;">
                                             <td colspan="2" style="text-align:left">No. PPBJe : {{ $ppbje->ppbje_number }}</td>
-                                            <td class="col-3 text-center" colspan="2"><b>{{ $ppbje->maker_division }}</b></td>
+                                            <td class="col-3" style="text-align:left" colspan="2">Dibuat oleh : {{ $ppbje->maker_division }}</td>
                                         </tr>
                                     </thead>
                                 </table>
@@ -68,13 +82,13 @@
                                         </tr>
                                         <tr>
                                             <td><span style="margin-right:5px;">Jabatan Pemohon </span>: {{ $ppbje->applicant_position}}</td>
-                                            <td rowspan="3" style="padding-top:38px"><center><h6><b>{{ $ppbje->cost->cost_name }}</b></h6></center></td>
+                                            <td rowspan="3" class="align-middle"><center><h6><b>{{ $ppbje->cost->cost_name }}</b></h6></center></td>
                                             @if($ppbje->ppbje_type == "NON ASSET")
-                                            <td rowspan="3" style="padding-top:38px"><center><h6><b>Procurement</b></h6></center></td>
+                                            <td rowspan="3" class="align-middle"><center><h6><b>Procurement</b></h6></center></td>
                                             @else
-                                            <td rowspan="3" style="padding-top:38px"><center><h6><b>Asset Management / Procurement</b></h6></center></td>
+                                            <td rowspan="3" class="align-middle"><center><h6><b>Asset Management / Procurement</b></h6></center></td>
                                             @endif
-                                            <td rowspan="3" style="padding-top:40px"><center><h6><b>{{ $ppbje->ppbje_type }}</b></h6></center></center></td>
+                                            <td rowspan="3" class="align-middle"><center><h6><b>{{ $ppbje->ppbje_type }}</b></h6></center></center></td>
                                         </tr>
                                         <tr>
                                             <td><span style="margin-right: 38px;">NIK Pemohon </span>: {{ $ppbje->applicant_nik }}</td>
@@ -125,8 +139,14 @@
                                     <tbody>
                                         <tr class="text-uppercase">
                                             <td class="col-2"><center>{{ date('d-M-Y', strtotime($ppbje->date_of_need));  }}</center></td>
-                                            <td class="col-6 py-5" rowspan="3"><center>{{ $ppbje->reason }}</center></td>
-                                            <td class="col-4 py-5" rowspan="3"><center>{{ $ppbje->ppbje_approval->chief }}</center></td>
+                                            <td class="col-6 align-middle" rowspan="3"><center>{{ $ppbje->reason }}</center></td>
+                                            @if($ppbje->applicant_position == "Chief")
+                                            <td class="col-4 align-middle" rowspan="3"><center>{{ $ppbje->ppbje_approval->manager }}</center></td>
+                                            @elseif($ppbje->applicant_position == "Manager")
+                                            <td class="col-4 align-middle" rowspan="3"><center>{{ $ppbje->ppbje_approval->senior_manager }}</center></td>
+                                            @else
+                                            <td class="col-4 align-middle" rowspan="3"><center>{{ $ppbje->ppbje_approval->chief }}</center></td>
+                                            @endif
                                         </tr>
                                         <tr class="text-uppercase">
                                             <td class="col-2 fw-bold bg-light"><center>DISERAHKAN KE</center></td>

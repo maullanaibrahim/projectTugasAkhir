@@ -71,7 +71,7 @@ class DivisionController extends Controller
         $cost               = new Cost;
         $cost->cost_name    = $request['division_name'];
         $cost->region       = $request['location'];
-        $cost->company_name = "PT. Maulana Sukses Selalu";
+        $cost->company_name = "pt. konohagakure";
         $cost->status       = "aktif";
         $cost->save();
 

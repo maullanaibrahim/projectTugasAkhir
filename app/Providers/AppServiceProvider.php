@@ -28,5 +28,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('it', function(User $user){
             return $user->division_id === '1';
         });
+
+        Gate::define('asset', function(User $user){
+            return $user->division_id === '2';
+        });
     }
 }

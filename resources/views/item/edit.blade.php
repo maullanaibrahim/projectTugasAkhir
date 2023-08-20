@@ -39,7 +39,7 @@
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">IDR</span>
                                             <div class="form-floating">
-                                                <input type="text" class="form-control @error('price') is-invalid @enderror" name="price" id="price" placeholder="Harga Item" value="{{ old('price', $item->price) }}" required>
+                                                <input type="text" class="form-control @error('price') is-invalid @enderror" name="price" id="price" placeholder="Harga Item" value="{{ old('price', number_format($item->price,2,'.',',')) }}" required>
                                                 <label for="harga">Harga</label>
                                             
                                                 <!-- Showing notification error for input validation -->
@@ -104,9 +104,9 @@
                                                 <option selected disabled>Pilih Jenis Item..</option>
                                                 @for($i=0; $i < count($types); $i++){
                                                     @if(old('item_type', $item->item_type) == $types[$i])
-                                                    <option selected value="{{ $types[$i] }}">{{ $types[$i] }}</option>
+                                                    <option selected value="{{ $types[$i] }}">{{ strtoupper($types[$i]) }}</option>
                                                     @else
-                                                    <option value="{{ $types[$i] }}">{{ $types[$i] }}</option>
+                                                    <option value="{{ $types[$i] }}">{{ strtoupper($types[$i]) }}</option>
                                                     @endif
                                                 }@endfor
                                             </select>

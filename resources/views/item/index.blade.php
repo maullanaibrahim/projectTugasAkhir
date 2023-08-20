@@ -19,7 +19,7 @@
                                 <table class="table datatable">
                                     <thead class="bg-light" style="height: 45px;">
                                         <tr>
-                                            <th scope="col">KODE ITEM</th>
+                                            <th scope="col">KODE</th>
                                             <th scope="col">NAMA ITEM</th>
                                             @can('procurement')
                                             <th scope="col">HARGA</th>
@@ -29,8 +29,8 @@
                                             <th scope="col">SUPPLIER</th>
                                             @endcan
                                             <th scope="col">JENIS ITEM</th>
-                                            <th scope="col">PREVIEW</th>
                                             @can('procurement')
+                                            <th scope="col">UPDATE</th>
                                             <th scope="col">AKSI</th>
                                             @endcan
                                         </tr>
@@ -48,8 +48,8 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->supplier->supplier_name }}</td>
                                             @endcan
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->item_type }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $item->item_preview }}</td>
                                             @can('procurement')
+                                            <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($item->updated_at)) }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
                                                 <a href="/items/{{ $item->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>

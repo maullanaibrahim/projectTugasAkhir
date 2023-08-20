@@ -21,23 +21,99 @@ class PpbjeController extends Controller
     {
         $div2 = decrypt($div);
         $pos2 = decrypt($pos);
-        $ppbje_type = "ASSET";
+        $ppbje_type = "asset";
         
         if ($div2 == "Procurement"){
-            $ppbjes = Ppbje::where([['ppbje_type', $ppbje_type],['approved', 'yes'],['ppbje_note', 'beli']])->orWhere([['ppbje_type', $ppbje_type],['maker_division', 'Procurement']])->get();
+            if($pos2 == "Manager"){
+                $ppbjes = Ppbje::where([
+                    ['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'chief']
+                ])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'manager']])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'senior manager']])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'yes']])
+                ->get();
+            }else{
+                $ppbjes = Ppbje::where([
+                    ['ppbje_type', $ppbje_type],
+                    ['approved', 'yes'],
+                    ['ppbje_note', 'beli']
+                ])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div]])
+                ->get();
+            }
         }elseif ($div2 == "Asset Management"){
-            $ppbjes = Ppbje::where([['ppbje_type', $ppbje_type],['approved', 'yes']])->orWhere([['ppbje_type', $ppbje_type],['maker_division', 'Asset Management']])->get();
+            if($pos2 == "Manager"){
+                $ppbjes = Ppbje::where([
+                    ['ppbje_type', $ppbje_type],
+                    ['maker_division', $div2],
+                    ['approved', 'chief']
+                ])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'manager']])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'senior manager']])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'yes']])
+                ->get();
+            }else{
+                $ppbjes = Ppbje::where([
+                    ['ppbje_type', $ppbje_type],
+                    ['approved', 'yes']
+                ])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2]])
+                ->get();
+            }
         }elseif ($div2 == "Operational 1"){
-            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],['cost_total', '>', 2000000]])->get();
+            $ppbjes = Ppbje::where([
+                ['ppbje_type','=',$ppbje_type],
+                ['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],
+                ['cost_total', '>', 2000000],
+                ['approved', 'chief']
+            ])
+            ->orWhere([['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'manager']])
+            ->orWhere([['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'senior manager']])
+            ->orWhere([['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'direktur']])
+            ->orWhere([['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'yes']])
+            ->get();
         }elseif ($div2 == "Operational 2"){
-            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],['cost_total', '>', 2000000]])->get();
+            $ppbjes = Ppbje::where([
+                ['ppbje_type','=',$ppbje_type],
+                ['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],
+                ['cost_total', '>', 2000000],
+                ['approved', 'chief']
+            ])
+            ->orWhere([['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'manager']])
+            ->orWhere([['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'senior manager']])
+            ->orWhere([['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'direktur']])
+            ->orWhere([['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'yes']])
+            ->get();
         }elseif ($pos2 == "Senior Manager"){
-            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['cost_total', '>', 5000000]])->get();
+            $ppbjes = Ppbje::where([
+                ['ppbje_type','=',$ppbje_type],['cost_total', '>', 5000000],['approved', 'manager']
+            ])
+            ->orWhere([['ppbje_type','=',$ppbje_type],['cost_total', '>', 5000000],['approved', 'senior manager']])
+            ->orWhere([['ppbje_type','=',$ppbje_type],['cost_total', '>', 5000000],['approved', 'yes']])
+            ->get();
         }elseif ($pos2 == "Direktur"){
-            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['cost_total', '>', 10000000]])->get();
+            $ppbjes = Ppbje::where([
+                ['ppbje_type','=',$ppbje_type],['cost_total', '>', 10000000],['approved', 'senior manager']
+            ])
+            ->orWhere([['ppbje_type','=',$ppbje_type],['cost_total', '>', 10000000],['approved', 'yes']])
+            ->get();
         }else{
-            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', $div2]])->get();
+            if($pos2 == "Manager"){
+                $ppbjes = Ppbje::where([
+                    ['ppbje_type', $ppbje_type],
+                    ['maker_division', $div2],
+                    ['approved', 'chief']
+                ])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'manager']])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'senior manager']])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'yes']])
+                ->get();
+            }else{
+                $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', $div2]])->get();
+            }
         }
+
+        $ppbje_detail = Ppbje_detail::all();
         
         return view('ppbje.index', [
             "sendurl"   => "asset",
@@ -53,22 +129,73 @@ class PpbjeController extends Controller
     {
         $div2 = decrypt($div);
         $pos2 = decrypt($pos);
-        $ppbje_type = "NON ASSET";
+        $ppbje_type = "non asset";
 
         if ($div2 == "Procurement"){
-            $ppbjes = Ppbje::where([['ppbje_type', $ppbje_type], ['approved', 'yes']])->orWhere([['ppbje_type', $ppbje_type], ['maker_division', $div2]])->get();
+            if($pos2 == "Manager"){
+                $ppbjes = Ppbje::where([
+                    ['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'chief']
+                ])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'manager']])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'senior manager']])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'yes']])
+                ->get();
+            }else{
+                $ppbjes = Ppbje::where([['ppbje_type', $ppbje_type],['approved', 'yes']])->orWhere([['ppbje_type', $ppbje_type], ['maker_division', $div2]])->get();
+            }
         }elseif ($div2 == "Asset Management"){
             $ppbjes = Ppbje::where([['ppbje_type', $ppbje_type], ['maker_division', $div2]])->get();
         }elseif ($div2 == "Operational 1"){
-            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],['cost_total', '>', 2000000]])->get();
+            $ppbjes = Ppbje::where([
+                ['ppbje_type','=',$ppbje_type],
+                ['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],
+                ['cost_total', '>', 2000000],
+                ['approved', 'chief']
+            ])
+            ->orWhere([['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'manager']])
+            ->orWhere([['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'senior manager']])
+            ->orWhere([['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'direktur']])
+            ->orWhere([['maker_division','=', ['Regional A', 'Regional B', 'Regional C']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'yes']])
+            ->get();
         }elseif ($div2 == "Operational 2"){
-            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],['cost_total', '>', 2000000]])->get();
+            $ppbjes = Ppbje::where([
+                ['ppbje_type','=',$ppbje_type],
+                ['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],
+                ['cost_total', '>', 2000000],
+                ['approved', 'chief']
+            ])
+            ->orWhere([['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'manager']])
+            ->orWhere([['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'senior manager']])
+            ->orWhere([['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'direktur']])
+            ->orWhere([['maker_division','=', ['Regional D', 'Regional E', 'Regional F']],['ppbje_type','=',$ppbje_type],['cost_total', '>', 2000000],['approved', 'yes']])
+            ->get();
         }elseif ($pos2 == "Senior Manager"){
-            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['cost_total', '>', 5000000]])->get();
+            $ppbjes = Ppbje::where([
+                ['ppbje_type','=',$ppbje_type],['cost_total', '>', 5000000],['approved', 'manager']
+            ])
+            ->orWhere([['ppbje_type','=',$ppbje_type],['cost_total', '>', 5000000],['approved', 'senior manager']])
+            ->orWhere([['ppbje_type','=',$ppbje_type],['cost_total', '>', 5000000],['approved', 'yes']])
+            ->get();
         }elseif ($pos2 == "Direktur"){
-            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['cost_total', '>', 10000000]])->get();
+            $ppbjes = Ppbje::where([
+                ['ppbje_type','=',$ppbje_type],['cost_total', '>', 10000000],['approved', 'senior manager']
+            ])
+            ->orWhere([['ppbje_type','=',$ppbje_type],['cost_total', '>', 10000000],['approved', 'yes']])
+            ->get();
         }else{
-            $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', $div2]])->get();
+            if($pos2 == "Manager"){
+                $ppbjes = Ppbje::where([
+                    ['ppbje_type', $ppbje_type],
+                    ['maker_division', $div2],
+                    ['approved', 'chief']
+                ])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'manager']])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'senior manager']])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2],['cost_total', '>', 2000000],['approved', 'yes']])
+                ->get();
+            }else{
+                $ppbjes = Ppbje::where([['ppbje_type','=',$ppbje_type],['maker_division','=', $div2]])->get();
+            }
         }
 
         return view('ppbje.index', [
@@ -86,7 +213,7 @@ class PpbjeController extends Controller
      */
     public function createAsset($div = 0, $pos = 0)
     {
-        $item_type          = "ASSET";
+        $item_type          = "asset";
         $div2               = decrypt($div);
         $getDivision        = Division::where('division_name', $div2)->first();
         $getYear            = date('Y',strtotime(now()));
@@ -113,7 +240,7 @@ class PpbjeController extends Controller
 
     public function createNonAsset($div = 0, $pos = 0)
     {
-        $item_type          = "NON ASSET";
+        $item_type          = "non asset";
         $div2               = decrypt($div);
         $getDivision        = Division::where('division_name', $div2)->first();
         $getYear            = date('Y',strtotime(now()));
@@ -291,11 +418,10 @@ class PpbjeController extends Controller
     {
         $get_id         = $ppbje->id;
         $ppbje_detail   = Ppbje_detail::where('ppbje_id', $get_id)->get();
-        $getSuppliers   = Ppbje_detail::where([['ppbje_id', $get_id], ['purchase_id', NULL]])->select('supplier_id')->distinct()->get();
-        // $jml_barang     = count($ppbje_detail);
+        $getSuppliers   = Ppbje_detail::where([['ppbje_id', $get_id], ['purchase_number', NULL]])->select('supplier_id')->distinct()->get();
         $no             = 1;
 
-        if($ppbje['ppbje_type'] == "ASSET"){
+        if($ppbje['ppbje_type'] == "asset"){
             $url  = "-asset".$div."-".$pos;
             return view('ppbje.detail', [
                 "url"             => $url,
@@ -305,7 +431,6 @@ class PpbjeController extends Controller
                 "ppbje"           => $ppbje,
                 "ppbje_details"   => $ppbje_detail,
                 "getSuppliers"    => $getSuppliers,
-                // "jml_barang"      => $jml_barang,
                 'no'              => $no
             ]);
         }else{
@@ -318,9 +443,72 @@ class PpbjeController extends Controller
                 "ppbje"           => $ppbje,
                 "ppbje_details"   => $ppbje_detail,
                 "getSuppliers"    => $getSuppliers,
-                // "jml_barang"      => $jml_barang,
                 'no'              => $no
             ]);
+        }
+    }
+
+    public function progress($ppbje = 0, $type = 0)
+    {
+        $ppbjeID        = decrypt($ppbje);
+        $ppbjeType      = decrypt($type);
+        $ppbje          = Ppbje::where('id', $ppbjeID)->first();
+        $ppbje_detail   = Ppbje_detail::where('ppbje_id', $ppbjeID)->get();
+        $no             = 1;
+        
+        return view('ppbje.progress', [
+            "title"           => "Progress",
+            "path"            => "PPBJe ".ucwords($ppbjeType),
+            "path2"           => "Progress",
+            "ppbje"           => $ppbje,
+            "ppbje_details"   => $ppbje_detail,
+            "no"              => $no
+        ]);
+    }
+
+    public function stock($ppbje = 0)
+    {
+        $ppbjeID        = $ppbje;
+        $ppbje          = Ppbje::where('id', $ppbjeID)->first();
+        $ppbje_detail   = Ppbje_detail::where('ppbje_id', $ppbjeID)->get();
+        $no             = 1;
+        
+        return view('ppbje.stock', [
+            "title"           => "Tandai Stock",
+            "path"            => "PPBJe Asset",
+            "path2"           => "Tandai Stock",
+            "ppbje"           => $ppbje,
+            "ppbje_details"   => $ppbje_detail,
+            "no"              => $no
+        ]);
+    }
+
+    public function updateStock(Request $request, Ppbje_detail $detail)
+    {
+        $note       = $request['note'];
+        $ppbjeID    = $detail->ppbje_id;
+        $detailID   = $detail->id;
+        $itemName   = $detail->item->item_name;
+
+        if($note == "stock asset"){
+            Ppbje_detail::where('id', $detailID)->update([
+                'purchase_number' => $note
+            ]);
+            $countItem  = Ppbje_detail::where('ppbje_id', $ppbjeID)->count();
+            $countPO    = Ppbje_detail::where([['ppbje_id', $ppbjeID],['purchase_number', '!=', NULL]])->count();
+
+            if($countPO == $countItem){
+                Ppbje::where('id', $ppbjeID)->update([
+                    'ppbje_status'  => 'menunggu kiriman',
+                    'ppbje_note'    => $note
+                ]);
+            }
+            return redirect('/ppbje-asset/stock'.$ppbjeID)->with('success', strtoupper($itemName).' telah ditandai Stock Asset!');
+        }else{
+            Ppbje::where('id', $ppbjeID)->update([
+                'ppbje_note' => $note
+            ]);
+            return redirect('/ppbje-asset/stock'.$ppbjeID)->with('success', 'Item lainnya telah ditandai Beli melalui Procurement!');
         }
     }
 
@@ -358,20 +546,25 @@ class PpbjeController extends Controller
                     'date1'   => $now
                 ]);
                 if($cost_total <= 2000000){
-                    if($ppbje_type == "ASSET"){
+                    if($ppbje_type == "asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'cek stock'
                         ]);                        
                     }
-                    elseif($ppbje_type == "NON ASSET"){
+                    elseif($ppbje_type == "non asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'beli'
                         ]);                        
                     }
+                }
+                else{
+                    Ppbje::where('id', $get_id)->update([
+                        'approved'      => 'chief',
+                    ]);
                 }
             }
 
@@ -381,20 +574,25 @@ class PpbjeController extends Controller
                     'date2' => $now
                 ]);
                 if($cost_total <= 5000000){
-                    if($ppbje_type == "ASSET"){
+                    if($ppbje_type == "asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'cek stock'
                         ]);                        
                     }
-                    elseif($ppbje_type == "NON ASSET"){
+                    elseif($ppbje_type == "non asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'beli'
                         ]);                        
                     }
+                }
+                else{
+                    Ppbje::where('id', $get_id)->update([
+                        'approved'      => 'manager',
+                    ]);
                 }
             }
 
@@ -404,20 +602,25 @@ class PpbjeController extends Controller
                     'date3' => $now
                 ]);
                 if($cost_total <= 10000000){
-                    if($ppbje_type == "ASSET"){
+                    if($ppbje_type == "asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'cek stock'
                         ]);                        
                     }
-                    elseif($ppbje_type == "NON ASSET"){
+                    elseif($ppbje_type == "non asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'beli'
                         ]);                        
                     }
+                }
+                else{
+                    Ppbje::where('id', $get_id)->update([
+                        'approved'      => 'senior manager',
+                    ]);
                 }
             }
 
@@ -427,14 +630,14 @@ class PpbjeController extends Controller
                     'date4' => $now
                 ]);
                 if($cost_total > 2000000){
-                    if($ppbje_type == "ASSET"){
+                    if($ppbje_type == "asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'cek stock'
                         ]);                        
                     }
-                    elseif($ppbje_type == "NON ASSET"){
+                    elseif($ppbje_type == "non asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
@@ -455,12 +658,12 @@ class PpbjeController extends Controller
                     'date1'     => $now,
                     'note1'     => $note
                 ]);
-                if($ppbje_type == "ASSET"){
+                if($ppbje_type == "asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
                     ]);                        
                 }
-                elseif($ppbje_type == "NON ASSET"){
+                elseif($ppbje_type == "non asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
                     ]);                        
@@ -472,12 +675,12 @@ class PpbjeController extends Controller
                     'date2'     => $now,
                     'note2'     => $note
                 ]);
-                if($ppbje_type == "ASSET"){
+                if($ppbje_type == "asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
                     ]);                        
                 }
-                elseif($ppbje_type == "NON ASSET"){
+                elseif($ppbje_type == "non asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
                     ]);                        
@@ -489,12 +692,12 @@ class PpbjeController extends Controller
                     'date3'     => $now,
                     'note3'     => $note
                 ]);
-                if($ppbje_type == "ASSET"){
+                if($ppbje_type == "asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
                     ]);                        
                 }
-                elseif($ppbje_type == "NON ASSET"){
+                elseif($ppbje_type == "non asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
                     ]);                        
@@ -506,12 +709,12 @@ class PpbjeController extends Controller
                     'date4'     => $now,
                     'note4'     => $note
                 ]);
-                if($ppbje_type == "ASSET"){
+                if($ppbje_type == "asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
                     ]);                        
                 }
-                elseif($ppbje_type == "NON ASSET"){
+                elseif($ppbje_type == "non asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
                     ]);                        
@@ -526,7 +729,7 @@ class PpbjeController extends Controller
      */
     public function destroy($id = 0, Ppbje $ppbje)
     {
-        if ($ppbje['ppbje_type'] == "ASSET"){
+        if ($ppbje['ppbje_type'] == "asset"){
             Ppbje::destroy($ppbje->id);
             Ppbje_approval::destroy('ppbje_id', $ppbje->id);
 

@@ -31,6 +31,7 @@
     <script src="../dist/js/jquery-3.6.3.min.js"></script>
     <script src="../dist/js/sweetalert.min.js"></script>
 
+    <!-- Javascript -->
     <script src="../dist/js/dashboards-analytics.js"></script>
 
     <script type="text/javascript">

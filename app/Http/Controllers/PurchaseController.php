@@ -33,9 +33,9 @@ class PurchaseController extends Controller
         $ppbjeID        = decrypt($ppbje);
         $supplierID     = decrypt($supplier);
         $ppbje          = Ppbje::where('id', $ppbjeID)->first();
-        $ppbje_details  = Ppbje_detail::where([['ppbje_id', $ppbjeID], ['supplier_id', $supplierID]])->get();
+        $ppbje_details  = Ppbje_detail::where([['ppbje_id', $ppbjeID],['supplier_id', $supplierID],['purchase_number', NULL]])->get();
         $supplier       = Supplier::where('id', $supplierID)->first();
-        $costTotal      = Ppbje_detail::where([['ppbje_id', $ppbjeID], ['supplier_id', $supplierID]])->sum('price_total');
+        $costTotal      = Ppbje_detail::where([['ppbje_id', $ppbjeID],['supplier_id', $supplierID]])->sum('price_total');
         $chiefPrc       = Employee::where([['cost_id', 11], ['position_id', 3]])->first();
         $mgrPrc         = Employee::where([['cost_id', 11], ['position_id', 8]])->first();
         $srManager      = Employee::where('position_id', 9)->first();
@@ -120,6 +120,7 @@ class PurchaseController extends Controller
         $purchase->save();
 
         $purchaseID = $purchase->id;
+        $purchaseNumber = $purchase->purchase_number;
 
         $purchase_approval                  = new Purchase_approval;
         $purchase_approval->purchase_id     = $purchaseID;
@@ -135,7 +136,16 @@ class PurchaseController extends Controller
 
         $ppbjeID    = $request['ppbje_id'];
         $supplierID = $request['supplier_id'];
-        Ppbje_detail::where([['ppbje_id', $ppbjeID], ['supplier_id', $supplierID]])->update(['purchase_id' => $purchaseID]);
+        Ppbje_detail::where([['ppbje_id', $ppbjeID],['supplier_id', $supplierID],['purchase_number', NULL]])->update(['purchase_number' => $purchaseNumber]);
+
+        $countItem  = Ppbje_detail::where('ppbje_id', $ppbjeID)->count();
+        $countPO    = Ppbje_detail::where([['ppbje_id', $ppbjeID],['purchase_number', '!=', NULL]])->count();
+
+        if($countPO == $countItem){
+            Ppbje::where('id', $ppbjeID)->update([
+                'ppbje_status'  => 'persetujuan po',
+            ]);
+        }
 
         // Redirect to the register view if create data succeded
         return redirect('/purchases')->with('success', 'Purchase Order telah dibuat!');

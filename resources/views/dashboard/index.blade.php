@@ -6,12 +6,16 @@
                 <div class="row">
                     @if(auth()->user()->division->division_name == "Procurement")
                         @if(auth()->user()->position->position_name == "Manager")
-                        @include('partials.dashboardApprover')
+                            @include('partials.dashboardApprover')
                         @else
-                        @include('partials.dashboardPrc')
+                            @include('partials.dashboardPrc')
                         @endif
                     @elseif(auth()->user()->division->division_name == "Asset Management")
-                        @include('partials.dashboardAsset')
+                        @if(auth()->user()->position->position_name == "Manager")
+                            @include('partials.dashboardOther')
+                        @else
+                            @include('partials.dashboardAsset')
+                        @endif
                     @elseif(auth()->user()->division->division_name == "Maull Center")
                         @include('partials.dashboardApprover')
                     @else

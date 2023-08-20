@@ -103,9 +103,9 @@
                                                 <option selected disabled>Pilih Jenis Item..</option>
                                                 @for($i=0; $i < count($types); $i++){
                                                     @if(old('item_type') == $types[$i])
-                                                    <option selected value="{{ $types[$i] }}">{{ $types[$i] }}</option>
+                                                    <option selected value="{{ $types[$i] }}">{{ strtoupper($types[$i]) }}</option>
                                                     @else
-                                                    <option value="{{ $types[$i] }}">{{ $types[$i] }}</option>
+                                                    <option value="{{ $types[$i] }}">{{ strtoupper($types[$i]) }}</option>
                                                     @endif
                                                 }@endfor
                                             </select>

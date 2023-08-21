@@ -49,6 +49,8 @@
                                     @else
                                     <div class="badge bg-warning float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
                                     @endif
+                                @elseif($ppbje->ppbje_status == "persetujuan po")
+                                <div class="badge bg-warning float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
                                 @elseif($ppbje->ppbje_status == "menunggu kiriman")
                                 <div class="badge bg-primary float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
                                 @elseif($ppbje->ppbje_status == "selesai")

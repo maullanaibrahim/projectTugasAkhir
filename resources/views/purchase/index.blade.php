@@ -13,10 +13,11 @@
                                 <table class="table datatable">
                                     <thead class="bg-light" style="height: 45px;">
                                         <tr>
-                                            <th scope="col">TANGGAL PO</th>
+                                            <th scope="col">TGL PO</th>
                                             <th scope="col">NOMOR PO</th>
                                             <th scope="col">BEBAN BIAYA</th>
-                                            <th scope="col">NAMA SUPPLIER</th>
+                                            <th scope="col">SUPPLIER</th>
+                                            <th scope="col">NOMINAL</th>
                                             <th scope="col">JENIS PO</th>
                                             <th scope="col">PEMBUAT</th>
                                             <th scope="col">STATUS</th>
@@ -30,22 +31,21 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->purchase_number }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->cost->cost_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->supplier->supplier_name }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($purchase->purchase_total,2,'.',',') }}</div></td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->ppbje->ppbje_type }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->purchase_maker }}</td>
-                                            @if($purchase->purchase_status == "selesai")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-success">{{ $purchase->purchase_status }}</td>
-                                            @elseif($purchase->purchase_status == "berlangsung")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $purchase->purchase_status }}</td>
-                                            @elseif($purchase->purchase_status == "belum disetujui")
+                                            @if($purchase->purchase_status == "belum disetujui")
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-secondary">{{ $purchase->purchase_status }}</td>
-                                            @elseif($purchase->purchase_status == "batal")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $purchase->purchase_status }}</td>
-                                            @elseif($purchase->purchase_status == "tidak disetujui")
-                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-danger">{{ $purchase->purchase_status }}</td>
+                                            @elseif($purchase->purchase_status == "menunggu kiriman")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-primary">{{ $purchase->purchase_status }}</td>
+                                            @elseif($purchase->purchase_status == "sudah diterima")
+                                            <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-success">{{ $purchase->purchase_status }}</td>
                                             @endif
                                             <td style="font-size:13px;">
+                                                <!-- Button for look detail Purchase Order -->
+                                                <a href="/purchases/{{ encrypt($purchase->id) }}-{{ encrypt($purchase->purchase_number) }}"><button class="btn btn-outline-secondary btn-sm"><i class="bi bi-file-earmark-text-fill"></i></button></a>
                                                 <!-- Button for edit data -->
-                                                <a href="/purchases/{{ $purchase->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                <a href="/purchases/{{ encrypt($purchase->purchase_number) }}/edit{{ $purchase->id }}"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
                                                 <!-- Button for delete data
                                                 <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">
                                                     @method('delete')

@@ -15,9 +15,31 @@ class PurchaseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($pos = 0)
     {
-        $purchases  = Purchase::all();
+        $pos2 = decrypt($pos);
+        if($pos2 == "Manager"){
+            $purchases  = Purchase::where([['purchase_total', '>', 2000000],['approved', 'chief']])
+            ->orWhere([['purchase_total', '>', 2000000],['approved', 'manager']])
+            ->orWhere([['purchase_total', '>', 2000000],['approved', 'senior manager']])
+            ->orWhere([['purchase_total', '>', 2000000],['approved', 'yes']])
+            ->get();
+        }
+        elseif($pos2 == "Senior Manager"){
+            $purchases  = Purchase::where([['purchase_total', '>', 5000000],['approved', 'manager']])
+            ->orWhere([['purchase_total', '>', 5000000],['approved', 'senior manager']])
+            ->orWhere([['purchase_total', '>', 5000000],['approved', 'yes']])
+            ->get();
+        }
+        elseif($pos2 == "Direktur"){
+            $purchases  = Purchase::where([['purchase_total', '>', 5000000],['approved', 'senior manager']])
+            ->orWhere([['purchase_total', '>', 5000000],['approved', 'yes']])
+            ->get();
+        }
+        else{
+            $purchases  = Purchase::all();
+        }
+
         return view('purchase.index', [
             "title"     => "Purchase Order",
             "path"      => "Purchase Order",
@@ -78,7 +100,7 @@ class PurchaseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store($pos = 0, Request $request)
     {
         // Validating data request from supplier.create
         $validatedData = $request->validate([
@@ -147,32 +169,219 @@ class PurchaseController extends Controller
             ]);
         }
 
-        // Redirect to the register view if create data succeded
-        return redirect('/purchases')->with('success', 'Purchase Order telah dibuat!');
+        // Redirect to the Purchase Order view if create data succeded
+        return redirect('/purchases'.$pos)->with('success', 'Purchase Order telah dibuat!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id = 0, $purchase = 0)
     {
-        //
+        $purchaseID     = decrypt($id);
+        $purchaseNumber = decrypt($purchase);
+        $purchase       = Purchase::where('id', $purchaseID)->first();
+        $ppbje_details  = Ppbje_detail::where('purchase_number', $purchaseNumber)->get();
+        $costTotal      = Ppbje_detail::where('purchase_number', $purchaseNumber)->sum('price_total');
+
+        return view('purchase.detail', [
+            "title"         => "Purchase Order",
+            "path"          => "Purchase Order",
+            "path2"         => "Detail",
+            "purchase"      => $purchase,
+            "ppbje_details" => $ppbje_details,
+            "costTotal"     => $costTotal
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($purchase = 0, $id = 0)
     {
-        //
+        $purchaseNumber = decrypt($purchase);
+        $purchase       = Purchase::where('id', $id)->first();
+        $ppbje_details  = Ppbje_detail::where('purchase_number', $purchaseNumber)->get();
+        $costTotal      = Ppbje_detail::where('purchase_number', $purchaseNumber)->sum('price_total');
+
+        return view('purchase.edit', [
+            "title"         => "Ubah Purchase Order",
+            "path"          => "Data Purchase Order",
+            "path2"         => "Ubah",
+            "purchase"      => $purchase,
+            "ppbje_details" => $ppbje_details,
+            "costTotal"     => $costTotal
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Purchase $purchase)
     {
-        //
+        $validatedData = $request->validate([
+            'shipping_address'  => 'required|min:10|max:255',
+            'shipping_date'     => 'required',
+            'receiver_pic'      => 'required|min:2|max:25',
+            'purchase_note'     => 'max:255',
+        ],
+        // Create custom notification for the validation request
+        [
+            'shipping_address.required' => 'Alamat Kirim belum diisi!',
+            'shipping_address.min'      => 'Ketikkan minimal 10 digit!',
+            'shipping_address.max'      => 'Ketikkan maksimal 255 digit!',
+            'shipping_date.required'    => 'Tanggal Kirim belum diisi!',
+            'receiver_pic.required'     => 'PIC Penerima belum diisi!',
+            'receiver_pic.min'          => 'Ketikkan minimal 2 digit!',
+            'receiver_pic.max'          => 'Ketikkan maksimal 25 digit!',
+            'purchase_note.max'         => 'Ketikkan maksimal 255 digit!'
+        ]);
+
+        $purchaseID = $purchase->id;
+
+        Purchase::where('id', $purchaseID)->update([
+            'shipping_address'  => $request['shipping_address'],
+            'shipping_date'     => $request['shipping_date'],
+            'receiver_pic'      => $request['receiver_pic'],
+            'purchase_note'     => $request['purchase_note'],
+        ]);
+
+        // Redirect to the Purchase Order view if update data succeded
+        return redirect('/purchases')->with('success', 'Purchase Order telah diubah!');
+    }
+
+    public function approval(Request $request, Purchase $purchase)
+    {
+        $status         = $request['status'];
+        $pos            = $request['position'];
+        $note           = $request['note'];
+        $now            = date('d-M-Y',strtotime(now()));
+        $get_id         = $purchase->id;
+        $ppbjeID        = $purchase->ppbje_id;
+        $po_number      = $purchase->purchase_number;
+        $purchaseTotal  = $purchase->purchase_total;
+        
+        if($status == "menyetujui"){
+            if($pos == "Chief"){
+                Purchase_approval::where('purchase_id', $get_id)->update([
+                    'status1' => $status,
+                    'date1'   => $now,
+                    'note1'   => $note
+                ]);
+                if($purchaseTotal <= 2000000){
+                    Purchase::where('id', $get_id)->update([
+                        'approved'          => 'yes',
+                        'purchase_status'   => 'menunggu kiriman'
+                    ]);
+                }else{
+                    Purchase::where('id', $get_id)->update([
+                        'approved'      => 'chief',
+                    ]);
+                }
+            }
+            elseif($pos == "Manager"){
+                Purchase_approval::where('purchase_id', $get_id)->update([
+                    'status2' => $status,
+                    'date2'   => $now,
+                    'note2'   => $note
+                ]);
+                if($purchaseTotal <= 5000000){
+                    Purchase::where('id', $get_id)->update([
+                        'approved'          => 'yes',
+                        'purchase_status'   => 'menunggu kiriman'
+                    ]);
+                }else{
+                    Purchase::where('id', $get_id)->update([
+                        'approved'      => 'manager',
+                    ]);
+                }
+            }
+            elseif($pos == "Senior Manager"){
+                Purchase_approval::where('purchase_id', $get_id)->update([
+                    'status3' => $status,
+                    'date3'   => $now,
+                    'note3'   => $note
+                ]);
+                if($purchaseTotal <= 10000000){
+                    Purchase::where('id', $get_id)->update([
+                        'approved'          => 'yes',
+                        'purchase_status'   => 'menunggu kiriman'
+                    ]);
+                }else{
+                    Purchase::where('id', $get_id)->update([
+                        'approved'      => 'senior manager',
+                    ]);
+                }
+            }
+            elseif($pos == "Direktur"){
+                Purchase_approval::where('purchase_id', $get_id)->update([
+                    'status4' => $status,
+                    'date4'   => $now,
+                    'note4'   => $note
+                ]);
+                if($purchaseTotal > 10000000){
+                    Purchase::where('id', $get_id)->update([
+                        'approved'          => 'yes',
+                        'purchase_status'   => 'menunggu kiriman'
+                    ]);
+                }
+            }
+            $id = encrypt($get_id);
+            $no = encrypt($po_number);
+            return redirect('/purchases/'.$id.'-'.$no)->with('success', $po_number.' telah disetujui!');
+        }else{
+            if($pos == "Chief"){
+                Purchase_approval::where('purchase_id', $get_id)->update([
+                    'status1' => $status,
+                    'date1'   => $now,
+                    'note1'   => $note
+                ]);
+                if($purchaseTotal <= 2000000){
+                    Purchase::where('id', $get_id)->update([
+                        'purchase_status'   => 'tidak disetujui'
+                    ]);
+                }
+            }
+            elseif($pos == "Manager"){
+                Purchase_approval::where('purchase_id', $get_id)->update([
+                    'status2' => $status,
+                    'date2'   => $now,
+                    'note2'   => $note
+                ]);
+                if($purchaseTotal <= 5000000){
+                    Purchase::where('id', $get_id)->update([
+                        'purchase_status'   => 'tidak disetujui'
+                    ]);
+                }
+            }
+            elseif($pos == "Senior Manager"){
+                Purchase_approval::where('purchase_id', $get_id)->update([
+                    'status3' => $status,
+                    'date3'   => $now,
+                    'note3'   => $note
+                ]);
+                if($purchaseTotal <= 10000000){
+                    Purchase::where('id', $get_id)->update([
+                        'purchase_status'   => 'tidak disetujui'
+                    ]);
+                }
+            }
+            elseif($pos == "Direktur"){
+                Purchase_approval::where('purchase_id', $get_id)->update([
+                    'status4' => $status,
+                    'date4'   => $now,
+                    'note4'   => $note
+                ]);
+                if($purchaseTotal <= 10000000){
+                    Purchase::where('id', $get_id)->update([
+                        'purchase_status'   => 'tidak disetujui'
+                    ]);
+                }
+            }
+            $id = encrypt($get_id);
+            $no = encrypt($po_number);
+            return redirect('/purchases/'.$id.'-'.$no)->with('success', $po_number.' telah disetujui!');
+        }
     }
 
     /**

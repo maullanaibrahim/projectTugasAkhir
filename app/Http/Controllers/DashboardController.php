@@ -175,12 +175,17 @@ class DashboardController extends Controller
                 $ppbje_approving    = Ppbje::where([['maker_division', '=', $div],['cost_total', '>', 2000000],['approved', '=', 'chief']])->count();
                 $ppbje_processes    = Ppbje::where([
                     ['cost_total', '>', 2000000],['maker_division', '=', $div],['ppbje_status', '=', 'berlangsung']])
-                ->orWhere([[['cost_total', '>', 2000000],['maker_division', '=', $div],['ppbje_status', '=', 'persetujuan po']]])
-                ->orWhere([[['cost_total', '>', 2000000],['maker_division', '=', $div],['ppbje_status', '=', 'menunggu kiriman']]])
+                ->orWhere([['cost_total', '>', 2000000],['maker_division', '=', $div],['ppbje_status', '=', 'persetujuan po']])
+                ->orWhere([['cost_total', '>', 2000000],['maker_division', '=', $div],['ppbje_status', '=', 'menunggu kiriman']])
                 ->count();
                 $ppbje_finishes     = Ppbje::where([['cost_total', '>', 2000000],['maker_division', '=', $div],['ppbje_status', '=', 'selesai']])->count();
-                $po_totals          = 0;
-                $po_approving       = 0;
+                $po_totals          = Purchase::where([
+                    ['purchase_total', '>', 2000000],['approved', "chief"]])
+                ->orWhere([['purchase_total', '>', 2000000],['approved', "manager"]])
+                ->orWhere([['purchase_total', '>', 2000000],['approved', "senior manager"]])
+                ->orWhere([['purchase_total', '>', 2000000],['approved', "yes"]])
+                ->count();
+                $po_approving       = Purchase::where([['purchase_total', '>', 2000000],['approved', "chief"]])->count();
                 $jan                = Ppbje::where([['cost_total', '>', 2000000],['maker_division', $div]])->whereMonth('updated_at', 1)->count();
                 $feb                = Ppbje::where([['cost_total', '>', 2000000],['maker_division', $div]])->whereMonth('updated_at', 2)->count();
                 $mar                = Ppbje::where([['cost_total', '>', 2000000],['maker_division', $div]])->whereMonth('updated_at', 3)->count();
@@ -202,8 +207,12 @@ class DashboardController extends Controller
             ->orWhere([['cost_total', '>', 5000000],['approved', 'yes']])
             ->count();
             $ppbje_approving    = Ppbje::where([['cost_total', '>', 5000000],['approved', 'manager']])->count();
-            $po_totals          = Purchase::where('purchase_total', '>', 5000000)->count();
-            $po_approving       = Purchase::where([['purchase_total', '>', 5000000],['approved', '=', 'no']])->count();
+            $po_totals          = Purchase::where([
+                ['purchase_total', '>', 5000000],['approved', "manager"]])
+            ->orWhere([['purchase_total', '>', 5000000],['approved', "senior manager"]])
+            ->orWhere([['purchase_total', '>', 5000000],['approved', "yes"]])
+            ->count();
+            $po_approving       = Purchase::where([['purchase_total', '>', 5000000],['approved', "manager"]])->count();
             $ppbje_processes    = Ppbje::where([['cost_total', '>', 5000000],['ppbje_status', '=', 'berlangsung']])->count();
             $ppbje_finishes     = Ppbje::where([['cost_total', '>', 5000000],['ppbje_status', '=', 'selesai']])->count();
             $jan                = Ppbje::where('cost_total', '>', 5000000)->whereMonth('updated_at', 1)->count();
@@ -227,8 +236,11 @@ class DashboardController extends Controller
             ->orWhere([['cost_total', '>', 10000000],['approved', 'yes']])
             ->count();
             $ppbje_approving    = Ppbje::where([['cost_total', '>', 10000000],['approved', '=', 'senior manager']])->count();
-            $po_totals          = Purchase::where('purchase_total', '>', 10000000)->count();
-            $po_approving       = Purchase::where([['purchase_total', '>', 10000000],['approved', '=', 'no']])->count();
+            $po_totals          = Purchase::where([
+                ['purchase_total', '>', 10000000],['approved', "senior manager"]])
+            ->orWhere([['purchase_total', '>', 10000000],['approved', "yes"]])
+            ->count();
+            $po_approving       = Purchase::where([['purchase_total', '>', 10000000],['approved', "senior manager"]])->count();
             $ppbje_processes    = Ppbje::where([['cost_total', '>', 10000000],['ppbje_status', '=', 'berlangsung']])->count();
             $ppbje_finishes     = Ppbje::where([['cost_total', '>', 10000000],['ppbje_status', '=', 'selesai']])->count();
             $jan                = Ppbje::where('cost_total', '>', 10000000)->whereMonth('updated_at', 1)->count();

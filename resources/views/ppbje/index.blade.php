@@ -31,7 +31,7 @@
                                     <tbody class="text-uppercase">
                                         @foreach($ppbjes as $ppbje)
                                         <tr>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($ppbje->updated_at)); }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($ppbje->updated_at)) }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->maker_division }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->ppbje_number }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->cost->cost_name }}</td>

@@ -99,12 +99,20 @@ Route::get('/ppbje-create9/{id}', [PPBJeController::class, 'getDirector'])
    ->middleware('auth')->name('getDirector');
 
 // Route Purchase Order
-Route::get('/purchases', [PurchaseController::class, 'index'])
-   ->middleware('procurement')->name('purchase.index');
+Route::get('/purchases{pos}', [PurchaseController::class, 'index'])
+   ->middleware('auth')->name('purchase.index');
 Route::get('/purchases/create{ppbje}-{supplier}', [PurchaseController::class, 'create'])
    ->middleware('procurement')->name('purchase.create');
-Route::post('/purchases', [PurchaseController::class, 'store'])
+Route::post('/purchases{pos}', [PurchaseController::class, 'store'])
    ->middleware('procurement')->name('purchase.store');
+Route::get('/purchases/{id}-{purchase}', [PurchaseController::class, 'show'])
+   ->middleware('auth')->name('purchase.detail');
+Route::get('/purchases/{purchase}/edit{id}', [PurchaseController::class, 'edit'])
+   ->middleware('procurement')->name('purchase.edit');
+Route::put('/purchases/{purchase}', [PurchaseController::class, 'update'])
+   ->middleware('procurement')->name('purchase.update');
+Route::post('/purchases/{purchase}', [PurchaseController::class, 'approval'])
+   ->middleware('procurement')->name('purchase.update');
 
 // Route User
 Route::resource('/users', UserController::class)

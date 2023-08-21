@@ -26,9 +26,17 @@
                 </ul>
             </li><!-- End PPBJe -->
 
+            @if(auth()->user()->division_id == '12')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('purchases*') ? '' : 'collapsed' }}" href="/purchases{{ encrypt(auth()->user()->position->position_name) }}">
+                    <i class="bi bi-cart"></i>
+                    <span>Purchase Order</span>
+                </a>
+            </li><!-- End Purchase Order -->
+            @endif
             @can('procurement')
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('purchases*') ? '' : 'collapsed' }}" href="/purchases">
+                <a class="nav-link {{ Request::is('purchases*') ? '' : 'collapsed' }}" href="/purchases{{ encrypt(auth()->user()->position->position_name) }}">
                     <i class="bi bi-cart"></i>
                     <span>Purchase Order</span>
                 </a>

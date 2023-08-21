@@ -629,7 +629,7 @@ class PpbjeController extends Controller
                     'status4' => $status,
                     'date4' => $now
                 ]);
-                if($cost_total > 2000000){
+                if($cost_total > 10000000){
                     if($ppbje_type == "asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',

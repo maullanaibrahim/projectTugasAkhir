@@ -32,7 +32,7 @@ return new class extends Migration
             ['cost_name' => 'Operational 1', 'region' => 'Head Office', 'company_name' => 'pt. konohagakure', 'status' => 'aktif', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
             ['cost_name' => 'Operational 2', 'region' => 'Head Office', 'company_name' => 'pt. konohagakure', 'status' => 'aktif', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
             ['cost_name' => 'Procurement', 'region' => 'Head Office', 'company_name' => 'pt. konohagakure', 'status' => 'aktif', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59'],
-            ['cost_name' => 'Konohagakure', 'region' => 'Head Office', 'company_name' => 'pt. konohagakure', 'status' => 'aktif', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59']
+            ['cost_name' => 'Konoha center', 'region' => 'Head Office', 'company_name' => 'pt. konohagakure', 'status' => 'aktif', 'created_at' => '2023-07-02 07:36:59', 'updated_at' => '2023-07-02 07:36:59']
         ]);
     }
 

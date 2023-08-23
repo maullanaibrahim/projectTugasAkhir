@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('receiving_number')->unique();
             $table->date('receiving_date');
             $table->bigInteger('purchase_id');
+            $table->string('ppbje_division');
             $table->string('recipient');
             $table->string('division_name');
             $table->string('invoice_number');

@@ -32,7 +32,7 @@ return new class extends Migration
             ['division_code' => 'OA1', 'division_name' => 'Operational 1', 'location' => 'head office', 'address' => 'Jl. Amaguriama No. 1, Konohagakure', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
             ['division_code' => 'OA2', 'division_name' => 'Operational 2', 'location' => 'head office', 'address' => 'Jl. Amaguriama No. 1, Konohagakure', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
             ['division_code' => 'PRC', 'division_name' => 'Procurement', 'location' => 'head office', 'address' => 'Jl. Amaguriama No. 1, Konohagakure', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59'],
-            ['division_code' => 'HO', 'division_name' => 'Konohagakure', 'location' => 'head office', 'address' => 'Jl. Amaguriama No. 1, Konohagakure', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59']
+            ['division_code' => 'KC', 'division_name' => 'Konoha Center', 'location' => 'head office', 'address' => 'Jl. Amaguriama No. 1, Konohagakure', 'created_at' => '2023-06-29 11:40:59', 'updated_at' => '2023-06-29 11:40:59']
         ]);
     }
 

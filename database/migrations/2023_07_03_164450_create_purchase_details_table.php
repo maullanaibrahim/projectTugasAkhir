@@ -18,7 +18,7 @@ return new class extends Migration
             $table->double('quantity');
             $table->string('unit');
             $table->double('price');
-            $table->double('discount');
+            $table->double('discount')->nullable();
             $table->double('price_total');
             $table->timestamps();
         });

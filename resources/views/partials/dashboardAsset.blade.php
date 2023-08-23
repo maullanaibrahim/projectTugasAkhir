@@ -21,7 +21,7 @@
                     <div class="col-xxl-4 col-md-4">
                         <div class="card info-card warning-card">
                             <div class="card-body">
-                                <h5 class="card-title">PPBJe Berlangsung <span>| {{ $thisYear }}</span></h5>
+                                <h5 class="card-title">PPBJe Belum Selesai <span>| {{ $thisYear }}</span></h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-arrow-clockwise"></i>

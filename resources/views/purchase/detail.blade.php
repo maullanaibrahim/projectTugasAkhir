@@ -17,6 +17,8 @@
                                     <div class="badge bg-primary float-end text-uppercase px-3">{{ $purchase->purchase_status }}</div>
                                     @elseif($purchase->purchase_status == "sudah diterima")
                                     <div class="badge bg-success float-end text-uppercase px-3">{{ $purchase->purchase_status }}</div>
+                                    @elseif($purchase->purchase_status == "tidak disetujui")
+                                    <div class="badge bg-danger float-end text-uppercase px-3">{{ $purchase->purchase_status }}</div>
                                     @endif
                                 </div>
 
@@ -110,15 +112,15 @@
                                             </tr>
                                         </thead>
                                         <tbody class="text-uppercase">
-                                            @foreach($ppbje_details as $ppbje_detail)
+                                            @foreach($purchase_details as $purchase_detail)
                                             <tr style="height:60px;">
-                                                <td class="text-uppercase text-center">{{ $ppbje_detail->item->item_code }}</td>
-                                                <td class="text-uppercase">{{ $ppbje_detail->item->item_name }}</td>
-                                                <td class="text-uppercase text-center">{{ number_format($ppbje_detail->quantity,0,',','.') }}</td>
-                                                <td class="text-uppercase text-center">{{ $ppbje_detail->item->unit }}</td>
-                                                <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price,2,'.',',') }}</div></td>
-                                                <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->discount,2,'.',',') }}</div></td>
-                                                <td class="text-uppercase text-center w-auto"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price_total,2,'.',',') }}</div></td>
+                                                <td class="text-uppercase text-center">{{ $purchase_detail->ppbje_detail->item->item_code }}</td>
+                                                <td class="text-uppercase">{{ $purchase_detail->ppbje_detail->item->item_name }}</td>
+                                                <td class="text-uppercase text-center">{{ number_format($purchase_detail->quantity,0,',','.') }}</td>
+                                                <td class="text-uppercase text-center">{{ $purchase_detail->unit }}</td>
+                                                <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($purchase_detail->price,2,'.',',') }}</div></td>
+                                                <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($purchase_detail->discount,2,'.',',') }}</div></td>
+                                                <td class="text-uppercase text-center w-auto"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($purchase_detail->price_total,2,'.',',') }}</div></td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -181,7 +183,15 @@
                                         <table class="table table-bordered">
                                             <tbody>
                                                 <tr class="bg-light">
+                                                    @if($purchase->purchase_status == "belum disetujui")
+                                                    <td colspan="5" style="font-size:14px;">MENUNGGU PERSETUJUAN</td>
+                                                    @elseif($purchase->purchase_status == "menunggu kiriman")
                                                     <td colspan="5" style="font-size:14px;">DISETUJUI OLEH :</td>
+                                                    @elseif($purchase->purchase_status == "sudah diterima")
+                                                    <td colspan="5" style="font-size:14px;">DISETUJUI OLEH :</td>
+                                                    @else
+                                                    <td colspan="5" style="font-size:14px;">TIDAK DISETUJUI</td>
+                                                    @endif
                                                 </tr>
                                             </tbody>
                                             <tbody>

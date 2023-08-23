@@ -146,7 +146,11 @@
                                                             @elseif($ppbje->ppbje_status == "tidak disetujui")
                                                             <button id="batal" class="btn btn-danger btn-sm" disabled><i class="bi bi-x-circle"></i></button>
                                                             @elseif($ppbje->ppbje_status == "menunggu kiriman")
-                                                            <button id="batal" class="btn btn-danger btn-sm" disabled><i class="bi bi-x-circle"></i></button>
+                                                                @if($ppbje->ppbje_note == "beli")
+                                                                <button id="batal" class="btn btn-danger btn-sm" disabled><i class="bi bi-x-circle"></i></button>
+                                                                @else
+                                                                <button id="batal" class="btn btn-danger btn-sm"><i class="bi bi-x-circle"></i></button>
+                                                                @endif
                                                             @else
                                                             <button id="batal" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin membatalkan PPBJe {{ $ppbje->ppbje_number}}?')"><i class="bi bi-x-circle"></i></button>
                                                             @endif

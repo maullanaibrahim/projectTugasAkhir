@@ -40,7 +40,7 @@
                     <div class="col-xxl-3 col-md-3">
                         <div class="card info-card warning-card">
                             <div class="card-body">
-                                <h5 class="card-title">Berlangsung <span>| {{ $thisYear }}</span></h5>
+                                <h5 class="card-title">Belum Selesai <span>| {{ $thisYear }}</span></h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-arrow-clockwise"></i>
@@ -78,7 +78,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Grafik PPBJe <span>| {{ $thisYear }}</span></h5>
+                                <h5 class="card-title">Grafik PPBJe Disetujui <span>| {{ $thisYear }}</span></h5>
                                 <!-- Line Chart -->
                                 <canvas id="lineChart" style="max-height: 400px;"></canvas>
                                 <script>

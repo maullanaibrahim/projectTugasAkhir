@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Purchase;
+use App\Models\Purchase_detail;
 use App\Models\Purchase_approval;
 use App\Models\Ppbje;
 use App\Models\Ppbje_detail;
@@ -156,6 +157,23 @@ class PurchaseController extends Controller
         $purchase_approval->direktur        = $request['direktur'];
         $purchase_approval->save();
 
+        $item     = count($request['ppbje_detail_id']);
+        
+        if($item > 0){
+            foreach ($request['ppbje_detail_id'] as $item => $value ){
+                $data2 = array(
+                'purchase_id'       => $purchaseID,
+                'ppbje_detail_id'   => $request['ppbje_detail_id'][$item],
+                'quantity'          => $request['quantity'][$item],
+                'unit'              => $request['unit'][$item],
+                'price'             => $request['price'][$item],
+                'discount'          => $request['discount'][$item],
+                'price_total'       => $request['price_total'][$item]
+                );
+                Purchase_detail::create($data2);
+            }
+        }
+
         $ppbjeID    = $request['ppbje_id'];
         $supplierID = $request['supplier_id'];
         Ppbje_detail::where([['ppbje_id', $ppbjeID],['supplier_id', $supplierID],['purchase_number', NULL]])->update(['purchase_number' => $purchaseNumber]);
@@ -178,19 +196,19 @@ class PurchaseController extends Controller
      */
     public function show($id = 0, $purchase = 0)
     {
-        $purchaseID     = decrypt($id);
-        $purchaseNumber = decrypt($purchase);
-        $purchase       = Purchase::where('id', $purchaseID)->first();
-        $ppbje_details  = Ppbje_detail::where('purchase_number', $purchaseNumber)->get();
-        $costTotal      = Ppbje_detail::where('purchase_number', $purchaseNumber)->sum('price_total');
+        $purchaseID         = decrypt($id);
+        $purchaseNumber     = decrypt($purchase);
+        $purchase           = Purchase::where('id', $purchaseID)->first();
+        $purchase_details   = Purchase_detail::where('purchase_id', $purchaseID)->get();
+        $costTotal          = Purchase_detail::where('purchase_id', $purchaseID)->sum('price_total');
 
         return view('purchase.detail', [
-            "title"         => "Purchase Order",
-            "path"          => "Purchase Order",
-            "path2"         => "Detail",
-            "purchase"      => $purchase,
-            "ppbje_details" => $ppbje_details,
-            "costTotal"     => $costTotal
+            "title"             => "Purchase Order",
+            "path"              => "Purchase Order",
+            "path2"             => "Detail",
+            "purchase"          => $purchase,
+            "purchase_details"  => $purchase_details,
+            'costTotal'         => $costTotal
         ]);
     }
 
@@ -326,8 +344,16 @@ class PurchaseController extends Controller
                     ]);
                 }
             }
-            $id = encrypt($get_id);
-            $no = encrypt($po_number);
+            $id             = encrypt($get_id);
+            $no             = encrypt($po_number);
+            $countPO        = Purchase::where('ppbje_id', $ppbjeID)->count();
+            $countApproved  = Purchase::where([['ppbje_id', $ppbjeID],['approved', 'yes']])->count();
+
+            if($countPO == $countApproved){
+                Ppbje::where('id', $ppbjeID)->update([
+                    'ppbje_status'  => 'menunggu kiriman'
+                ]);
+            }
             return redirect('/purchases/'.$id.'-'.$no)->with('success', $po_number.' telah disetujui!');
         }else{
             if($pos == "Chief"){
@@ -380,7 +406,11 @@ class PurchaseController extends Controller
             }
             $id = encrypt($get_id);
             $no = encrypt($po_number);
-            return redirect('/purchases/'.$id.'-'.$no)->with('success', $po_number.' telah disetujui!');
+            Ppbje_detail::where('purchase_number', $po_number)->update([
+                'purchase_number'  => NULL
+            ]);
+
+            return redirect('/purchases/'.$id.'-'.$no)->with('success', $po_number.' tidak disetujui!');
         }
     }
 

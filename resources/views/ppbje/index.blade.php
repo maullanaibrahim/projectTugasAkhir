@@ -72,7 +72,7 @@
                                                     <a href="/ppbje-nonAsset/progress{{ encrypt($ppbje->id) }}-{{ encrypt($ppbje->ppbje_type) }}">
                                                     @endif
                                                         <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning px-2" style="width: 25%">{{ $ppbje->ppbje_status }}</div>
+                                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning px-2" style="width: 25%">proses buat po</div>
                                                         </div>
                                                     </a>
                                                 </td>

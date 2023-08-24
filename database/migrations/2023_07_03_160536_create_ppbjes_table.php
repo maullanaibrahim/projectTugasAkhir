@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('ppbje_type');
             $table->date('date_of_need');
             $table->string('reason');
-            $table->double('cost_total');
+            $table->decimal('cost_total', 15, 2);
             $table->string('approved');
             $table->string('ppbje_status');
             $table->string('ppbje_note')->nullable();

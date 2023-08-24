@@ -16,7 +16,7 @@
                                         @if($ppbje->ppbje_note == "cek stock")
                                         <div class="badge bg-info float-end text-uppercase px-3">{{ $ppbje->ppbje_note }}</div>
                                         @else
-                                        <div class="badge bg-warning float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
+                                        <div class="badge bg-warning float-end text-uppercase px-3">proses pembuatan po</div>
                                         @endif
                                     @elseif($ppbje->ppbje_status == "persetujuan po")
                                     <div class="badge bg-warning float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>

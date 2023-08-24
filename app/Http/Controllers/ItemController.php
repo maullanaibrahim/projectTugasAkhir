@@ -30,7 +30,7 @@ class ItemController extends Controller
         $hitung  = Item::count();
         $hitung1 = $hitung+1;
         $count   = sprintf("%04d", $hitung1);
-        $units   = ["BOX", "BUAH", "DRUM", "GALON", "JERIGEN", "KALENG", "KG", "LEMBAR", "LITER", "LS", "LUSIN", "M2", "PACK", "PAIL", "PCS", "ROLL", "SET", "TABUNG", "UNIT"];
+        $units   = ["BOX", "BUAH", "DRUM", "GALON", "JERIGEN", "KALENG", "KG", "LEMBAR", "LITER", "LS", "LUSIN", "M2", "PACK", "PAIL", "PCS", "RIM", "ROLL", "SET", "TABUNG", "UNIT"];
         $types   = ["asset", "non asset"];
 
         return view('item.create', [
@@ -100,7 +100,7 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        $units   = ["BOX", "BUAH", "DRUM", "GALON", "JERIGEN", "KALENG", "KG", "LEMBAR", "LITER", "LS", "LUSIN", "M2", "PACK", "PAIL", "PCS", "ROLL", "SET", "TABUNG", "UNIT"];
+        $units   = ["BOX", "BUAH", "DRUM", "GALON", "JERIGEN", "KALENG", "KG", "LEMBAR", "LITER", "LS", "LUSIN", "M2", "PACK", "PAIL", "PCS", "RIM", "ROLL", "SET", "TABUNG", "UNIT"];
         $types   = ["asset", "non asset"];
 
         return view('item.edit', [
@@ -147,7 +147,7 @@ class ItemController extends Controller
         $dataItem = array(
             'item_name'     => $request['item_name'],
             'price'         => str_replace(',','',$request->price),
-            'discount'      => $request['discount'],
+            'discount'      => str_replace(',','.',$request->discount),
             'unit'          => $request['unit'],
             'supplier_id'   => $request['supplier_id'],
             'item_type'     => $request['item_type']

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('purchase_id');
             $table->bigInteger('ppbje_detail_id');
-            $table->double('quantity');
+            $table->decimal('quantity', 12, 1);
             $table->string('unit');
-            $table->double('price');
-            $table->double('discount')->nullable();
-            $table->double('price_total');
+            $table->decimal('price', 15, 2);
+            $table->decimal('discount', 12, 2);
+            $table->decimal('price_total', 15, 2);
             $table->timestamps();
         });
     }

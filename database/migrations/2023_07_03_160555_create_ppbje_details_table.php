@@ -17,8 +17,9 @@ return new class extends Migration
             $table->bigInteger('item_id');
             $table->bigInteger('supplier_id');
             $table->decimal('quantity', 12, 1);
-            $table->decimal('price', 12, 2);
-            $table->decimal('price_total', 12, 2);
+            $table->decimal('price', 15, 2);
+            $table->decimal('discount', 12, 2);
+            $table->decimal('price_total', 15, 2);
             $table->string('purchase_number')->nullable();
             $table->string('receiving_number')->nullable();
             $table->timestamps();

@@ -23,6 +23,7 @@
                                             <th scope="col">NAMA ITEM</th>
                                             @can('procurement')
                                             <th scope="col">HARGA</th>
+                                            <th scope="col">DISC</th>
                                             @endcan
                                             <th scope="col">SATUAN</th>
                                             @can('procurement')
@@ -42,6 +43,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->item_name }}</td>
                                             @can('procurement')
                                             <td class="text-uppercase" style="font-size:13px;"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($item->price,2,'.',',') }}</div></td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ number_format($item->discount,2,'.',',') }}%</td>
                                             @endcan
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->unit }}</td>
                                             @can('procurement')

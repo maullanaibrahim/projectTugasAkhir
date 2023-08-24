@@ -54,7 +54,7 @@
                                     <div class="col-md-2">
                                         <div class="input-group mb-3">
                                             <div class="form-floating">
-                                                <input type="number" class="form-control @error('discount') is-invalid @enderror" name="discount" id="discount" value="{{ old('discount') }}">
+                                                <input type="number" class="form-control @error('discount') is-invalid @enderror" name="discount" id="discount" step=".01" value="{{ old('discount') }}" required>
                                                 <label for="discount">Diskon</label>
                                                 
                                                 <!-- Showing notification error for input validation -->

@@ -88,7 +88,7 @@
 
                                     <div class="col-md-4" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase" name="company" id="company" value="PT. Maulana Sukses Selalu" required>
+                                            <input type="text" class="form-control text-uppercase" name="company" id="company" value="pt. konohagakure" required>
                                             <label for="perusahaan">Perusahaan</label>
                                         </div>
                                     </div>

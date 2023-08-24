@@ -90,7 +90,7 @@
                                                 <td hidden><input name="unit[]" value="{{ $ppbje_detail->item->unit }}"></td>
                                                 <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price,2,'.',',') }}</div></td>
                                                 <td hidden><input name="price[]" value="{{ $ppbje_detail->price }}"></td>
-                                                <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->item->discount,2,'.',',') }}</div></td>
+                                                <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->discount,2,'.',',') }}</div></td>
                                                 <td hidden><input name="discount[]" value="{{ $ppbje_detail->discount }}"></td>
                                                 <td class="text-uppercase text-center w-auto"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price_total,2,'.',',') }}</div></td>
                                                 <td hidden><input name="price_total[]" value="{{ $ppbje_detail->price_total }}"></td>

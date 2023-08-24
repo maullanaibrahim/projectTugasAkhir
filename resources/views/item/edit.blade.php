@@ -53,6 +53,23 @@
                                     </div>
 
                                     <div class="col-md-2">
+                                        <div class="input-group mb-3">
+                                            <div class="form-floating">
+                                                <input type="number" class="form-control @error('discount') is-invalid @enderror" name="discount" id="discount" step=".01" value="{{ old('discount', number_format($item->discount,2,'.',',')) }}">
+                                                <label for="discount">Diskon</label>
+                                                
+                                                <!-- Showing notification error for input validation -->
+                                                @error('discount')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
                                         <div class="form-floating">
                                             <select class="form-select @error('unit') is-invalid @enderror" name="unit" id="satuan" required>
                                                 <option selected disabled>Pilih Satuan..</option>
@@ -75,7 +92,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-floating">
                                             <select class="form-select @error('supplier_id') is-invalid @enderror" name="supplier_id" id="supplier" required>
                                                 <option selected disabled>Pilih Supplier..</option>
@@ -98,7 +115,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-floating">
                                             <select class="form-select @error('item_type') is-invalid @enderror" name="item_type" id="jenisItem" required>
                                                 <option selected disabled>Pilih Jenis Item..</option>

@@ -177,7 +177,7 @@
                                                         @enderror
                                                     </td>
                                                     <td>
-                                                        <input type="number" name="quantity[]" id="qty" class="form-control border-0 text-center @error('quantity') is-invalid @enderror">
+                                                        <input type="number" name="quantity[]" id="qty" step=".01" class="form-control border-0 text-center @error('quantity') is-invalid @enderror">
 
                                                         <!-- Showing notification error for input validation -->
                                                         @error('quantity')
@@ -190,7 +190,8 @@
                                                     <td><input type="text" name="unit[]" id="satuan" class="form-control border-0 text-center bg-light" readonly></td>
                                                     <td><input type="text" name="harga[]" id="price" class="form-control border-0 text-center bg-light" readonly></td>
                                                     <td hidden><input type="text" name="price[]" id="harga" class="form-control border-0 text-center bg-light"></td>
-                                                    <td><input type="text" name="discount[]" id="diskon" class="form-control border-0 text-center bg-light" readonly></td>
+                                                    <td><input type="text" name="diskon[]" id="discount" class="form-control border-0 text-center bg-light" readonly></td>
+                                                    <td hidden><input type="text" name="discount[]" id="diskon" class="form-control border-0 text-center bg-light" readonly></td>
                                                     <td><input type="text" name="jumlah[]" id="price_total" class="form-control border-0 text-center bg-light" readonly></td>
                                                     <td hidden><input type="text" name="price_total[]" id="jumlah" class="form-control jumlah border-0 text-center bg-light"></td>
                                                     <td><button type="button" name="add" id="add" class="btn btn-sm btn-success rounded-circle float-end"><i class="bi bi-plus-lg"></i></button></td>
@@ -376,11 +377,17 @@
                             var qty = $('#qty').val();
                             var harga = parseFloat(response.price);
                             var jumlah0 = qty*harga;
-                            var jumlah1 = accounting.formatMoney(jumlah0);
-                            $('#price_total').val(jumlah1);
-                            $('#jumlah').val(jumlah0);
+                            var disc = parseFloat(response.discount);
+                            var discount = jumlah0*disc/100;
+                            var jumlah1 = jumlah0-discount;
+                            var diskon = accounting.formatMoney(discount);
+                            var priceTotal = accounting.formatMoney(jumlah1);
+                            $('#price_total').val(priceTotal);
+                            $('#jumlah').val(jumlah1);
                             $('#price').val(harga1);
                             $('#harga').val(harga0);
+                            $('#discount').val(diskon);
+                            $('#diskon').val(discount);
                             var jumlah = document.getElementsByClassName("jumlah");
                             var sum = 0;
                             for (var i = 0; i < jumlah.length; i++) {
@@ -394,9 +401,15 @@
                                 var qty = $(this).val();
                                 var harga = parseFloat(response.price);
                                 var jumlah0 = qty*harga;
-                                var jumlah1 = accounting.formatMoney(jumlah0);
-                                $('#price_total').val(jumlah1);
-                                $('#jumlah').val(jumlah0);
+                                var disc = parseFloat(response.discount);
+                                var discount = jumlah0*disc/100;
+                                var jumlah1 = jumlah0-discount;
+                                var diskon = accounting.formatMoney(discount);
+                                var priceTotal = accounting.formatMoney(jumlah1);
+                                $('#discount').val(diskon);
+                                $('#diskon').val(discount);
+                                $('#price_total').val(priceTotal);
+                                $('#jumlah').val(jumlah1);
                                 var jumlah = document.getElementsByClassName("jumlah");
                                 var sum = 0;
                                 for (var i = 0; i < jumlah.length; i++) {
@@ -424,12 +437,13 @@
                             '@endforeach'+
                         '<\/select>'+
                     '<\/td>'+
-                    '<td><input type="number" name="quantity[]" id="qty'+i+'" class="form-control border-0 text-center"></td>'+
+                    '<td><input type="number" name="quantity[]" id="qty'+i+'" step=".01" class="form-control border-0 text-center"></td>'+
                     '<td hidden><input type="number" name="supplier_id[]" id="supplier_id'+i+'" class="form-control border-0 text-center"></td>'+
                     '<td><input type="text" name="unit[]" id="satuan'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
                     '<td><input type="text" name="harga[]" id="price'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
                     '<td hidden><input type="text" name="price[]" id="harga'+i+'" class="form-control border-0 text-center bg-light"></td>'+
-                    '<td><input type="text" name="discount[]" id="diskon'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
+                    '<td><input type="text" name="diskon[]" id="discount'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
+                    '<td hidden><input type="text" name="discount[]" id="diskon'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
                     '<td><input type="text" name="jumlah[]" id="price_total'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
                     '<td hidden><input type="text" name="price_total[]" id="jumlah'+i+'" class="form-control jumlah border-0 text-center bg-light" value="0"></td>'+
                     '<td><button type="button" name="remove" id="remove" class="btn btn-sm btn-danger rounded-circle float-end"><i class="bi bi-x-lg"></i></button></td>'+
@@ -454,11 +468,16 @@
                                     'var qty = $("#qty'+i+'").val();'+
                                     'var harga = parseFloat(response.price);'+
                                     'var jumlah0 = qty*harga;'+
-                                    'var jumlah1 = accounting.formatMoney(jumlah0);'+
-                                    '$("#price_total'+i+'").val(jumlah1);'+
-                                    '$("#jumlah'+i+'").val(jumlah0);'+
+                                    'var disc = parseFloat(response.discount);'+
+                                    'var discount = jumlah0*disc/100;'+
+                                    'var jumlah1 = jumlah0-discount;'+
+                                    'var diskon = accounting.formatMoney(discount);'+
+                                    'var priceTotal = accounting.formatMoney(jumlah1);'+
+                                    '$("#discount'+i+'").val(diskon);'+
+                                    '$("#diskon'+i+'").val(discount);'+
+                                    '$("#price_total'+i+'").val(priceTotal);'+
                                     '$("#price'+i+'").val(harga1);'+
-                                    '$("#harga'+i+'").val(harga0);'+
+                                    '$("#jumlah'+i+'").val(jumlah1);'+
                                     'var jumlah = document.getElementsByClassName("jumlah");'+
                                     'var sum = 0;'+
                                     'for (var i = 0; i < jumlah.length; i++) {'+
@@ -472,9 +491,15 @@
                                         'var qty = $(this).val();'+
                                         'var harga = parseFloat(response.price);'+
                                         'var jumlah0 = qty*harga;'+
-                                        'var jumlah1 = accounting.formatMoney(jumlah0);'+
-                                        '$("#price_total'+i+'").val(jumlah1);'+
-                                        '$("#jumlah'+i+'").val(jumlah0);'+
+                                        'var disc = parseFloat(response.discount);'+
+                                        'var discount = jumlah0*disc/100;'+
+                                        'var jumlah1 = jumlah0-discount;'+
+                                        'var diskon = accounting.formatMoney(discount);'+
+                                        'var priceTotal = accounting.formatMoney(jumlah1);'+
+                                        '$("#discount'+i+'").val(diskon);'+
+                                        '$("#diskon'+i+'").val(discount);'+
+                                        '$("#price_total'+i+'").val(priceTotal);'+
+                                        '$("#jumlah'+i+'").val(jumlah1);'+
                                         'var jumlah = document.getElementsByClassName("jumlah");'+
                                         'var sum = 0;'+
                                         'for (var i = 0; i < jumlah.length; i++) {'+

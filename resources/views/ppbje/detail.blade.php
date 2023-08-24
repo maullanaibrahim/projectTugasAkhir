@@ -11,7 +11,8 @@
                                 <a href="/ppbje"><button type="button" class="btn btn-outline-success shadow-sm ms-1"><i class="bi bi-printer-fill me-1"></i> Cetak</button></a>
                                     @can('procurement')
                                     @if($ppbje->ppbje_note == "beli")
-                                        @if(auth()->user()->position_id == 1 or auth()->user()->position_id == 10)
+                                        <!-- Menampilkan tombol Buat PO jika posisi user sebagai staff procurement -->
+                                        @if(auth()->user()->position_id == 10)
                                         <!-- Button for Create Purchase Order -->
                                         <div class="btn-group ms-1" role="group">
                                             @if($ppbje->ppbje_status == "persetujuan po")
@@ -47,7 +48,7 @@
                                     @if($ppbje->ppbje_note == "cek stock")
                                     <div class="badge bg-info float-end text-uppercase px-3">{{ $ppbje->ppbje_note }}</div>
                                     @else
-                                    <div class="badge bg-warning float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
+                                    <div class="badge bg-warning float-end text-uppercase px-3">proses pembuatan po</div>
                                     @endif
                                 @elseif($ppbje->ppbje_status == "persetujuan po")
                                 <div class="badge bg-warning float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
@@ -109,6 +110,7 @@
                                             <td><b>QTY</b></td>
                                             <td><b>SATUAN</b></td>
                                             <td><b>HARGA SATUAN</b></td>
+                                            <td><b>DISKON</b></td>
                                             <td><b>JUMLAH</b></td>
                                         </tr>
                                     </thead>
@@ -117,15 +119,16 @@
                                         <tr class="text-center text-uppercase" style="background-color:#fff;">
                                             <td>{{ $no++ }}.</td>
                                             <td class="col-5" style="text-align:left">{{ $ppbje_detail->item->item_name }}</td>
-                                            <td>{{ number_format($ppbje_detail->quantity,0,',','.') }}</td>
+                                            <td>{{ number_format($ppbje_detail->quantity,1,'.',',') }}</td>
                                             <td>{{ $ppbje_detail->item->unit }}</td>
-                                            <td><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price,2,',','.') }}</div></td>
-                                            <td><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price_total,2,',','.') }}</div></td>
+                                            <td><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price,2,'.',',') }}</div></td>
+                                            <td>{{ $ppbje_detail->item->discount }}%</td>
+                                            <td><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price_total,2,'.',',') }}</div></td>
                                         </tr>
                                         @endforeach
                                         <tr style="background-color:#fff;">
-                                            <td colspan="5"><center><b>JUMLAH TOTAL</b></center></td>
-                                            <td class="w-auto" colspan="2" style="text-align:left"><center><b><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje->cost_total,2,',','.') }}</div></b></center></td>
+                                            <td colspan="6"><center><b>JUMLAH TOTAL</b></center></td>
+                                            <td class="w-auto" colspan="2" style="text-align:left"><center><b><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje->cost_total,2,'.',',') }}</div></b></center></td>
                                         </tr>
                                     </tbody>
                                 </table>

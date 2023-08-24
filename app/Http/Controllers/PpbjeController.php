@@ -401,6 +401,7 @@ class PpbjeController extends Controller
                 'supplier_id'   => $data['supplier_id'][$item],
                 'quantity'      => $data['quantity'][$item],
                 'price'         => $data['price'][$item],
+                'discount'      => $data['discount'][$item],
                 'price_total'   => $data['price_total'][$item]
                 );
                 Ppbje_detail::create($data2);

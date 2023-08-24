@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('purchase_number')->unique();
             $table->string('purchase_expired');
-            $table->string('purchase_maker');
+            $table->bigInteger('user_id');
             $table->bigInteger('supplier_id');
             $table->decimal('purchase_total', 15, 2);
             $table->bigInteger('ppbje_id');

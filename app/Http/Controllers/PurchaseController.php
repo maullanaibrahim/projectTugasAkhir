@@ -129,7 +129,7 @@ class PurchaseController extends Controller
         $purchase                   = new Purchase;
         $purchase->purchase_number  = $request['purchase_number'];
         $purchase->purchase_expired = $purchase_expired;
-        $purchase->purchase_maker   = $request['purchase_maker'];
+        $purchase->user_id          = $request['user_id'];
         $purchase->supplier_id      = $request['supplier_id'];
         $purchase->purchase_total   = $request['purchase_total'];
         $purchase->ppbje_id         = $request['ppbje_id'];
@@ -406,6 +406,9 @@ class PurchaseController extends Controller
             }
             $id = encrypt($get_id);
             $no = encrypt($po_number);
+            Ppbje::where('id', $ppbjeID)->update([
+                'ppbje_status'  => "berlangsung"
+            ]);
             Ppbje_detail::where('purchase_number', $po_number)->update([
                 'purchase_number'  => NULL
             ]);

@@ -177,7 +177,7 @@
                                                         @enderror
                                                     </td>
                                                     <td>
-                                                        <input type="number" name="quantity[]" id="qty" step=".01" class="form-control border-0 text-center @error('quantity') is-invalid @enderror">
+                                                        <input type="number" name="quantity[]" id="qty" step=".1" class="form-control border-0 text-center @error('quantity') is-invalid @enderror">
 
                                                         <!-- Showing notification error for input validation -->
                                                         @error('quantity')
@@ -437,7 +437,7 @@
                             '@endforeach'+
                         '<\/select>'+
                     '<\/td>'+
-                    '<td><input type="number" name="quantity[]" id="qty'+i+'" step=".01" class="form-control border-0 text-center"></td>'+
+                    '<td><input type="number" name="quantity[]" id="qty'+i+'" step=".1" class="form-control border-0 text-center"></td>'+
                     '<td hidden><input type="number" name="supplier_id[]" id="supplier_id'+i+'" class="form-control border-0 text-center"></td>'+
                     '<td><input type="text" name="unit[]" id="satuan'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+
                     '<td><input type="text" name="harga[]" id="price'+i+'" class="form-control border-0 text-center bg-light" readonly></td>'+

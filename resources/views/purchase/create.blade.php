@@ -56,6 +56,7 @@
                                     <div class="col-md-2">
                                         <div class="form-floating">
                                             <input type="text" class="form-control text-uppercase bg-light" name="purchase_maker" id="poMaker" value="{{ old('purchase_maker', auth()->user()->first_name) }}" readonly>
+                                            <input type="text" name="user_id" id="userID" value="{{ old('user_id', auth()->user()->id) }}" hidden>
                                             <label for="poMaker">Pembuat PO</label>
                                         </div>
                                     </div>

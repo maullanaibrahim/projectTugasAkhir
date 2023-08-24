@@ -52,7 +52,7 @@
                                         <p><span style="margin-right: 47px;">Dibuat Oleh </span>: </p>
                                     </div>
                                     <div class="col-md-3">
-                                        <p>{{ strtoupper($purchase->purchase_maker) }}</p>
+                                        <p>{{ strtoupper($purchase->user->first_name) }}</p>
                                     </div>
                                 </div>
 
@@ -116,7 +116,7 @@
                                             <tr style="height:60px;">
                                                 <td class="text-uppercase text-center">{{ $purchase_detail->ppbje_detail->item->item_code }}</td>
                                                 <td class="text-uppercase">{{ $purchase_detail->ppbje_detail->item->item_name }}</td>
-                                                <td class="text-uppercase text-center">{{ number_format($purchase_detail->quantity,0,',','.') }}</td>
+                                                <td class="text-uppercase text-center">{{ str_replace('.0', '', number_format($purchase_detail->quantity, 1, '.', '')) }}</td>
                                                 <td class="text-uppercase text-center">{{ $purchase_detail->unit }}</td>
                                                 <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($purchase_detail->price,2,'.',',') }}</div></td>
                                                 <td class="text-uppercase text-center"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($purchase_detail->discount,2,'.',',') }}</div></td>
@@ -198,7 +198,7 @@
                                                 <tr>
                                                     <td class="col-md-2" style="font-size:14px;">
                                                         <p class="fw-bold mb-4">STAFF PROCUREMENT</p>
-                                                        <p class="m-0"><span style="margin-right: 13px;">Nama </span>: {{ strtoupper($purchase->purchase_maker) }}</p>
+                                                        <p class="m-0"><span style="margin-right: 13px;">Nama </span>: {{ strtoupper($purchase->user->first_name) }} {{ strtoupper($purchase->user->last_name) }}</p>
                                                         <p class="m-0"><span style="margin-right: 2px;">Tanggal </span>: {{ date('d-M-Y', strtotime($purchase->created_at)) }}</p>
                                                         <p class="m-0"><span style="margin-right: 2px;">Catatan </span>:</p>
                                                     </td>
@@ -387,14 +387,4 @@
             </div> <!-- End col-lg-12 -->
         </div><!-- End row -->
     </section>
-
-    <script>
-        $(document).ready(function(){
-            $('#approvalNote').keyup(function(){
-                var note = $(this).val();
-                $('#agreeNote').val(note);
-                $('#disagreeNote').val(note);
-            });
-        });
-    </script>
 @endsection

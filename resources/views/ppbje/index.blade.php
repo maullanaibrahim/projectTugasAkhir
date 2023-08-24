@@ -9,7 +9,7 @@
                             <div class="card-body">
                                 <h5 class="card-title border-bottom mb-3"><i class="bi bi-file-text me-2"></i>{{ $title }}</h5>
                                 <!-- Button for create new ppbje -->
-                                @if(auth()->user()->position_id == '1' or auth()->user()->position_id == '10')
+                                @if(auth()->user()->position_id == '1')
                                     <a href="{{ Request::is('ppbje-asset'.$div.'-'.$pos) ? '/ppbje-asset/'.$div.'-'.$pos.'/create' : '/ppbje-nonAsset/'.$div.'-'.$pos.'/create' }}"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-circle me-1"></i> Buat PPBJe</button></a>
                                 @else
                                 @endif

@@ -46,11 +46,15 @@
                                             <td style="font-size:13px;">
                                                 <!-- Button for look detail Purchase Order -->
                                                 <a href="/purchases/{{ encrypt($purchase->id) }}-{{ encrypt($purchase->purchase_number) }}"><button class="btn btn-outline-secondary btn-sm"><i class="bi bi-file-earmark-text-fill"></i></button></a>
-                                                @if($purchase->approved == "yes" or $purchase->purchase_status == "tidak disetujui")
-                                                <!-- Button for edit data -->
-                                                <button class="btn btn-success btn-sm" disabled><i class="bi bi-pencil-square"></i></button>
+                                                <!-- Hanya staff Procurement yang dapat merubah atau merevisi PO -->
+                                                @if(auth()->user()->position_id == 10)
+                                                    @if($purchase->approved == "yes" or $purchase->purchase_status == "tidak disetujui")
+                                                    <!-- Button for edit data -->
+                                                    <button class="btn btn-success btn-sm" disabled><i class="bi bi-pencil-square"></i></button>
+                                                    @else
+                                                    <a href="/purchases/{{ encrypt($purchase->purchase_number) }}/edit{{ $purchase->id }}"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                    @endif
                                                 @else
-                                                <a href="/purchases/{{ encrypt($purchase->purchase_number) }}/edit{{ $purchase->id }}"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
                                                 @endif
                                                 <!-- Button for delete data
                                                 <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">

@@ -38,6 +38,14 @@
         function zoom() {
             document.body.style.zoom = "90%" 
         }
+
+        $(document).ready(function(){
+            $('#approvalNote').keyup(function(){
+                var note = $(this).val();
+                $('#agreeNote').val(note);
+                $('#disagreeNote').val(note);
+            });
+        });
         
         $(document).ready(function(){
             var harga = document.getElementById("price");

@@ -79,10 +79,11 @@
                                                 <th class="w-auto bg-light">SATUAN</th>
                                                 @if($ppbje->ppbje_type == 'asset')
                                                 <th class="bg-light">STOCK / PO</th>
+                                                <th class="bg-light">NO. MUTASI / RECEIVING</th>
                                                 @else
                                                 <th class="bg-light">NOMOR PO</th>
-                                                @endif
                                                 <th class="bg-light">NOMOR RECEIVING</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>

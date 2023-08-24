@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase bg-light" name="purchase_maker" id="poMaker" value="{{ old('purchase_maker', $purchase->purchase_maker) }}" readonly>
+                                            <input type="text" class="form-control text-uppercase bg-light" name="purchase_maker" id="poMaker" value="{{ old('purchase_maker', $purchase->user->first_name) }}" readonly>
                                             <label for="poMaker">Pembuat PO</label>
                                         </div>
                                     </div>
@@ -161,7 +161,7 @@
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary float-end ms-2"><i class="bi bi-save2 me-1"></i> Simpan</button>
                                         <button type="reset" class="btn btn-warning float-end ms-2"><i class="bi bi-trash me-1"></i> Reset</button>
-                                        <a href="/purchases"><button type="button" class="btn btn-secondary float-start"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
+                                        <a href="/purchases{{ encrypt(auth()->user()->position->position_name) }}"><button type="button" class="btn btn-secondary float-start"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
                                     </div>
                                 </form><!-- End floating Labels Form -->
                             </div> <!-- End Card Body -->

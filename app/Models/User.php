@@ -50,4 +50,9 @@ class User extends Model implements AuthenticatableContract
     {
         return $this->belongsTo('App\Models\Division');
     }
+
+    public function purchase()
+    {
+        return $this->hasOne('App\Models\Purchase');
+    }
 }

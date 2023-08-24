@@ -20,6 +20,11 @@ class Purchase extends Model
         return $this->hasOne('App\Models\Purchase_approval');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function supplier()
     {
         return $this->belongsTo('App\Models\Supplier');

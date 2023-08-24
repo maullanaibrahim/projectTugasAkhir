@@ -38,7 +38,7 @@ class PpbjeController extends Controller
                     ['approved', 'yes'],
                     ['ppbje_note', 'beli']
                 ])
-                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div]])
+                ->orWhere([['ppbje_type', $ppbje_type],['maker_division', $div2]])
                 ->get();
             }
         }elseif ($div2 == "Asset Management"){
@@ -527,6 +527,7 @@ class PpbjeController extends Controller
     public function update($div = 0, $pos = 0, Request $request, Ppbje $ppbje)
     {
         $status     = $request['status'];
+        $note       = $request['note'];
         $url        = $request['sendUrl'];
         $position   = $request['position'];
         $now        = date('d-M-Y',strtotime(now()));
@@ -544,7 +545,8 @@ class PpbjeController extends Controller
             if($position == "Chief"){
                 Ppbje_approval::where('ppbje_id', $get_id)->update([
                     'status1' => $status,
-                    'date1'   => $now
+                    'date1'   => $now,
+                    'note1'   => $note
                 ]);
                 if($cost_total <= 2000000){
                     if($ppbje_type == "asset"){
@@ -572,7 +574,8 @@ class PpbjeController extends Controller
             if($position == "Manager"){
                 Ppbje_approval::where('ppbje_id', $get_id)->update([
                     'status2' => $status,
-                    'date2' => $now
+                    'date2'   => $now,
+                    'note2'   => $note
                 ]);
                 if($cost_total <= 5000000){
                     if($ppbje_type == "asset"){
@@ -600,7 +603,8 @@ class PpbjeController extends Controller
             if($position == "Senior Manager"){
                 Ppbje_approval::where('ppbje_id', $get_id)->update([
                     'status3' => $status,
-                    'date3' => $now
+                    'date3'   => $now,
+                    'note3'   => $note
                 ]);
                 if($cost_total <= 10000000){
                     if($ppbje_type == "asset"){
@@ -628,7 +632,8 @@ class PpbjeController extends Controller
             if($position == "Direktur"){
                 Ppbje_approval::where('ppbje_id', $get_id)->update([
                     'status4' => $status,
-                    'date4' => $now
+                    'date4'   => $now,
+                    'note4'   => $note
                 ]);
                 if($cost_total > 10000000){
                     if($ppbje_type == "asset"){
@@ -651,8 +656,6 @@ class PpbjeController extends Controller
         }
 
         elseif($status == "tidak menyetujui"){
-            $note   = $request['note'];
-
             if($position == "Chief"){
                 Ppbje_approval::where('ppbje_id', $get_id)->update([
                     'status1'   => $status,

@@ -119,7 +119,7 @@
                                         <tr class="text-center text-uppercase" style="background-color:#fff;">
                                             <td>{{ $no++ }}.</td>
                                             <td class="col-5" style="text-align:left">{{ $ppbje_detail->item->item_name }}</td>
-                                            <td>{{ number_format($ppbje_detail->quantity,1,'.',',') }}</td>
+                                            <td>{{ str_replace('.0', '', number_format($ppbje_detail->quantity, 1, '.', '')) }}</td>
                                             <td>{{ $ppbje_detail->item->unit }}</td>
                                             <td><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje_detail->price,2,'.',',') }}</div></td>
                                             <td>{{ $ppbje_detail->item->discount }}%</td>
@@ -191,6 +191,7 @@
                                                             <!-- Sending URL definition (Asset or Non Asset). -->
                                                             <input type="text" class="form-control" name="status" id="status" value="menyetujui" hidden>
                                                             <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
+                                                            <input type="text" class="form-control" name="note" id="agreeNote" hidden>
                                                             <input type="text" class="form-control" name="position" id="position" value="{{ auth()->user()->position->position_name }}" hidden>
                                                             
                                                             <button class="btn btn-success w-25 btn-sm"><i class="bi bi-check-circle"></i> Setuju</button>
@@ -201,11 +202,12 @@
                                                             <!-- Sending URL definition (Asset or Non Asset). -->
                                                             <input type="text" class="form-control" name="status" id="status" value="tidak menyetujui" hidden>
                                                             <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
+                                                            <input type="text" class="form-control" name="note" id="disagreeNote" hidden>
                                                             <input type="text" class="form-control" name="position" id="position" value="{{ auth()->user()->position->position_name }}" hidden>
 
                                                             <button class="btn btn-danger w-25 btn-sm"><i class="bi bi-x-circle"></i> Tidak Setuju</button>
-                                                            <textarea class="form-control mt-2" placeholder="Sebutkan alasan terlebih dahulu, jika tidak setuju (optional)" name="note" id="note" style="height: 100px;">{{ old('note') }}</textarea>
                                                         </form>
+                                                        <textarea class="form-control mt-2" placeholder="Sebutkan alasan... (optional)" name="approval_note" id="approvalNote" style="height: 100px;">{{ old('approval_note') }}</textarea>
                                                     </div>
                                                     @else
                                                     <center><b>{{ $ppbje->ppbje_approval->status1 }}</b></center><br>
@@ -240,12 +242,14 @@
                                                     @if($ppbje->ppbje_approval->status1 == "menyetujui")
                                                         @if($ppbje->ppbje_approval->status2 == "belum disetujui")
                                                         <div class="container">
+                                                        
                                                             <!-- Button for Agree this PPBJe -->
                                                             <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
                                                                 @csrf
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="menyetujui" hidden>
                                                                 <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
+                                                                <input type="text" class="form-control" name="note" id="agreeNote" hidden>
                                                                 <input type="text" class="form-control" name="position" id="position" value="{{ auth()->user()->position->position_name }}" hidden>
                                                                 
                                                                 <button class="btn btn-success w-25 btn-sm"><i class="bi bi-check-circle"></i> Setuju</button>
@@ -256,11 +260,12 @@
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="tidak menyetujui" hidden>
                                                                 <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
+                                                                <input type="text" class="form-control" name="note" id="disagreeNote" hidden>
                                                                 <input type="text" class="form-control" name="position" id="position" value="{{ auth()->user()->position->position_name }}" hidden>
 
-                                                                <button class="btn btn-danger w-25  btn-sm"><i class="bi bi-x-circle"></i> Tidak Setuju</button>
-                                                                <textarea class="form-control mt-2" placeholder="Sebutkan alasan terlebih dahulu, jika tidak setuju (optional)" name="note" id="note" style="height: 100px;">{{ old('note') }}</textarea>
+                                                                <button class="btn btn-danger w-25 btn-sm"><i class="bi bi-x-circle"></i> Tidak Setuju</button>
                                                             </form>
+                                                            <textarea class="form-control mt-2" placeholder="Sebutkan alasan... (optional)" name="approval_note" id="approvalNote" style="height: 100px;">{{ old('approval_note') }}</textarea>
                                                         </div>
                                                         @else
                                                         <center><b>{{ $ppbje->ppbje_approval->status2 }}</b></center><br>
@@ -301,12 +306,14 @@
                                                     @if($ppbje->ppbje_approval->status2 == "menyetujui")
                                                         @if($ppbje->ppbje_approval->status3 == "belum disetujui")
                                                         <div class="container">
+                                                        
                                                             <!-- Button for Agree this PPBJe -->
                                                             <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
                                                                 @csrf
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="menyetujui" hidden>
                                                                 <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
+                                                                <input type="text" class="form-control" name="note" id="agreeNote" hidden>
                                                                 <input type="text" class="form-control" name="position" id="position" value="{{ auth()->user()->position->position_name }}" hidden>
                                                                 
                                                                 <button class="btn btn-success w-25 btn-sm"><i class="bi bi-check-circle"></i> Setuju</button>
@@ -317,11 +324,12 @@
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="tidak menyetujui" hidden>
                                                                 <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
+                                                                <input type="text" class="form-control" name="note" id="disagreeNote" hidden>
                                                                 <input type="text" class="form-control" name="position" id="position" value="{{ auth()->user()->position->position_name }}" hidden>
 
-                                                                <button class="btn btn-danger w-25  btn-sm"><i class="bi bi-x-circle"></i> Tidak Setuju</button>
-                                                                <textarea class="form-control mt-2" placeholder="Sebutkan alasan terlebih dahulu, jika tidak setuju (optional)" name="note" id="note" style="height: 100px;">{{ old('note') }}</textarea>
+                                                                <button class="btn btn-danger w-25 btn-sm"><i class="bi bi-x-circle"></i> Tidak Setuju</button>
                                                             </form>
+                                                            <textarea class="form-control mt-2" placeholder="Sebutkan alasan... (optional)" name="approval_note" id="approvalNote" style="height: 100px;">{{ old('approval_note') }}</textarea>
                                                         </div>
                                                         @else
                                                         <center><b>{{ $ppbje->ppbje_approval->status3 }}</b></center><br>

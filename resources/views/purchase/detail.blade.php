@@ -190,7 +190,7 @@
                                                     @elseif($purchase->purchase_status == "sudah diterima")
                                                     <td colspan="5" style="font-size:14px;">DISETUJUI OLEH :</td>
                                                     @else
-                                                    <td colspan="5" style="font-size:14px;">TIDAK DISETUJUI</td>
+                                                    <td colspan="5" style="font-size:14px;">TIDAK DISETUJUI {{ strtoupper($purchase->approved) }}</td>
                                                     @endif
                                                 </tr>
                                             </tbody>

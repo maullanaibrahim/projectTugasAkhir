@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.third')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -7,25 +7,14 @@
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
                             <div class="card-body">
-                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-cart-check me-2">+</i>{{ $title }}</h5>
-
-                                <!-- Showing form input new branch -->
-                                <div class="col-md-2">
-                                    <form class="row g-3 mb-3" action="/receivings/create-thisPO" method="post">
-                                        @csrf
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="purchase_number" id="poNumber" placeholder="Nomor PO">
-                                            <input type="text" name="purchase_id" id="poID" value="{{ old('purchase_id') }}" hidden>
-                                            <button class="btn btn-outline-secondary" type="submit" id="search"><i class="bi bi-search"></i></button>
-                                        </div>
-                                    </form>
-                                </div>
+                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-cart-check me-2"></i>{{ $title }}</h5>
 
                                 <div class="col-md-12">
                                     <p class="border-bottom"></p>
                                 </div>
                                 
-                                <form class="row g-3 mb-3" action="/receivings" method="POST">
+                                <form class="row g-3 mb-3" action="/receivings/{{ $receiving->id }}" method="POST">
+                                    @method('put')
                                     @csrf
                                     <div class="col-md-2">
                                         <div class="form-floating">
@@ -37,35 +26,25 @@
                                     <div class="col-md-2">
                                         <div class="form-floating">
                                             <input type="text" class="form-control text-uppercase bg-light" name="receiving_number" id="receivingNumber" value="RCV{{ sprintf('%09d', $rcvNumber); }}" readonly>
+                                            <input type="text" name="rcv_id_old" id="rcvIdOld" value="{{ $receiving->id }}" hidden>
                                             <label for="receivingNumber">No. Receiving</label>
                                         </div>
                                     </div>
 
-                                    @if($purchase == NULL)
-                                    @else
-                                    <input type="text" name="purchase_id" id="poID" value="{{ old('purchase_id', $purchase->id) }}" hidden>
-                                    <input type="text" name="purchase_number" id="poNumber" value="{{ old('purchase_number', $purchase->purchase_number) }}" hidden>
-                                    <input type="text" name="ppbje_id" id="ppbjeID" value="{{ old('ppbje_id', $purchase->ppbje_id) }}" hidden>
-                                    @endif
+                                    <input type="text" name="purchase_id" id="poID" value="{{ old('purchase_id', $receiving->purchase_id) }}" hidden>
+                                    <input type="text" name="purchase_number" id="poNumber" value="{{ old('purchase_number', $receiving->purchase->purchase_number) }}" hidden>
+                                    <input type="text" name="ppbje_id" id="ppbjeID" value="{{ old('ppbje_id', $receiving->ppbje_id) }}" hidden>
 
                                     <div class="col-md-3">
                                         <div class="form-floating">
-                                            @if($purchase == NULL)
-                                            <input type="text" class="form-control text-uppercase bg-light" name="cost_name" id="costName" readonly>
-                                            @else
-                                            <input type="text" class="form-control text-uppercase bg-light" name="cost_name" id="costName" value="{{ old('cost_name', $purchase->cost->cost_name) }}" readonly>
-                                            @endif
+                                            <input type="text" class="form-control text-uppercase bg-light" name="cost_name" id="costName" value="{{ old('cost_name', $receiving->purchase->cost->cost_name) }}" readonly>
                                             <label for="costName">Beban Biaya</label>
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
                                         <div class="form-floating">
-                                            @if($purchase == NULL)
-                                            <input type="text" class="form-control text-uppercase bg-light" name="supplier_name" id="supplierName" readonly>
-                                            @else
-                                            <input type="text" class="form-control text-uppercase bg-light" name="supplier_name" id="supplierName" value="{{ old('cost_name', $purchase->supplier->supplier_name) }}" readonly>
-                                            @endif
+                                            <input type="text" class="form-control text-uppercase bg-light" name="supplier_name" id="supplierName" value="{{ old('supplier_name', $receiving->purchase->supplier->supplier_name) }}" readonly>
                                             <label for="costName">Supplier</label>
                                         </div>
                                     </div>
@@ -117,7 +96,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control @error('invoice_number') is-invalid @enderror" name="invoice_number" id="invoiceNumber" placeholder="No. Invoice / Surat Jalan" required>
+                                            <input type="text" class="form-control @error('invoice_number') is-invalid @enderror" name="invoice_number" id="invoiceNumber" placeholder="No. Invoice / Surat Jalan" value="{{ old('invoice_number') }}" required>
                                             <label for="invoiceNumber">No. Invoice / Surat Jalan</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -133,8 +112,17 @@
                                         <div class="form-floating">
                                             <select class="form-select" name="receiving_status" id="rcvStatus" required>
                                                 <option value="" selected disabled>Pilih Status Receiving..</option>
+                                                @if(old('receiving_status', $receiving->receiving_status))
+                                                <option selected value="{{ $receiving->receiving_status }}">{{ ucwords($receiving->receiving_status) }}</option>
+                                                @if($receiving->receiving_status == "belum selesai")
+                                                <option value="selesai">Selesai</option>
+                                                @else
+                                                <option value="belum selesai">Belum Selesai</option>
+                                                @endif
+                                                @else
                                                 <option value="selesai">Selesai</option>
                                                 <option value="belum selesai">Belum Selesai</option>
+                                                @endif
                                             </select>
                                             <label for="rcvStatus">Status Receiving</label>
                                         </div>
@@ -142,7 +130,7 @@
 
                                     <div class="col-md-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control text-uppercase @error('receiving_note') is-invalid @enderror" name="receiving_note" id="rcvNote" style="height: 100px;" placeholder="Catatan Receiving">{{ old('receiving_note') }}</textarea>
+                                            <textarea class="form-control text-uppercase @error('receiving_note') is-invalid @enderror" name="receiving_note" id="rcvNote" style="height: 100px;" placeholder="Catatan Receiving">{{ old('receiving_note', $keteranganRevisi.$receiving->receiving_note) }}</textarea>
                                             <label for="rcvNote">Catatan Receiving</label>
 
                                             <!-- Showing notification error for input validation -->
@@ -171,22 +159,4 @@
             </div> <!-- End col-lg-12 -->
         </div><!-- End row -->
     </section>
-    
-    <script>
-        $('#poNumber').keyup(function(){
-            var id = $(this).val();
-            var url = '{{ route("getPurchaseID", ":id") }}';
-            url = url.replace(':id', id);
-            $.ajax({
-                url: url,
-                type: 'get',
-                dataType: 'json',
-                success: function(response){
-                    if(response != null){
-                        $('#poID').val(response.id);
-                    }
-                }
-            });
-        });
-    </script>
 @endsection

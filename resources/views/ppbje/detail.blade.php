@@ -70,7 +70,7 @@
                                         </tr>
                                         <tr style="background-color:#fff;">
                                             <td colspan="2" style="text-align:left">No. PPBJe : {{ $ppbje->ppbje_number }}</td>
-                                            <td class="col-3" style="text-align:left" colspan="2">Dibuat oleh : {{ $ppbje->maker_division }}</td>
+                                            <td class="col-3" style="text-align:left" colspan="2">Dibuat oleh : {{ ucwords($ppbje->maker_division) }}</td>
                                         </tr>
                                     </thead>
                                 </table>

@@ -346,7 +346,7 @@ class PurchaseController extends Controller
             }
             $id             = encrypt($get_id);
             $no             = encrypt($po_number);
-            $countPO        = Purchase::where('ppbje_id', $ppbjeID)->count();
+            $countPO        = Purchase::where([['ppbje_id', $ppbjeID],['purchase_status', '!=', 'tidak disetujui']])->count();
             $countApproved  = Purchase::where([['ppbje_id', $ppbjeID],['approved', 'yes']])->count();
 
             if($countPO == $countApproved){
@@ -364,7 +364,8 @@ class PurchaseController extends Controller
                 ]);
                 if($purchaseTotal <= 2000000){
                     Purchase::where('id', $get_id)->update([
-                        'purchase_status'   => 'tidak disetujui'
+                        'purchase_status'   => 'tidak disetujui',
+                        'approved'          => 'chief'
                     ]);
                 }
             }
@@ -376,7 +377,8 @@ class PurchaseController extends Controller
                 ]);
                 if($purchaseTotal <= 5000000){
                     Purchase::where('id', $get_id)->update([
-                        'purchase_status'   => 'tidak disetujui'
+                        'purchase_status'   => 'tidak disetujui',
+                        'approved'          => 'manager'
                     ]);
                 }
             }
@@ -388,7 +390,8 @@ class PurchaseController extends Controller
                 ]);
                 if($purchaseTotal <= 10000000){
                     Purchase::where('id', $get_id)->update([
-                        'purchase_status'   => 'tidak disetujui'
+                        'purchase_status'   => 'tidak disetujui',
+                        'approved'          => 'senior manager'
                     ]);
                 }
             }
@@ -400,7 +403,8 @@ class PurchaseController extends Controller
                 ]);
                 if($purchaseTotal <= 10000000){
                     Purchase::where('id', $get_id)->update([
-                        'purchase_status'   => 'tidak disetujui'
+                        'purchase_status'   => 'tidak disetujui',
+                        'approved'          => 'direktur'
                     ]);
                 }
             }

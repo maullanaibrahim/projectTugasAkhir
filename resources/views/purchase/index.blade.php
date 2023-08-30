@@ -17,7 +17,6 @@
                                             <th scope="col">NOMOR PO</th>
                                             <th scope="col">BEBAN BIAYA</th>
                                             <th scope="col">SUPPLIER</th>
-                                            <th scope="col">NOMINAL</th>
                                             <th scope="col">JENIS PO</th>
                                             <th scope="col">PEMBUAT</th>
                                             <th scope="col">STATUS</th>
@@ -31,9 +30,8 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->purchase_number }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->cost->cost_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->supplier->supplier_name }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($purchase->purchase_total,2,'.',',') }}</div></td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->ppbje->ppbje_type }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $purchase->purchase_maker }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $purchase->user->first_name }}</td>
                                             @if($purchase->purchase_status == "belum disetujui")
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-secondary">{{ $purchase->purchase_status }}</td>
                                             @elseif($purchase->purchase_status == "menunggu kiriman")

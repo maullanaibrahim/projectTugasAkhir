@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Receiving_purchase extends Model
+class Receiving extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];

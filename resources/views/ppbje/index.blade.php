@@ -28,12 +28,12 @@
                                             <th scope="col">AKSI</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-uppercase">
+                                    <tbody>
                                         @foreach($ppbjes as $ppbje)
                                         <tr>
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($ppbje->updated_at)) }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->maker_division }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->ppbje_number }}</td>
+                                            <td style="font-size:13px;">{{ $ppbje->ppbje_number }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $ppbje->cost->cost_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;"><div class="float-start ms-2">IDR</div><div class="float-end me-2">{{ number_format($ppbje->cost_total,2,'.',',') }}</div></td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($ppbje->date_of_need)); }}</td>

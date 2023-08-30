@@ -91,7 +91,7 @@
                                             <tr>
                                                 <td><input type="text" class="form-control border-0 text-center bg-light" value="{{ $no++ }}." readonly></td>
                                                 <td><input type="text" class="form-control border-0 bg-light" value="{{ strtoupper($ppbje_detail->item->item_name) }}" readonly></td>
-                                                <td><input type="text" class="form-control border-0 text-center bg-light" value="{{ $ppbje_detail->quantity }}" readonly></td>
+                                                <td><input type="text" class="form-control border-0 text-center bg-light" value="{{ str_replace('.0', '', number_format($ppbje_detail->quantity, 1, '.', '')) }}" readonly></td>
                                                 <td><input type="text" class="form-control border-0 text-center bg-light" value="{{ $ppbje_detail->item->unit }}" readonly></td>
                                                 <td><input type="text" class="form-control border-0 text-center bg-light text-uppercase" name="purchase_number" id="purchaseNumber" value="{{ $ppbje_detail->purchase_number }}" readonly></td>
                                                 <td><input type="text" class="form-control border-0 text-center bg-light text-uppercase" name="receiving_number" id="receivingNumber" value="{{ $ppbje_detail->receiving_number }}" readonly></td>
@@ -100,6 +100,11 @@
                                         </tbody>
                                      </table>
                                 </div>
+                                @if($ppbje->ppbje_status == "menunggu kiriman")
+                                    @if($ppbje_detail->receiving_number != NULL)
+                                    <div class="col-md-12 mt-2"><span class="badge bg-warning">Note : Ada receiving yang belum selesai.</span></div>
+                                    @endif
+                                @endif
                                 <div class="col-md-12 pt-3">
                                     <p class="border-bottom mt-2"></p>
                                 </div>

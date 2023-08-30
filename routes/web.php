@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PpbjeController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ReceivingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\BranchController;
@@ -113,6 +114,16 @@ Route::put('/purchases/{purchase}', [PurchaseController::class, 'update'])
    ->middleware('procurement')->name('purchase.update');
 Route::post('/purchases/{purchase}', [PurchaseController::class, 'approval'])
    ->middleware('procurement')->name('purchase.update');
+
+// Route Receiving
+Route::resource('/receivings', ReceivingController::class)
+   ->middleware('auth');
+
+Route::get('/searchPO/{id}', [ReceivingController::class, 'getPurchaseID'])
+   ->middleware('auth')->name('getPurchaseID');
+
+Route::post('receivings/create-thisPO', [ReceivingController::class, 'getPurchaseDetail'])
+   ->middleware('auth');
 
 // Route User
 Route::resource('/users', UserController::class)

@@ -40,7 +40,7 @@
                                             @endif
                                             <td style="font-size:13px;">
                                                 <!-- Button for look detail Purchase Order -->
-                                                <a href="/receivings"><button class="btn btn-outline-secondary btn-sm"><i class="bi bi-file-earmark-text-fill"></i></button></a>
+                                                <a href="/receivings/{{ $receiving->id }}"><button class="btn btn-outline-secondary btn-sm"><i class="bi bi-file-earmark-text-fill"></i></button></a>
                                                 @if($receiving->receiving_status == "selesai")
                                                 <button class="btn btn-success btn-sm" disabled><i class="bi bi-pencil-square"></i></button>
                                                 @else

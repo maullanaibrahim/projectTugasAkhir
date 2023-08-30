@@ -153,9 +153,20 @@ class ReceivingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Receiving $receiving)
     {
-        //
+        $no                 = 1;
+        $purchase_id        = $receiving->purchase_id;
+        $purchase_details   = Purchase_detail::where('purchase_id', $purchase_id)->get();
+
+        return view('receiving.detail', [
+            "title"             => "Detail Receiving",
+            "path"              => "Receiving",
+            "path2"             => "Detail",
+            "no"                => $no,
+            "receiving"         => $receiving,
+            "purchase_details"  => $purchase_details
+        ]);
     }
 
     /**

@@ -54,12 +54,8 @@
         <h1>404</h1>
         <h2>Halaman yang anda maksud belum tersedia.</h2>
         <a class="btn" href="/dashboard{{ encrypt(auth()->user()->division->division_name) }}-{{ encrypt(auth()->user()->position->position_name) }}">Kembali ke Dashboard</a>
-        <img src="dist/img/not-found.svg" class="img-fluid py-5" alt="Page Not Found">
+        <img src="dist/img/not-found.png" class="img-fluid py-5" alt="Page Not Found">
         <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
             &copy; Copyright <strong><span><a href="#">Maulana Ibrahim</a></span></strong>. All Rights Reserved
         </div>
       </section>

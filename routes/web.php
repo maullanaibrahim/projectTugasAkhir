@@ -148,3 +148,7 @@ Route::resource('/items', ItemController::class)
 // Route Supplier
 Route::resource('/suppliers', SupplierController::class)
    ->middleware('procurement');
+
+Route::get('/404', function () {
+   abort(404);
+});

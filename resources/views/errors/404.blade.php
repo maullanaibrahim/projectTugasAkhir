@@ -32,10 +32,19 @@
     <script src="dist/js/sweetalert.min.js"></script>
     
     <script type="text/javascript">
-        // Zoom In Page 90%
-        function zoom() {
-            document.body.style.zoom = "90%"
-        }
+            var myVar;
+
+            function myFunction() {
+                document.body.style.zoom = "90%";
+                myVar = setTimeout(showPage, 1500);
+            }
+
+            function showPage() {
+                document.getElementById("preloader").style.display = "none";
+                document.getElementById("loader").style.display = "none";
+                document.getElementById("status").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            }
     </script>
 
     <!-- =======================================================
@@ -45,26 +54,29 @@
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
 </head>
-<body onload="zoom()">
-
-    <main>
-    <div class="container">
-
-      <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
-        <h1>404</h1>
-        <h2>Halaman yang anda maksud belum tersedia.</h2>
-        <a class="btn" href="/dashboard{{ encrypt(auth()->user()->division->division_name) }}-{{ encrypt(auth()->user()->position->position_name) }}">Kembali ke Dashboard</a>
-        <img src="dist/img/not-found.png" class="img-fluid py-5" alt="Page Not Found">
-        <div class="credits">
-            &copy; Copyright <strong><span><a href="#">Maulana Ibrahim</a></span></strong>. All Rights Reserved
-        </div>
-      </section>
-
+<body onload="myFunction()">
+    <div id="preloader" class="d-flex align-items-center">
+        <div id="loader"></div>
+        <strong id="status" role="status" class="position-absolute text-primary" style="top: 60%; left: 44%;">Memuat Halaman...</strong>
     </div>
-  </main><!-- End #main -->
+    <div style="display:none;" id="content" class="animate-bottom">
+        <main>
+        <div class="container">
+            <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
+            <h1>404</h1>
+            <h2>Halaman yang anda maksud belum tersedia.</h2>
+            <a class="btn" href="/dashboard{{ encrypt(auth()->user()->division->division_name) }}-{{ encrypt(auth()->user()->position->position_name) }}">Kembali ke Dashboard</a>
+            <img src="dist/img/not-found.png" class="img-fluid py-5" alt="Page Not Found">
+            <div class="credits">
+                &copy; Copyright <strong><span><a href="#">Maulana Ibrahim</a></span></strong>. All Rights Reserved
+            </div>
+            </section>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        </div>
+        </main><!-- End #main -->
 
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    </div>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

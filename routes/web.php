@@ -44,39 +44,43 @@ Route::get('/dashboard{div}-{pos}', [DashboardController::class, 'index'])
    ->middleware('auth')->name('dashboard');
 
 // Route PPBJe Asset
-Route::get('/ppbje-asset{div}-{pos}', [PPBJeController::class, 'asset'])
+Route::get('/ppbje-asset{div}-{pos}', [PpbjeController::class, 'asset'])
     ->middleware('auth')->name('ppbje-asset');
-Route::get('/ppbje-asset/{div}-{pos}/create', [PPBJeController::class, 'createAsset'])
+Route::get('/ppbje-asset/{div}-{pos}/create', [PpbjeController::class, 'createAsset'])
     ->middleware('auth')->name('ppbje-createAsset');
-Route::get('/ppbje-asset{div}-{pos}/{ppbje}', [PPBJeController::class, 'show'])
+Route::get('/ppbje-asset{div}-{pos}/{ppbje}', [PpbjeController::class, 'show'])
    ->middleware('auth')->name('ppbje-assetDetail');
-Route::get('/ppbje-asset/progress{id}-{type}', [PPBJeController::class, 'progress'])
+Route::get('/ppbje-asset/progress{id}-{type}', [PpbjeController::class, 'progress'])
     ->middleware('auth')->name('ppbje-progress');
-Route::get('/ppbje-asset/stock{ppbje}', [PPBJeController::class, 'stock'])
+Route::get('/ppbje-asset/stock{ppbje}', [PpbjeController::class, 'stock'])
     ->middleware('asset')->name('ppbje-assetStock');
-Route::post('/ppbje-asset/{detail}/update-stock', [PPBJeController::class, 'updateStock'])
+Route::post('/ppbje-asset/{detail}/update-stock', [PpbjeController::class, 'updateStock'])
     ->middleware('asset')->name('ppbje-assetUpdateStock');
-Route::post('/ppbje-asset{div}-{pos}/{ppbje}/update', [PPBJeController::class, 'update'])
+Route::get('/ppbje-asset/mutation{ppbje}', [PpbjeController::class, 'mutation'])
+    ->middleware('asset')->name('ppbje-assetMutation');
+Route::post('/ppbje-asset{div}-{pos}/{ppbje}/update', [PpbjeController::class, 'update'])
     ->middleware('auth')->name('ppbje-assetUpdate');
-Route::delete('/ppbje-asset{div}-{pos}/{ppbje}', [PPBJeController::class, 'destroy'])
+Route::delete('/ppbje-asset{div}-{pos}/{ppbje}', [PpbjeController::class, 'destroy'])
     ->middleware('auth')->name('ppbje-assetDelete');
 
 // Route PPBJe NonAsset
-Route::get('/ppbje-nonAsset{div}-{pos}', [PPBJeController::class, 'nonAsset'])
+Route::get('/ppbje-nonAsset{div}-{pos}', [PpbjeController::class, 'nonAsset'])
     ->middleware('auth')->name('ppbje-nonAsset');
-Route::get('/ppbje-nonAsset/{div}-{pos}/create', [PPBJeController::class, 'createNonAsset'])
+Route::get('/ppbje-nonAsset/{div}-{pos}/create', [PpbjeController::class, 'createNonAsset'])
     ->middleware('auth')->name('ppbje-createNonAsset');
-Route::get('/ppbje-nonAsset{div}-{pos}/{ppbje}', [PPBJeController::class, 'show'])
+Route::get('/ppbje-nonAsset{div}-{pos}/{ppbje}', [PpbjeController::class, 'show'])
     ->middleware('auth')->name('ppbje-nonAssetDetail');
-Route::get('/ppbje-nonAsset/progress{id}-{type}', [PPBJeController::class, 'progress'])
+Route::get('/ppbje-nonAsset/progress{id}-{type}', [PpbjeController::class, 'progress'])
     ->middleware('auth')->name('ppbje-progress');
-Route::post('/ppbje-nonAsset{div}-{pos}/{ppbje}/update', [PPBJeController::class, 'update'])
+Route::post('/ppbje-nonAsset{div}-{pos}/{ppbje}/update', [PpbjeController::class, 'update'])
     ->middleware('auth')->name('ppbje-nonAssetUpdate');
-Route::delete('/ppbje-nonAsset{div}-{pos}/{ppbje}', [PPBJeController::class, 'destroy'])
+Route::delete('/ppbje-nonAsset{div}-{pos}/{ppbje}', [PpbjeController::class, 'destroy'])
     ->middleware('auth')->name('ppbje-nonAssetDelete');
 
-Route::post('/ppbje-store{id}', [PPBJeController::class, 'store'])
+Route::post('/ppbje-store{id}', [PpbjeController::class, 'store'])
     ->middleware('auth')->name('ppbje-store');
+Route::post('/ppbje-mutation{id}', [PpbjeController::class, 'updateMutation'])
+    ->middleware('auth')->name('ppbje-mutation');
 
    
 // Get on Create PPBJe
@@ -127,11 +131,11 @@ Route::post('receivings/create-thisPO', [ReceivingController::class, 'getPurchas
 
 // Route User
 Route::resource('/users', UserController::class)
-   ->middleware('it');
+   ->middleware('procurement');
 
 // Route Employee
 Route::resource('/employees', EmployeeController::class)
-   ->middleware('it');
+   ->middleware('procurement');
 
 // Route Branch
 Route::resource('/branches', BranchController::class)

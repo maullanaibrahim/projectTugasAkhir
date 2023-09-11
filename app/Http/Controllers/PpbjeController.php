@@ -419,7 +419,6 @@ class PpbjeController extends Controller
     {
         $get_id         = $ppbje->id;
         $ppbje_detail   = Ppbje_detail::where('ppbje_id', $get_id)->get();
-        $getSuppliers   = Ppbje_detail::where([['ppbje_id', $get_id], ['purchase_number', NULL]])->select('supplier_id')->distinct()->get();
         $no             = 1;
 
         if($ppbje['ppbje_type'] == "asset"){
@@ -431,7 +430,6 @@ class PpbjeController extends Controller
                 "path2"           => "Detail",
                 "ppbje"           => $ppbje,
                 "ppbje_details"   => $ppbje_detail,
-                "getSuppliers"    => $getSuppliers,
                 'no'              => $no
             ]);
         }else{
@@ -443,7 +441,6 @@ class PpbjeController extends Controller
                 "path2"           => "Detail",
                 "ppbje"           => $ppbje,
                 "ppbje_details"   => $ppbje_detail,
-                "getSuppliers"    => $getSuppliers,
                 'no'              => $no
             ]);
         }
@@ -455,6 +452,7 @@ class PpbjeController extends Controller
         $ppbjeType      = decrypt($type);
         $ppbje          = Ppbje::where('id', $ppbjeID)->first();
         $ppbje_detail   = Ppbje_detail::where('ppbje_id', $ppbjeID)->get();
+        $getSuppliers   = Ppbje_detail::where([['ppbje_id', $ppbjeID], ['purchase_number', NULL]])->select('supplier_id')->distinct()->get();
         $no             = 1;
         
         return view('ppbje.progress', [
@@ -463,6 +461,7 @@ class PpbjeController extends Controller
             "path2"           => "Progress",
             "ppbje"           => $ppbje,
             "ppbje_details"   => $ppbje_detail,
+            "getSuppliers"    => $getSuppliers,
             "no"              => $no
         ]);
     }
@@ -511,6 +510,26 @@ class PpbjeController extends Controller
             ]);
             return redirect('/ppbje-asset/stock'.$ppbjeID)->with('success', 'Item lainnya telah ditandai Beli melalui Procurement!');
         }
+    }
+
+    public function updateMutation($ppbje = 0, Request $request)
+    {
+        $noMutation = $request['mutationNumber'];
+        $ppbjeID    = $ppbje;
+        $ppbjeType  = "selesai";
+
+        Ppbje_detail::where('ppbje_id', $ppbjeID)->update([
+            'receiving_number' => $noMutation
+        ]);
+        $countItem  = Ppbje_detail::where('ppbje_id', $ppbjeID)->count();
+        $countRcv   = Ppbje_detail::where([['ppbje_id', $ppbjeID],['receiving_number', '!=', NULL]])->count();
+
+        if($countRcv == $countItem){
+            Ppbje::where('id', $ppbjeID)->update([
+                'ppbje_status'  => 'selesai',
+            ]);
+        }
+        return redirect()->back()->with('success', 'Nomor mutasi telah diinput!');
     }
 
     /**

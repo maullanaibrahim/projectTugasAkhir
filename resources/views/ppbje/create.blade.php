@@ -165,7 +165,11 @@
                                                         <select class="form-select border-0 @error('item_id') is-invalid @enderror" name="item_id[]" id="item_id" required>
                                                             <option selected disabled>Pilih Nama Item..</option>
                                                             @foreach($items as $item)
-                                                            <option value="{{ $item->id }}">{{ strtoupper($item->item_name) }}</option>
+                                                                @if(old('item_id') == $item->id)
+                                                                <option selected value="{{ $item->id }}">{{ strtoupper($item->item_name) }}</option>
+                                                                @else
+                                                                <option value="{{ $item->id }}">{{ strtoupper($item->item_name) }}</option>
+                                                                @endif
                                                             @endforeach
                                                         </select>
 
@@ -433,7 +437,11 @@
                         '<select class="form-select border-0" name="item_id[]" id="item_id'+i+'">'+
                             '<option selected disabled>Pilih Nama Item..<\/option>'+
                             '@foreach($items as $item)'+
-                            '<option value="{{ $item->id }}">{{ strtoupper($item->item_name) }}<\/option>'+
+                                '@if(old('item_id') == $item->id)'+
+                                '<option selected value="{{ $item->id }}">{{ strtoupper($item->item_name) }}<\/option>'+
+                                '@else'+
+                                '<option value="{{ $item->id }}">{{ strtoupper($item->item_name) }}<\/option>'+
+                                '@endif'+
                             '@endforeach'+
                         '<\/select>'+
                     '<\/td>'+

@@ -34,8 +34,18 @@
    <script src="../../dist/js/accounting.js"></script>
 
    <script type="text/javascript">
-      function zoom() {
-         document.body.style.zoom = "90%" 
+      var myVar;
+
+      function myFunction() {
+         document.body.style.zoom = "90%";
+         myVar = setTimeout(showPage, 2000);
+      }
+
+      function showPage() {
+         document.getElementById("preloader").style.display = "none";
+         document.getElementById("loader").style.display = "none";
+         document.getElementById("status").style.display = "none";
+         document.getElementById("content").style.display = "block";
       }
 
       $(document).ready(function(){
@@ -73,45 +83,49 @@
    * License: https://bootstrapmade.com/license/
    ======================================================== -->
 </head>
-<body onload="zoom()">
+<body onload="myFunction()">
+   <div id="preloader" class="d-flex align-items-center">
+      <div id="loader"></div>
+      <strong id="status" role="status" class="position-absolute text-primary" style="top: 60%; left: 44%;">Memuat Halaman...</strong>
+   </div>
+   <div style="display:none;" id="content" class="animate-bottom">
+      <header id="header" class="header fixed-top d-flex align-items-center">
+         <div class="d-flex align-items-center justify-content-between">
+            <a href="/" class="logo2 d-flex align-items-center">
+               <img src="../../dist/img/logo/logo2.png" alt="">
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+         </div><!-- End Logo -->
+         @include('partials.header')
+      </header><!-- End Header -->
 
-   <header id="header" class="header fixed-top d-flex align-items-center">
-      <div class="d-flex align-items-center justify-content-between">
-         <a href="/" class="logo2 d-flex align-items-center">
-            <img src="../../dist/img/logo/logo2.png" alt="">
-         </a>
-         <i class="bi bi-list toggle-sidebar-btn"></i>
-      </div><!-- End Logo -->
-      @include('partials.header')
-   </header><!-- End Header -->
-
-   @include('partials.sidebar')
-
-
-   <!-- ======= Main Content ======= -->
-   <main id="main" class="main">
-      <div class="pagetitle">
-         <nav>
-               <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="/dashboard{{ encrypt(auth()->user()->division->division_name) }}-{{ encrypt(auth()->user()->position->position_name) }}"><i class="bi bi-house-door"></i></a></li>
-                  <li class="breadcrumb-item">{{ $path }}</li>
-                  <li class="breadcrumb-item active">{{ $path2 }}</li>
-               </ol>
-         </nav>
-      </div><!-- End Page Title -->
-      @yield('content')
-   </main><!-- End Main Content -->
+      @include('partials.sidebar')
 
 
-   <!-- ======= Footer ======= -->
-   <footer id="footer" class="footer">
-      <div class="copyright">
-         &copy; Copyright <strong><span><a href="#">Maulana Ibrahim</a></span></strong>. All Rights Reserved
-      </div>
-   </footer><!-- End Footer -->
+      <!-- ======= Main Content ======= -->
+      <main id="main" class="main">
+         <div class="pagetitle">
+            <nav>
+                  <ol class="breadcrumb">
+                     <li class="breadcrumb-item"><a href="/dashboard{{ encrypt(auth()->user()->division->division_name) }}-{{ encrypt(auth()->user()->position->position_name) }}"><i class="bi bi-house-door"></i></a></li>
+                     <li class="breadcrumb-item">{{ $path }}</li>
+                     <li class="breadcrumb-item active">{{ $path2 }}</li>
+                  </ol>
+            </nav>
+         </div><!-- End Page Title -->
+         @yield('content')
+      </main><!-- End Main Content -->
 
-   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+      <!-- ======= Footer ======= -->
+      <footer id="footer" class="footer">
+         <div class="copyright">
+            &copy; Copyright <strong><span><a href="#">Maulana Ibrahim</a></span></strong>. All Rights Reserved
+         </div>
+      </footer><!-- End Footer -->
+
+      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+   </div>
    <!-- Vendor JS Files -->
    <script src="../../dist/vendor/apexcharts/apexcharts.min.js"></script>
    <script src="../../dist/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

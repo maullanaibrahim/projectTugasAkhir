@@ -6,7 +6,9 @@
                 <!-- Showing Notification Login Error -->
                 @if(session()->has('loginError'))
                 <script>
-                    swal("Login Gagal!", "{{ session('loginError') }}", "warning");
+                    swal("Login Gagal!", "{{ session('loginError') }}", "warning", {
+                        timer: 1500
+                    });
                 </script>
                 @endif
 

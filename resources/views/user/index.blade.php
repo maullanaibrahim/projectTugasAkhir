@@ -32,7 +32,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $user->division->division_name }}</td>
                                             <td style="font-size:13px;">
                                                 <!-- Hidden delete button for super admin -->
-                                                @if($user->nik == '12345')
+                                                @if($user->nik == '1234')
                                                 @else
                                                 <!-- Button for delete data -->
                                                 <form action="/users/{{ $user->id }}" method="post" class="d-inline">

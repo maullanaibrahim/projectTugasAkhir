@@ -25,7 +25,7 @@
                                     <p class="border-bottom"></p>
                                 </div>
                                 
-                                <form class="row g-3 mb-3" action="/receivings" method="POST">
+                                <form class="row g-3" action="/receivings" method="POST">
                                     @csrf
                                     <div class="col-md-2">
                                         <div class="form-floating">

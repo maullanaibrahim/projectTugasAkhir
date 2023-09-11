@@ -52,7 +52,7 @@
 
             <li class="nav-heading">MASTER DATA</li>
             
-            @can('it')
+            @can('procurement')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('users*') ? '' : 'collapsed' }}" href="/users">
                     <i class="bi bi-person-circle"></i>

@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
-                            <div class="card-body pb-0">
+                            <div class="card-body pb-3">
                                 <h5 class="card-title border-bottom mb-3"><i class="bi bi-tags-fill me-2"></i>{{ $title }}</h5>
 
                                 <form class="row g-3 mb-3">
@@ -118,7 +118,11 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <a href="/ppbje-{{ $ppbje->ppbje_type }}{{ encrypt(auth()->user()->division->division_name) }}-{{ encrypt(auth()->user()->position->position_name) }}/{{ $ppbje->id }}"><button type="button" class="btn btn-secondary float-start mb-3"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
+                                @if($ppbje->ppbje_type == "ASSET")
+                                        <a href="/ppbje-asset/progress{{ encrypt($ppbje->id) }}-{{ encrypt($ppbje->ppbje_type) }}"><button type="button" class="btn btn-secondary float-start"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
+                                        @else
+                                        <a href="/ppbje-nonAsset/progress{{ encrypt($ppbje->id) }}-{{ encrypt($ppbje->ppbje_type) }}"><button type="button" class="btn btn-secondary float-start"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
+                                        @endif
                                     <!-- Tombol untuk menandai beli -->
                                     @if($ppbje->ppbje_note == 'beli')
                                     <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline float-end">  

@@ -27,6 +27,7 @@
                                     </thead>
                                     <tbody class="text-uppercase">
                                         @foreach($receivings as $receiving)
+                                        @if($receiving->purchase->ppbje->maker_division == auth()->user()->division->division_name or auth()->user()->division->division_name == "Procurement")
                                         <tr>
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($receiving->created_at)); }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $receiving->receiving_number }}</td>
@@ -48,6 +49,9 @@
                                                 @endif
                                             </td>
                                         </tr>
+                                        @else
+                                        <tr></tr>
+                                        @endif
                                         @endforeach
                                     </tbody>
                                 </table>

@@ -24,12 +24,12 @@ return new class extends Migration
         });
 
         DB::table('users')->insert([
-            ['first_name'   => 'Administrator', 
-             'last_name'    => 'IT', 
-             'nik'          => '12345',
-             'password'     => Hash::make('password'), 
-             'position_id'  => '1', 
-             'division_id'  => '1', 
+            ['first_name'   => 'Anonymous', 
+             'last_name'    => '', 
+             'nik'          => '1234',
+             'password'     => Hash::make('password'),
+             'position_id'  => '10', 
+             'division_id'  => '11', 
              'created_at'   => '2023-06-29 11:40:59', 
              'updated_at'   => '2023-06-29 11:40:59'
             ]

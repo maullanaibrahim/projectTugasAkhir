@@ -16,7 +16,7 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    @can('it')
+                    @can('procurement')
                     <li>
                         <a href="/register">
                             <button class="dropdown-item d-flex align-items-center">

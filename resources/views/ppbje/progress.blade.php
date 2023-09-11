@@ -7,29 +7,94 @@
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pb-0">
-                                <h5 class="card-title border-bottom mb-3"><i class="bi bi-bar-chart-fill me-2"></i>
-                                    {{ $title }} 
+                                <div class="card-title border-bottom mb-3"><i class="bi bi-bar-chart-fill me-2"></i>
+                                    {{ $title }} |
                                     
                                     @if($ppbje->ppbje_status == "belum disetujui")
-                                    <div class="badge bg-secondary float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
+                                    <div class="badge bg-secondary text-uppercase ms-1">{{ $ppbje->ppbje_status }}</div>
                                     @elseif($ppbje->ppbje_status == "berlangsung")
                                         @if($ppbje->ppbje_note == "cek stock")
-                                        <div class="badge bg-info float-end text-uppercase px-3">{{ $ppbje->ppbje_note }}</div>
+                                        <div class="badge bg-warning text-uppercase ms-1">cek stock asset</div>
                                         @else
-                                        <div class="badge bg-warning float-end text-uppercase px-3">proses pembuatan po</div>
+                                        <div class="badge bg-warning text-uppercase ms-1">proses pembuatan po</div>
                                         @endif
                                     @elseif($ppbje->ppbje_status == "persetujuan po")
-                                    <div class="badge bg-warning float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
+                                    <div class="badge bg-warning text-uppercase ms-1">{{ $ppbje->ppbje_status }}</div>
                                     @elseif($ppbje->ppbje_status == "menunggu kiriman")
-                                    <div class="badge bg-primary float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
+                                    <div class="badge bg-primary text-uppercase ms-1">{{ $ppbje->ppbje_status }}</div>
                                     @elseif($ppbje->ppbje_status == "selesai")
-                                    <div class="badge bg-success float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
+                                    <div class="badge bg-success text-uppercase ms-1">{{ $ppbje->ppbje_status }}</div>
                                     @elseif($ppbje->ppbje_status == "batal")
-                                    <div class="badge bg-danger float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
+                                    <div class="badge bg-danger text-uppercase ms-1">{{ $ppbje->ppbje_status }}</div>
                                     @elseif($ppbje->ppbje_status == "tidak disetujui")
-                                    <div class="badge bg-danger float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
+                                    <div class="badge bg-danger text-uppercase ms-1">{{ $ppbje->ppbje_status }}</div>
                                     @endif
-                                </h5>
+
+                                    <div class="float-end">
+                                    @can('procurement')
+                                        @if($ppbje->ppbje_note == "beli")
+                                            <!-- Menampilkan tombol Buat PO jika posisi user sebagai staff procurement -->
+                                            @if(auth()->user()->position_id == 10)
+                                            <!-- Button for Create Purchase Order -->
+                                            <div class="btn-group ms-1" role="group">
+                                                @if($ppbje->ppbje_status == "berlangsung")
+                                                <button type="button" class="btn btn-primary shadow-sm dropdown-toggle rounded" data-bs-toggle="dropdown">
+                                                    <i class="bi bi-cart-plus-fill"></i> Buat PO
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    @foreach($getSuppliers as $getSupplier)
+                                                    <li><a class="dropdown-item" href="/purchases/create{{ encrypt($ppbje->id) }}-{{ encrypt($getSupplier->supplier->id) }}">{{ strtoupper($getSupplier->supplier->supplier_name) }}</a></li>
+                                                    @endforeach
+                                                </ul>
+                                                @else
+                                                <button type="button" class="btn btn-primary shadow-sm dropdown-toggle rounded" data-bs-toggle="dropdown" disabled>
+                                                    <i class="bi bi-cart-plus-fill"></i> Buat PO
+                                                </button>
+                                                @endif
+                                            </div>
+                                            @endif
+                                        @else
+                                        @endif
+                                        @endcan
+
+                                        @can('asset')
+                                        @if($ppbje->ppbje_note == "cek stock")
+                                            @if(auth()->user()->position_id == 10)
+                                            <!-- Tombol untuk Cek Stock Asset -->
+                                            <a href="/ppbje-asset/stock{{ $ppbje->id }}" method="post" class="d-inline">  
+                                                <button class="btn btn-primary shadow-sm rounded"><i class="bi bi-tags-fill"></i> Tandai Stock / Beli</button>
+                                            </a>
+                                            @endif
+                                        @else
+                                            @if(auth()->user()->position_id == 1)
+                                                @if($ppbje->ppbje_status == "selesai")
+                                                <div class="btn-group ms-1" role="group">
+                                                    <button type="button" class="btn btn-primary shadow-sm dropdown-toggle rounded" data-bs-toggle="dropdown" disabled>
+                                                        <i class="bi bi-card-text"></i> Input Mutasi
+                                                    </button>
+                                                </div>
+                                                @else
+                                                <!-- Tombol untuk Cek Stock Asset -->
+                                                <div class="btn-group ms-1" role="group">
+                                                    <button type="button" class="btn btn-primary shadow-sm dropdown-toggle rounded" data-bs-toggle="dropdown">
+                                                        <i class="bi bi-card-text"></i> Input Mutasi
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-arrow mt-2 end-0">
+                                                        <li class="px-2" style="width:300px">
+                                                            <form action="/ppbje-mutation{{ $ppbje->id }}" method="POST">
+                                                                @csrf
+                                                                <input type="text" class="form-control" name="mutationNumber" id="mutationNumber" placeholder="Input Nomor Mutasi Asset...">
+                                                                <button type="submit" class="btn btn-sm btn-primary shadow-sm rounded mt-2 float-end">Submit</button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                @endif
+                                            @endif
+                                        @endif
+                                        @endcan
+                                    </div>
+                                </div>
 
                                 <form class="row g-3 mb-3">
                                     @csrf
@@ -109,7 +174,7 @@
                                     <p class="border-bottom mt-2"></p>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     @if($ppbje->ppbje_type == 'asset')
                                     <a href="/ppbje-asset{{ encrypt(auth()->user()->division->division_name) }}-{{ encrypt(auth()->user()->position->position_name) }}"><button type="button" class="btn btn-secondary float-start mb-3"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
                                     @else

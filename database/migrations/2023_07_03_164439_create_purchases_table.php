@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('approved');
             $table->string('purchase_status')->nullable();
             $table->string('purchase_note')->nullable();
+            $table->bigInteger('receiving_id')->nullable();
             $table->timestamps();
         });
     }

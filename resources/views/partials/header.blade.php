@@ -16,16 +16,6 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    @can('procurement')
-                    <li>
-                        <a href="/register">
-                            <button class="dropdown-item d-flex align-items-center">
-                                <i class="bi bi-person-plus"></i>
-                                <span>Registrasi Akun</span>
-                            </button>
-                        </a>
-                    </li>
-                    @endcan
                     <li>
                         <a href="/404">
                             <button class="dropdown-item d-flex align-items-center">

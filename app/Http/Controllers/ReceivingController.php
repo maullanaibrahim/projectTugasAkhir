@@ -59,7 +59,7 @@ class ReceivingController extends Controller
 
     public function getPurchaseID($id = 0)
     {
-        $data = Purchase::where([['purchase_number', $id],['receiving_id', NULL]])->first();
+        $data = Purchase::where('purchase_number', $id)->first();
         return response()->json($data);
     }
 
@@ -79,20 +79,30 @@ class ReceivingController extends Controller
             $noRCV       = $rcvDefault+$countRCV+1;
             $rcvNumber   = $noRCV;
         }
+        $checkPO            = Purchase::where('id', $purchase_id)->count();
+        $checkRcv           = Purchase::where([['id', $purchase_id],['receiving_id', '!=', NULL]])->count();
         $purchase           = Purchase::where('id', $purchase_id)->first();
         $purchase_details   = Purchase_detail::where('purchase_id', $purchase_id)->get();
         $no                 = 1;
 
-        return view('receiving.create', [
-            "title"             => "Buat Receiving",
-            "path"              => "Receiving Order",
-            "path2"             => "Buat Receiving",
-            "dateNow"           => $dateNow,
-            "rcvNumber"         => $rcvNumber,
-            "purchase"          => $purchase,
-            "purchase_details"  => $purchase_details,
-            "no"                => $no
-        ]);
+        if($checkPO == NULL){
+            return back()->with('poNull', 'Nomor PO tidak ada!');
+        }
+        elseif($checkRcv == 1){
+            return back()->with('rcvNotNull', 'Nomor PO sudah di receiving!');
+        }
+        elseif($checkRcv == 0){
+            return view('receiving.create', [
+                "title"             => "Buat Receiving",
+                "path"              => "Receiving Order",
+                "path2"             => "Buat Receiving",
+                "dateNow"           => $dateNow,
+                "rcvNumber"         => $rcvNumber,
+                "purchase"          => $purchase,
+                "purchase_details"  => $purchase_details,
+                "no"                => $no
+            ]);
+        }
     }
 
     /**

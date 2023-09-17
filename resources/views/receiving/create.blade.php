@@ -1,5 +1,18 @@
 @extends('layouts.secondary')
 @section('content')
+    @if(session()->has('poNull'))
+    <script>
+        swal("Salah!", "{{ session('poNull') }}", "warning", {
+            timer: 1500
+        });
+    </script>
+    @elseif(session()->has('rcvNotNull'))
+    <script>
+        swal("Salah!", "{{ session('rcvNotNull') }}", "warning", {
+            timer: 1500
+        });
+    </script>
+    @endif
     <section class="section dashboard">
         <div class="row">
             <div class="col-lg-12">
@@ -10,11 +23,13 @@
                                 <h5 class="card-title border-bottom mb-3"><i class="bi bi-cart-check me-2">+</i>{{ $title }}</h5>
 
                                 <!-- Showing form input new branch -->
+                                @if($purchase != NULL)
+                                @else
                                 <div class="col-md-2">
                                     <form class="row g-3 mb-3" action="/receivings/create-thisPO" method="post">
                                         @csrf
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="purchase_number" id="poNumber" placeholder="Nomor PO">
+                                            <input type="text" class="form-control" name="purchase_number" id="poNumber" placeholder=" Cari nomor PO">
                                             <input type="text" name="purchase_id" id="poID" value="{{ old('purchase_id') }}" hidden>
                                             <button class="btn btn-outline-secondary" type="submit" id="search"><i class="bi bi-search"></i></button>
                                         </div>
@@ -24,7 +39,10 @@
                                 <div class="col-md-12">
                                     <p class="border-bottom"></p>
                                 </div>
-                                
+                                @endif
+
+                                @if($purchase == NULL)
+                                @else
                                 <form class="row g-3" action="/receivings" method="POST">
                                     @csrf
                                     <div class="col-md-2">
@@ -41,31 +59,20 @@
                                         </div>
                                     </div>
 
-                                    @if($purchase == NULL)
-                                    @else
                                     <input type="text" name="purchase_id" id="poID" value="{{ old('purchase_id', $purchase->id) }}" hidden>
                                     <input type="text" name="purchase_number" id="poNumber" value="{{ old('purchase_number', $purchase->purchase_number) }}" hidden>
                                     <input type="text" name="ppbje_id" id="ppbjeID" value="{{ old('ppbje_id', $purchase->ppbje_id) }}" hidden>
-                                    @endif
 
                                     <div class="col-md-3">
                                         <div class="form-floating">
-                                            @if($purchase == NULL)
-                                            <input type="text" class="form-control text-uppercase bg-light" name="cost_name" id="costName" readonly>
-                                            @else
                                             <input type="text" class="form-control text-uppercase bg-light" name="cost_name" id="costName" value="{{ old('cost_name', $purchase->cost->cost_name) }}" readonly>
-                                            @endif
                                             <label for="costName">Beban Biaya</label>
                                         </div>
                                     </div>
 
                                     <div class="col-md-3">
                                         <div class="form-floating">
-                                            @if($purchase == NULL)
-                                            <input type="text" class="form-control text-uppercase bg-light" name="supplier_name" id="supplierName" readonly>
-                                            @else
                                             <input type="text" class="form-control text-uppercase bg-light" name="supplier_name" id="supplierName" value="{{ old('cost_name', $purchase->supplier->supplier_name) }}" readonly>
-                                            @endif
                                             <label for="costName">Supplier</label>
                                         </div>
                                     </div>
@@ -164,6 +171,7 @@
                                         <a href="/receivings"><button type="button" class="btn btn-secondary float-start"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
                                     </div>
                                 </form><!-- End Input Form -->
+                                @endif
                             </div> <!-- End Card Body -->
                         </div> <!-- End card top-selling -->
                     </div> <!-- End col-12 -->

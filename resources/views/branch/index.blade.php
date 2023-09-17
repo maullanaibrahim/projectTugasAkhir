@@ -12,7 +12,10 @@
 
                                 <!-- Button for create new branch -->
                                 @can('procurement')
-                                <a href="/branches/create"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-lg me-1"></i> Tambah</button></a>
+                                    @if(auth()->user()->position_id == '1')
+                                    <a href="/branches/create"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-lg me-1"></i> Tambah</button></a>
+                                    @else
+                                    @endif
                                 @endcan
 
                                 <!-- Showing data from branches table -->
@@ -27,7 +30,10 @@
                                             <th scope="col">STATUS</th>
                                             <th scope="col">UPDATE</th>
                                             @can('procurement')
+                                            @if(auth()->user()->position_id == '1')
                                             <th scope="col">AKSI</th>
+                                            @else
+                                            @endif
                                             @endcan
                                         </tr>
                                     </thead>
@@ -46,16 +52,19 @@
                                             @endif
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($branch->updated_at)); }}</td>
                                             @can('procurement')
-                                            <td style="font-size:13px;">
-                                                <!-- Button for edit data -->
-                                                <a href="/branches/{{ $branch->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
-                                                <!-- Button for delete data
-                                                <form action="/branches/{{ $branch->id }}" method="post" class="d-inline">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus cabang {{ strtoupper($branch->branch_name) }}?')"><i class="bi bi-trash-fill"></i></button>
-                                                </form> -->
-                                            </td>
+                                                @if(auth()->user()->position_id == '1')
+                                                <td style="font-size:13px;">
+                                                    <!-- Button for edit data -->
+                                                    <a href="/branches/{{ $branch->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                    <!-- Button for delete data
+                                                    <form action="/branches/{{ $branch->id }}" method="post" class="d-inline">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus cabang {{ strtoupper($branch->branch_name) }}?')"><i class="bi bi-trash-fill"></i></button>
+                                                    </form> -->
+                                                </td>
+                                                @else
+                                                @endif
                                             @endcan
                                         </tr>
                                         @endforeach

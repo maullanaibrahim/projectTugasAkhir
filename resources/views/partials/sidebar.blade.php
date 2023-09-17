@@ -26,7 +26,8 @@
                 </ul>
             </li><!-- End PPBJe -->
 
-            @if(auth()->user()->division_id == '12')
+            
+            @if(auth()->user()->division_id == '12') <!-- Jika posisi sebagai Senior Manager dan Direktur -->
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('purchases*') ? '' : 'collapsed' }}" href="/purchases{{ encrypt(auth()->user()->position->position_name) }}">
                     <i class="bi bi-cart"></i>
@@ -43,13 +44,18 @@
             </li><!-- End Purchase Order -->
             @endcan
 
+            @if(auth()->user()->division_id == '12') <!-- Jika posisi sebagai Senior Manager dan Direktur -->
+            @else
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('receivings*') ? '' : 'collapsed' }}" href="/receivings">
                     <i class="bi bi-cart-check"></i>
                     <span>Receiving</span>
                 </a>
             </li><!-- End Receiving -->
-
+            @endif
+            
+            @if(auth()->user()->division_id == '12') <!-- Jika posisi sebagai Senior Manager dan Direktur -->
+            @else
             <li class="nav-heading">MASTER DATA</li>
             
             @can('procurement')
@@ -97,6 +103,7 @@
                 </a>
             </li><!-- End Data Supplier -->
             @endcan
+            @endif
         </ul>
     </aside><!-- End Sidebar-->
 <!-- ======= End Sidebar ======= -->

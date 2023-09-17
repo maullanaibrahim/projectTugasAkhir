@@ -10,7 +10,10 @@
                                 <h5 class="card-title border-bottom mb-3"><i class="bi bi-person-circle me-2"></i>{{ $title }}</h5>
 
                                 <!-- Button for Register new User -->
+                                @if(auth()->user()->position_id == '1')
                                 <a href="/register"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-person-plus me-1"></i> Registrasi</button></a>
+                                @else
+                                @endif
                                 
                                 <!-- Showing data from employees table -->
                                 <table class="table datatable">
@@ -30,6 +33,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $user->first_name }} {{ $user->last_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $user->position->position_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $user->division->division_name }}</td>
+                                            @if(auth()->user()->position_id == '1')
                                             <td style="font-size:13px;">
                                                 <!-- Hidden delete button for super admin -->
                                                 @if($user->nik == '1234')
@@ -42,6 +46,8 @@
                                                 </form>
                                                 @endif
                                             </td>
+                                            @else
+                                            @endif
                                         </tr>
                                         @endforeach
                                     </tbody>

@@ -9,8 +9,11 @@
                             <div class="card-body">
                                 <h5 class="card-title border-bottom mb-3"><i class="bi bi-truck me-2"></i>{{ $title }}</h5>
 
-                                <!-- Button for create new branch -->
+                                <!-- Button for create new supplier -->
+                                @if(auth()->user()->position_id == '1')
                                 <a href="/suppliers/create"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-lg me-1"></i> Tambah</button></a>
+                                @else
+                                @endif
 
                                 <!-- Showing Supplier Table -->
                                 <table class="table datatable">
@@ -24,7 +27,10 @@
                                             <th scope="col">PPN</th>
                                             <th scope="col">TERMIN</th>
                                             <th scope="col">TERDAFTAR</th>
+                                            @if(auth()->user()->position_id == '1')
                                             <th scope="col">AKSI</th>
+                                            @else
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody class="text-uppercase">
@@ -38,6 +44,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $supplier->tax }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $supplier->term }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($supplier->created_at)); }}</td>
+                                            @if(auth()->user()->position_id == '1')
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
                                                 <a href="/suppliers/{{ $supplier->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
@@ -48,6 +55,8 @@
                                                     <button class="btn btn-danger btn-sm" onclick="askDelete()"><i class="bi bi-trash-fill"></i></button>
                                                 </form> -->
                                             </td>
+                                            @else
+                                            @endif
                                         </tr>
                                         @endforeach
                                     </tbody>

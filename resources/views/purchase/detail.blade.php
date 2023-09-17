@@ -52,7 +52,7 @@
                                         <p><span style="margin-right: 47px;">Dibuat Oleh </span>: </p>
                                     </div>
                                     <div class="col-md-3">
-                                        <p>{{ strtoupper($purchase->user->first_name) }}</p>
+                                        <p>{{ strtoupper($purchase->maker) }}</p>
                                     </div>
                                 </div>
 
@@ -196,12 +196,6 @@
                                             </tbody>
                                             <tbody>
                                                 <tr>
-                                                    <td class="col-md-2" style="font-size:14px;">
-                                                        <p class="fw-bold mb-4">STAFF PROCUREMENT</p>
-                                                        <p class="m-0"><span style="margin-right: 13px;">Nama </span>: {{ strtoupper($purchase->user->first_name) }} {{ strtoupper($purchase->user->last_name) }}</p>
-                                                        <p class="m-0"><span style="margin-right: 2px;">Tanggal </span>: {{ date('d-M-Y', strtotime($purchase->created_at)) }}</p>
-                                                        <p class="m-0"><span style="margin-right: 2px;">Catatan </span>:</p>
-                                                    </td>
                                                     <td class="col-md-2" style="font-size:14px;">
                                                         <p class="fw-bold mb-4">CHIEF</p>
                                                         <p class="m-0"><span style="margin-right: 13px;">Nama </span>: {{ strtoupper($purchase->purchase_approval->chief) }}</p>

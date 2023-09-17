@@ -129,7 +129,7 @@ class PurchaseController extends Controller
         $purchase                   = new Purchase;
         $purchase->purchase_number  = $request['purchase_number'];
         $purchase->purchase_expired = $purchase_expired;
-        $purchase->user_id          = $request['user_id'];
+        $purchase->maker            = $request['maker'];
         $purchase->supplier_id      = $request['supplier_id'];
         $purchase->purchase_total   = $request['purchase_total'];
         $purchase->ppbje_id         = $request['ppbje_id'];
@@ -346,13 +346,17 @@ class PurchaseController extends Controller
             }
             $id             = encrypt($get_id);
             $no             = encrypt($po_number);
-            $countPO        = Purchase::where([['ppbje_id', $ppbjeID],['purchase_status', '!=', 'tidak disetujui']])->count();
+            $countItem      = Ppbje_detail::where('ppbje_id', $ppbjeID)->count();
+            $countValue     = Ppbje_detail::where([['ppbje_id', $ppbjeID], ['purchase_number', '!=', NULL]])->count();
+            $countPO        = Purchase::where('ppbje_id', $ppbjeID)->count();
             $countApproved  = Purchase::where([['ppbje_id', $ppbjeID],['approved', 'yes']])->count();
 
-            if($countPO == $countApproved){
-                Ppbje::where('id', $ppbjeID)->update([
-                    'ppbje_status'  => 'menunggu kiriman'
-                ]);
+            if($countItem == $countValue){
+                if($countPO == $countApproved){
+                    Ppbje::where('id', $ppbjeID)->update([
+                        'ppbje_status'  => 'menunggu kiriman'
+                    ]);
+                }
             }
             return redirect('/purchases/'.$id.'-'.$no)->with('success', $po_number.' telah disetujui!');
         }else{

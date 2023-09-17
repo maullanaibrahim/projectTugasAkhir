@@ -328,7 +328,7 @@ class PpbjeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'ppbje_number'  => 'required|min:5|max:20|unique:ppbjes',
+            'ppbje_number'  => 'required|unique:ppbjes',
             'cost_id'       => 'required',
             'employee_id'   => 'required',
             'date_of_need'  => 'required',
@@ -337,9 +337,7 @@ class PpbjeController extends Controller
             'quantity'      => 'required',
         ],
         [
-            'ppbje_number.required' => 'No. PPBJe belum diisi!', 
-            'ppbje_number.min'      => 'Ketikkan minimal 5 digit!',
-            'max'                   => 'Ketikkan maksimal 20 digit!',
+            'ppbje_number.required' => 'No. PPBJe belum diisi!',
             'unique'                => 'No. PPBJe sudah digunakan!',
             'cost_id'               => 'Beban Biaya belum dipilih!',
             'employee_id'           => 'Pemohon belum dipilih!',

@@ -12,7 +12,10 @@
 
                                 <!-- Button for create new item -->
                                 @can('procurement')
+                                @if(auth()->user()->position_id == '1')
                                 <a href="/items/create"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-lg me-1"></i> Tambah</button></a>
+                                @else
+                                @endif
                                 @endcan
 
                                 <!-- Showing data from items table -->
@@ -32,7 +35,10 @@
                                             <th scope="col">JENIS ITEM</th>
                                             @can('procurement')
                                             <th scope="col">UPDATE</th>
+                                            @if(auth()->user()->position_id == '1')
                                             <th scope="col">AKSI</th>
+                                            @else
+                                            @endif
                                             @endcan
                                         </tr>
                                     </thead>
@@ -52,6 +58,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $item->item_type }}</td>
                                             @can('procurement')
                                             <td class="text-uppercase" style="font-size:13px;">{{ date('d-M-Y', strtotime($item->updated_at)) }}</td>
+                                            @if(auth()->user()->position_id == '1')
                                             <td style="font-size:13px;">
                                                 <!-- Button for edit data -->
                                                 <a href="/items/{{ $item->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
@@ -62,6 +69,8 @@
                                                     <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus item {{ strtoupper($item->item_name) }}?')"><i class="bi bi-trash-fill"></i></button>
                                                 </form> -->
                                             </td>
+                                            @else
+                                            @endif
                                             @endcan
                                         </tr>
                                         @endforeach

@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase bg-light" name="purchase_maker" id="poMaker" value="{{ old('purchase_maker', $purchase->user->first_name) }}" readonly>
+                                            <input type="text" class="form-control text-uppercase bg-light" name="purchase_maker" id="poMaker" value="{{ old('purchase_maker', $purchase->maker) }}" readonly>
                                             <label for="poMaker">Pembuat PO</label>
                                         </div>
                                     </div>

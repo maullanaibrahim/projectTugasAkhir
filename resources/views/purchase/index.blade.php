@@ -31,7 +31,7 @@
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->cost->cost_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->supplier->supplier_name }}</td>
                                             <td class="text-uppercase" style="font-size:13px;">{{ $purchase->ppbje->ppbje_type }}</td>
-                                            <td class="text-uppercase" style="font-size:13px;">{{ $purchase->user->first_name }}</td>
+                                            <td class="text-uppercase" style="font-size:13px;">{{ $purchase->maker }}</td>
                                             @if($purchase->purchase_status == "belum disetujui")
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-secondary">{{ $purchase->purchase_status }}</td>
                                             @elseif($purchase->purchase_status == "menunggu kiriman")

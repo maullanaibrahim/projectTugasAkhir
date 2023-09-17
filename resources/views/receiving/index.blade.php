@@ -9,8 +9,11 @@
                             <div class="card-body">
                                 <h5 class="card-title border-bottom mb-3"><i class="bi bi-cart-check me-2"></i>{{ $title }}</h5>
 
-                                <!-- Button for create new branch -->
+                                <!-- Button for create new receiving -->
+                                @if(auth()->user()->position_id == '1')
                                 <a href="/receivings/create"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-plus-lg me-1"></i> Tambah</button></a>
+                                @else
+                                @endif
 
                                 <!-- Showing Supplier Table -->
                                 <table class="table datatable">
@@ -40,12 +43,16 @@
                                             <td class="text-uppercase" style="font-size:13px;"><span class="badge bg-warning">{{ $receiving->receiving_status }}</span></td>
                                             @endif
                                             <td style="font-size:13px;">
-                                                <!-- Button for look detail Purchase Order -->
+                                                <!-- Button for look detail Receiving -->
                                                 <a href="/receivings/{{ $receiving->id }}"><button class="btn btn-outline-secondary btn-sm"><i class="bi bi-file-earmark-text-fill"></i></button></a>
-                                                @if($receiving->receiving_status == "selesai")
-                                                <button class="btn btn-success btn-sm" disabled><i class="bi bi-pencil-square"></i></button>
+                                                <!-- Button for edit Receiving -->
+                                                @if(auth()->user()->position_id == '1')
+                                                    @if($receiving->receiving_status == "selesai")
+                                                    <button class="btn btn-success btn-sm" disabled><i class="bi bi-pencil-square"></i></button>
+                                                    @else
+                                                    <a href="/receivings/{{ $receiving->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
+                                                    @endif
                                                 @else
-                                                <a href="/receivings/{{ $receiving->id }}/edit"><button class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></button></a>
                                                 @endif
                                             </td>
                                         </tr>

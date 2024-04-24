@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.main')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -9,7 +9,7 @@
                             <div class="card-body pb-0">
                                 <div class="card-title border-bottom mb-3"><i class="bi bi-bar-chart-fill me-2"></i>
                                     {{ $title }} |
-                                    
+
                                     @if($ppbje->ppbje_status == "belum disetujui")
                                     <div class="badge bg-secondary text-uppercase ms-1">{{ $ppbje->ppbje_status }}</div>
                                     @elseif($ppbje->ppbje_status == "berlangsung")
@@ -61,7 +61,7 @@
                                         @if($ppbje->ppbje_note == "cek stock")
                                             @if(auth()->user()->position_id == 10)
                                             <!-- Tombol untuk Cek Stock Asset -->
-                                            <a href="/ppbje-asset/stock{{ $ppbje->id }}" method="post" class="d-inline">  
+                                            <a href="/ppbje-asset/stock{{ $ppbje->id }}" method="post" class="d-inline">
                                                 <button class="btn btn-primary shadow-sm rounded"><i class="bi bi-tags-fill"></i> Tandai Stock / Beli</button>
                                             </a>
                                             @endif

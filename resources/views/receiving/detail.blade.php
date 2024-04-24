@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.main')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -9,7 +9,7 @@
                             <div class="card-body pt-4">
                                 <a href="/receivings"><button type="button" class="btn btn-outline-secondary shadow-sm"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
                                 <a href="/404"><button type="button" class="btn btn-outline-success shadow-sm ms-1"><i class="bi bi-printer-fill me-1"></i> Cetak</button></a>
-                                
+
                                 <table class="table table-bordered mt-3">
                                     <thead class="text-center">
                                         <tr style="font-size:20px;">
@@ -41,7 +41,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
+
                                 <div class="col-md-12">
                                     <p class="border-bottom">Detail Barang</p>
                                     <table class="table table-bordered w-auto m-0">

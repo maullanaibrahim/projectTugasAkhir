@@ -1,4 +1,4 @@
-@extends('layouts.third')
+@extends('layouts.main')
 
 @section('content')
     <section class="section dashboard">
@@ -41,7 +41,7 @@
                                             <div class="form-floating">
                                                 <input type="text" class="form-control @error('price') is-invalid @enderror" name="price" id="price" placeholder="Harga Item" value="{{ old('price', number_format($item->price,2,'.',',')) }}" required>
                                                 <label for="harga">Harga</label>
-                                            
+
                                                 <!-- Showing notification error for input validation -->
                                                 @error('price')
                                                 <div class="invalid-feedback">
@@ -57,7 +57,7 @@
                                             <div class="form-floating">
                                                 <input type="number" class="form-control @error('discount') is-invalid @enderror" name="discount" id="discount" step=".01" value="{{ old('discount', number_format($item->discount,2,'.',',')) }}">
                                                 <label for="discount">Diskon</label>
-                                                
+
                                                 <!-- Showing notification error for input validation -->
                                                 @error('discount')
                                                 <div class="invalid-feedback">
@@ -155,7 +155,7 @@
                                     <div class="col-md-12">
                                         <p class="border-bottom mt-2 mb-0"></p>
                                     </div>
-                                    
+
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary float-end ms-2"><i class="bi bi-save2 me-1"></i> Simpan</button>
                                         <button type="reset" class="btn btn-warning float-end ms-2"><i class="bi bi-trash me-1"></i> Reset</button>

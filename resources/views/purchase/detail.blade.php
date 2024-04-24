@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.main')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -95,7 +95,7 @@
 
                                 <div class="col-md-12">
                                     <p class="border-bottom">Detail Barang</p>
-                                        
+
                                     <table class="table table-bordered w-100">
                                         <thead>
                                             <tr class="text-center bg-light">
@@ -105,7 +105,7 @@
                                                 <th rowspan="2" class="align-middle">Harga Satuan</th>
                                                 <th rowspan="2" class="align-middle">Diskon</th>
                                                 <th rowspan="2" class="align-middle">Total Harga</th>
-                                            </tr>    
+                                            </tr>
                                             <tr class="text-center bg-light">
                                                 <th>Kode</th>
                                                 <th class="col-md-4">Nama</th>
@@ -235,7 +235,7 @@
                                                     <tr>
                                                         <td style="font-size:14px;">
                                                             <!-- Button for Agree this PPBJe -->
-                                                            <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">  
+                                                            <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">
                                                                 @csrf
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="menyetujui" hidden>
@@ -244,7 +244,7 @@
                                                                 <button class="btn btn-success btn-sm" style="width:15%"><i class="bi bi-check-circle"></i> Setuju</button>
                                                             </form>
                                                             <!-- Button for Disagree this PPBJe -->
-                                                            <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">  
+                                                            <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">
                                                                 @csrf
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="tidak menyetujui" hidden>
@@ -270,7 +270,7 @@
                                                         <tr>
                                                             <td style="font-size:14px;">
                                                                 <!-- Button for Agree this PPBJe -->
-                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">  
+                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">
                                                                     @csrf
                                                                     <!-- Sending URL definition (Asset or Non Asset). -->
                                                                     <input type="text" class="form-control" name="status" id="status" value="menyetujui" hidden>
@@ -279,7 +279,7 @@
                                                                     <button class="btn btn-success btn-sm" style="width:15%"><i class="bi bi-check-circle"></i> Setuju</button>
                                                                 </form>
                                                                 <!-- Button for Disagree this PPBJe -->
-                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">  
+                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">
                                                                     @csrf
                                                                     <!-- Sending URL definition (Asset or Non Asset). -->
                                                                     <input type="text" class="form-control" name="status" id="status" value="tidak menyetujui" hidden>
@@ -307,7 +307,7 @@
                                                         <tr>
                                                             <td style="font-size:14px;">
                                                                 <!-- Button for Agree this PPBJe -->
-                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">  
+                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">
                                                                     @csrf
                                                                     <!-- Sending URL definition (Asset or Non Asset). -->
                                                                     <input type="text" class="form-control" name="status" id="status" value="menyetujui" hidden>
@@ -316,7 +316,7 @@
                                                                     <button class="btn btn-success btn-sm" style="width:15%"><i class="bi bi-check-circle"></i> Setuju</button>
                                                                 </form>
                                                                 <!-- Button for Disagree this PPBJe -->
-                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">  
+                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">
                                                                     @csrf
                                                                     <!-- Sending URL definition (Asset or Non Asset). -->
                                                                     <input type="text" class="form-control" name="status" id="status" value="tidak menyetujui" hidden>
@@ -344,7 +344,7 @@
                                                         <tr>
                                                             <td style="font-size:14px;">
                                                                 <!-- Button for Agree this PPBJe -->
-                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">  
+                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">
                                                                     @csrf
                                                                     <!-- Sending URL definition (Asset or Non Asset). -->
                                                                     <input type="text" class="form-control" name="status" id="status" value="menyetujui" hidden>
@@ -353,7 +353,7 @@
                                                                     <button class="btn btn-success btn-sm" style="width:15%"><i class="bi bi-check-circle"></i> Setuju</button>
                                                                 </form>
                                                                 <!-- Button for Disagree this PPBJe -->
-                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">  
+                                                                <form action="/purchases/{{ $purchase->id }}" method="post" class="d-inline">
                                                                     @csrf
                                                                     <!-- Sending URL definition (Asset or Non Asset). -->
                                                                     <input type="text" class="form-control" name="status" id="status" value="tidak menyetujui" hidden>

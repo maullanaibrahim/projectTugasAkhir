@@ -1,4 +1,4 @@
-@extends('layouts.third')
+@extends('layouts.main')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -8,7 +8,7 @@
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pb-0">
                                 <h5 class="card-title border-bottom mb-3"><i class="bi bi-pencil-square me-2"></i>{{ $title }}</h5>
-                                
+
                                 <!-- Showing form input new employee -->
                                 <form class="row g-3 mb-3" action="/employees/{{ $employee->id }}" method="POST">
                                     @method('put')
@@ -26,7 +26,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-4">
                                         <div class="form-floating">
                                             <input type="text" class="form-control text-uppercase @error('employee_name') is-invalid @enderror" name="employee_name" id="employee_name" placeholder="Nama Karyawan" value="{{ old('employee_name', $employee->employee_name) }}" required>
@@ -97,7 +97,7 @@
                                     <div class="col-md-12">
                                         <p class="border-bottom mt-2 mb-0"></p>
                                     </div>
-                                    
+
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary float-end ms-2"><i class="bi bi-save2 me-1"></i> Simpan</button>
                                         <button type="reset" class="btn btn-warning float-end ms-2"><i class="bi bi-trash me-1"></i> Reset</button>

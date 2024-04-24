@@ -14,7 +14,7 @@
                                 <a href="/register"><button type="button" class="btn btn-primary position-relative float-start me-2" style="margin-top: 6px"><i class="bi bi-person-plus me-1"></i> Registrasi</button></a>
                                 @else
                                 @endif
-                                
+
                                 <!-- Showing data from employees table -->
                                 <table class="table datatable">
                                     <thead class="bg-light" style="height: 45px;">

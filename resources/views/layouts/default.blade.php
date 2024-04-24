@@ -30,13 +30,12 @@
 
     <!-- Javascript -->
     <script src="dist/js/sweetalert.min.js"></script>
-    
+
     <script type="text/javascript">
         var myVar;
 
         function preloader() {
-            document.body.style.zoom = "90%";
-            myVar = setTimeout(showPage, 2000);
+            myVar = setTimeout(showPage, 300);
         }
 
         function showPage() {
@@ -78,17 +77,21 @@
     ======================================================== -->
 </head>
 <body onload="preloader()">
-    <div id="preloader" class="d-flex align-items-center">
-        <div id="loader"></div>
-        <strong id="status" role="status" class="position-absolute text-primary" style="top: 60%; left: 44%;">Memuat Halaman...</strong>
-    </div>
-    <div style="display:none;" id="content" class="fade-in">
-        <main>
-            @yield('content')
-        </main><!-- End #main -->
+    <div class="container-fluid position-absolute top-50 start-50 translate-middle">
+        <div id="preloader">
+            <div class="position-absolute top-50 start-50 translate-middle">
+                <div id="loader"></div>
+                <div><strong id="status" role="status" class="text-primary">Memuat Halaman...</strong></div>
+            </div>
+        </div>
+        <div style="display:none;" id="content" class="fade-in">
+            <main>
+                @yield('content')
+            </main><!-- End #main -->
 
-        <!-- Back To Top -->
-        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+            <!-- Back To Top -->
+            <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        </div>
     </div>
     <!-- Vendor JS Files -->
     <script src="dist/vendor/apexcharts/apexcharts.min.js"></script>

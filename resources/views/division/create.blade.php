@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.main')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -79,7 +79,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-12">
                                         <p class="border-bottom mt-2 mb-0"></p>
                                     </div>

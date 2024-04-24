@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.main')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -91,7 +91,7 @@
                                         <div class="form-floating">
                                             <textarea class="form-control text-uppercase @error('supplier_address') is-invalid @enderror" placeholder="Alamat Supplier" name="supplier_address" id="alamatSupplier" style="height: 100px;" required>{{ old('supplier_address') }}</textarea>
                                             <label for="alamatSupplier">Alamat Supplier</label>
-                                            
+
                                             <!-- Showing notification error for input validation -->
                                             @error('supplier_address')
                                             <div class="invalid-feedback">

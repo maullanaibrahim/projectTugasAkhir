@@ -1,5 +1,5 @@
 <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
+<aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('dashboard*') ? '' : 'collapsed' }}" href="/dashboard{{ encrypt(auth()->user()->division->division_name) }}-{{ encrypt(auth()->user()->position->position_name) }}">

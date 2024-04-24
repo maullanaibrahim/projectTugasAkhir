@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.main')
 @section('content')
     @if(session()->has('poNull'))
     <script>
@@ -164,7 +164,7 @@
                                     <div class="col-md-12">
                                         <p class="border-bottom mt-2 mb-0"></p>
                                     </div>
-                                    
+
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary float-end ms-2"><i class="bi bi-save2 me-1"></i> Simpan</button>
                                         <button type="reset" class="btn btn-warning float-end ms-2"><i class="bi bi-trash me-1"></i> Reset</button>
@@ -179,7 +179,7 @@
             </div> <!-- End col-lg-12 -->
         </div><!-- End row -->
     </section>
-    
+
     <script>
         $('#poNumber').keyup(function(){
             var id = $(this).val();

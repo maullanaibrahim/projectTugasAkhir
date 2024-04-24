@@ -1,9 +1,9 @@
-@extends('layouts.secondary')
+@extends('layouts.main')
 @section('content')
     <section class="section dashboard">
         <div class="row">
             <div class="col-lg-12">
-                <div class="row"> 
+                <div class="row">
                     <div class="col-12">
                         <div class="card recent-sales overflow-auto">
                             <div class="card-body pt-4">
@@ -151,20 +151,20 @@
                                             @elseif(auth()->user()->position->position_name == "Chief")
                                                     @if($ppbje->ppbje_approval->status1 == "belum disetujui")
                                                     <div class="container">
-                                                        
+
                                                         <!-- Button for Agree this PPBJe -->
-                                                        <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                        <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">
                                                             @csrf
                                                             <!-- Sending URL definition (Asset or Non Asset). -->
                                                             <input type="text" class="form-control" name="status" id="status" value="menyetujui" hidden>
                                                             <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
                                                             <input type="text" class="form-control" name="note" id="agreeNote" hidden>
                                                             <input type="text" class="form-control" name="position" id="position" value="{{ auth()->user()->position->position_name }}" hidden>
-                                                            
+
                                                             <button class="btn btn-success w-25 btn-sm"><i class="bi bi-check-circle"></i> Setuju</button>
                                                         </form>
                                                         <!-- Button for Disagree this PPBJe -->
-                                                        <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                        <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">
                                                             @csrf
                                                             <!-- Sending URL definition (Asset or Non Asset). -->
                                                             <input type="text" class="form-control" name="status" id="status" value="tidak menyetujui" hidden>
@@ -209,20 +209,20 @@
                                                     @if($ppbje->ppbje_approval->status1 == "menyetujui")
                                                         @if($ppbje->ppbje_approval->status2 == "belum disetujui")
                                                         <div class="container">
-                                                        
+
                                                             <!-- Button for Agree this PPBJe -->
-                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">
                                                                 @csrf
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="menyetujui" hidden>
                                                                 <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
                                                                 <input type="text" class="form-control" name="note" id="agreeNote" hidden>
                                                                 <input type="text" class="form-control" name="position" id="position" value="{{ auth()->user()->position->position_name }}" hidden>
-                                                                
+
                                                                 <button class="btn btn-success w-25 btn-sm"><i class="bi bi-check-circle"></i> Setuju</button>
                                                             </form>
                                                             <!-- Button for Disagree this PPBJe -->
-                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">
                                                                 @csrf
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="tidak menyetujui" hidden>
@@ -273,20 +273,20 @@
                                                     @if($ppbje->ppbje_approval->status2 == "menyetujui")
                                                         @if($ppbje->ppbje_approval->status3 == "belum disetujui")
                                                         <div class="container">
-                                                        
+
                                                             <!-- Button for Agree this PPBJe -->
-                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">
                                                                 @csrf
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="menyetujui" hidden>
                                                                 <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
                                                                 <input type="text" class="form-control" name="note" id="agreeNote" hidden>
                                                                 <input type="text" class="form-control" name="position" id="position" value="{{ auth()->user()->position->position_name }}" hidden>
-                                                                
+
                                                                 <button class="btn btn-success w-25 btn-sm"><i class="bi bi-check-circle"></i> Setuju</button>
                                                             </form>
                                                             <!-- Button for Disagree this PPBJe -->
-                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">
                                                                 @csrf
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="tidak menyetujui" hidden>
@@ -338,17 +338,17 @@
                                                         @if($ppbje->ppbje_approval->status4 == "belum disetujui")
                                                         <div class="container">
                                                             <!-- Button for Agree this PPBJe -->
-                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">
                                                                 @csrf
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="menyetujui" hidden>
                                                                 <input type="text" class="form-control" name="sendUrl" id="sendUrl" value="{{ $url }}" hidden>
                                                                 <input type="text" class="form-control" name="position" id="position" value="{{ auth()->user()->position->position_name }}" hidden>
-                                                                
+
                                                                 <button class="btn btn-success w-25 btn-sm"><i class="bi bi-check-circle"></i> Setuju</button>
                                                             </form>
                                                             <!-- Button for Disagree this PPBJe -->
-                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">  
+                                                            <form action="/ppbje{{ $url }}/{{ $ppbje->id }}/update" method="post" class="d-inline">
                                                                 @csrf
                                                                 <!-- Sending URL definition (Asset or Non Asset). -->
                                                                 <input type="text" class="form-control" name="status" id="status" value="tidak menyetujui" hidden>

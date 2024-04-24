@@ -20,7 +20,7 @@
                                 <img src="dist/img/logo/logo2.png" alt="">
                             </a>
                         </div><!-- End Logo -->
-                            
+
                         <div class="card mb-3 px-4 py-2">
                             <div class="card-header p-0 mb-4">
                                 <!-- Login Title -->
@@ -33,11 +33,11 @@
                                 <!-- Login Form -->
                                 <form class="row g-3" action="/login" method="post">
                                     @csrf
-                                    <!-- Input Email ID -->
+                                    <!-- Input NIK -->
                                     <div class="col-12">
-                                        <div class="border border-3 border-primary d-inline py-2"></div>
+                                        <span class="border border-3 border-primary d-inline py-2"></span>
                                         <input type="number" name="nik" class="form-control d-inline rounded-0" id="nik" placeholder="No. Induk Karyawan" required />
-                                    </div> <!-- End Input Email ID -->
+                                    </div> <!-- End Input Password -->
 
                                     <!-- Input Password -->
                                     <div class="col-12 pb-2">
@@ -55,7 +55,7 @@
                                     <div class="col-12">
                                         <button class="btn btn-primary w-100 rounded-5" type="submit">Masuk<i class="bi bi-box-arrow-in-right ms-2"></i></button>
                                     </div> <!-- End Login Button -->
-                                        
+
                                     <!-- Lupa Password -->
                                     <div class="col-12">
                                         <p class="small mb-0 text-center">Belum punya akun? Silakan <a href="#" onclick="register()">Daftar</a></p>

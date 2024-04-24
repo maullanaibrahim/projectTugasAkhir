@@ -16,7 +16,7 @@
                         @else
                             @include('partials.dashboardAsset')
                         @endif
-                    @elseif(auth()->user()->division->division_name == "Konohagakure")
+                    @elseif(auth()->user()->division->division_name == "Griya Center")
                         @include('partials.dashboardApprover')
                     @else
                         @include('partials.dashboardOther')

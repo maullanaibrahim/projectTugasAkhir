@@ -1,4 +1,4 @@
-@extends('layouts.third')
+@extends('layouts.main')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -9,7 +9,7 @@
                             <div class="card-body pb-0">
                                 <h5 class="card-title border-bottom mb-3"><i class="bi bi-file-text me-2">+</i>{{ $title }}</h5>
 
-                                <form class="row g-3 mb-3" action="/ppbje-store{{ $div }}-{{ $pos }}" method="POST">
+                                <form class="row g-3 mb-3" action="/ppbje-store{{ $div }}-{{ $pos }}" method="POST" onsubmit="return formValidation()">
                                     @csrf
                                     <!-- Form PPBJe -->
                                     <div class="col-md-3" hidden>
@@ -315,7 +315,7 @@
                     }
                 }
             });
-            
+
             // Pemohon Autocomplete
             $('#pemohon').change(function(){
                 var employee = $(this).val();
@@ -361,7 +361,7 @@
                     }
                 });
             });
-            
+
             // Total Harga dan Total Biaya ikut berubah saat nama barang dipilih
             $('#item_id').change(function(){
                 var item = $(this).val();
@@ -493,7 +493,7 @@
                                     '}'+
                                     'var sum1 = accounting.formatMoney(sum);'+
                                     '$("#costTotal").val(sum1);'+
-                                    
+
                                     // Total Harga dan Total Biaya ikut berubah saat quantity berubah
                                     '$("#qty'+i+'").change(function(){'+
                                         'var qty = $(this).val();'+
@@ -515,7 +515,7 @@
                                         '}'+
                                         'var sum1 = accounting.formatMoney(sum);'+
                                         '$("#costTotal").val(sum1);'+
-                                    '});'+   
+                                    '});'+
                                 '}'+
                             '}'+
                         '});'+
@@ -537,5 +537,23 @@
                 $('#costTotal').val(sum1);
             });
         });
+    </script>
+    <script>
+        function formValidation(){
+            var bebanBiaya = document.getElementById('bebanBiaya').value;
+            var tglKebutuhan = document.getElementById('tglKebutuhan').value;
+            var pemohon = document.getElementById('pemohon').value;
+            var item_id = document.getElementById('item_id').value;
+            var qty = document.getElementById('qty').value;
+            var alasan = document.getElementById('alasan').value;
+
+            if (bebanBiaya.length == 0 || tglKebutuhan.length == 0 || pemohon.length == 0 ||
+                item_id.length == 0 || qty.length == 0 || alasan.length == 0) {
+                alert('Mohon lengkapi seluruh data yang dibutuhkan!');
+                return false;
+            }
+
+            return true;
+        }
     </script>
 @endsection

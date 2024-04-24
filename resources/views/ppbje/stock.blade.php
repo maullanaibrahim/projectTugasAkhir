@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.main')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -72,7 +72,7 @@
                                                         @if($ppbje_detail->purchase_number == NULL)
                                                         <div class="container">
                                                             <!-- Tombol untuk menandai stock asset -->
-                                                            <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline">  
+                                                            <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline">
                                                                 @csrf
                                                                 <input type="text" class="form-control" name="note" id="note" value="stock asset" hidden>
                                                                 <button class="btn btn-primary"><i class="bi bi-tags-fill me-1"></i> Stock</button>
@@ -81,7 +81,7 @@
                                                         @else
                                                         <div class="container">
                                                             <!-- Tombol untuk menandai stock asset -->
-                                                            <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline">  
+                                                            <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline">
                                                                 @csrf
                                                                 <input type="text" class="form-control" name="note" id="note" value="stock asset" hidden>
                                                                 <button class="btn btn-primary" disabled><i class="bi bi-tags-fill me-1"></i> Stock</button>
@@ -91,7 +91,7 @@
                                                     @elseif($ppbje->ppbje_note == 'beli')
                                                     <div class="container">
                                                         <!-- Tombol untuk menandai stock asset -->
-                                                        <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline">  
+                                                        <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline">
                                                             @csrf
                                                             <input type="text" class="form-control" name="note" id="note" value="stock asset" hidden>
                                                             <button class="btn btn-primary" disabled><i class="bi bi-tags-fill me-1"></i> Stock</button>
@@ -100,7 +100,7 @@
                                                     @elseif($ppbje->ppbje_note == 'stock asset')
                                                     <div class="container">
                                                         <!-- Tombol untuk menandai stock asset -->
-                                                        <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline">  
+                                                        <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline">
                                                             @csrf
                                                             <input type="text" class="form-control" name="note" id="note" value="stock asset" hidden>
                                                             <button class="btn btn-primary" disabled><i class="bi bi-tags-fill me-1"></i> Stock</button>
@@ -125,19 +125,19 @@
                                         @endif
                                     <!-- Tombol untuk menandai beli -->
                                     @if($ppbje->ppbje_note == 'beli')
-                                    <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline float-end">  
+                                    <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline float-end">
                                         @csrf
                                         <input type="text" class="form-control" name="note" id="note" value="beli" hidden>
                                         <button class="btn btn-danger" disabled><i class="bi bi-cart me-1"></i> Beli</button>
                                     </form>
                                     @elseif($ppbje->ppbje_note == 'cek stock')
-                                    <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline float-end">  
+                                    <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline float-end">
                                         @csrf
                                         <input type="text" class="form-control" name="note" id="note" value="beli" hidden>
                                         <button class="btn btn-danger"><i class="bi bi-cart me-1"></i> Beli</button>
                                     </form>
                                     @elseif($ppbje->ppbje_note == 'stock asset')
-                                        <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline float-end">  
+                                        <form action="/ppbje-asset/{{ $ppbje_detail->id }}/update-stock" method="post" class="d-inline float-end">
                                             @csrf
                                             <input type="text" class="form-control" name="note" id="note" value="beli" hidden>
                                             <button class="btn btn-danger" disabled><i class="bi bi-cart me-1"></i> Beli</button>

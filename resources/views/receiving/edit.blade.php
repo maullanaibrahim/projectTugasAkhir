@@ -1,4 +1,4 @@
-@extends('layouts.third')
+@extends('layouts.main')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -12,7 +12,7 @@
                                 <div class="col-md-12">
                                     <p class="border-bottom"></p>
                                 </div>
-                                
+
                                 <form class="row g-3 mb-3" action="/receivings/{{ $receiving->id }}" method="POST">
                                     @method('put')
                                     @csrf
@@ -145,7 +145,7 @@
                                     <div class="col-md-12">
                                         <p class="border-bottom mt-2 mb-0"></p>
                                     </div>
-                                    
+
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary float-end ms-2"><i class="bi bi-save2 me-1"></i> Simpan</button>
                                         <button type="reset" class="btn btn-warning float-end ms-2"><i class="bi bi-trash me-1"></i> Reset</button>

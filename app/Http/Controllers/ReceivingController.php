@@ -80,7 +80,7 @@ class ReceivingController extends Controller
             $rcvNumber   = $noRCV;
         }
         $checkPO            = Purchase::where('id', $purchase_id)->count();
-        $checkRcv           = Purchase::where([['id', $purchase_id],['receiving_id', '!=', NULL]])->count();
+        $checkRcv           = Purchase::where([['id', $purchase_id],['receiving_number', '!=', NULL]])->count();
         $purchase           = Purchase::where('id', $purchase_id)->first();
         $purchase_details   = Purchase_detail::where('purchase_id', $purchase_id)->get();
         $no                 = 1;
@@ -128,10 +128,10 @@ class ReceivingController extends Controller
         $purchase_number    = $request['purchase_number'];
 
         Purchase::where('id', $purchase_id)->update([
-            'receiving_id'  => $receiving_id,
+            'receiving_number'  => $receiving_number,
         ]);
         
-        $countRcvByPO = Purchase::where([['id',$purchase_id],['receiving_id', '!=', NULL]])->count();
+        $countRcvByPO = Purchase::where([['id',$purchase_id],['receiving_number', '!=', NULL]])->count();
         if($countRcvByPO == 1){
             if($receiving->receiving_status == 'selesai'){
                 Purchase::where('id', $purchase_id)->update([
@@ -242,7 +242,7 @@ class ReceivingController extends Controller
         ]);
 
         Purchase::where('id', $purchase_id)->update([
-            'receiving_id'  => $receiving_id,
+            'receiving_number'  => $receiving_number,
         ]);
         
         $countRcvByPO = Purchase::where([['id',$purchase_id],['receiving_id', '!=', NULL]])->count();

@@ -1,4 +1,4 @@
-@extends('layouts.secondary')
+@extends('layouts.main')
 @section('content')
     <section class="section dashboard">
         <div class="row">
@@ -55,14 +55,14 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase bg-light" name="maker" id="poMaker" value="{{ old('purchase_maker', auth()->user()->first_name) }}" readonly>
+                                            <input type="text" class="form-control text-uppercase bg-light" name="maker" id="poMaker" value="{{ old('maker', auth()->user()->first_name) }}" readonly>
                                             <label for="poMaker">Pembuat PO</label>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <p class="border-bottom ">Detail Barang</p>
-                                        
+
                                         <table class="table table-bordered w-100 bg-light mb-0">
                                             <thead>
                                                 <tr class="text-center">
@@ -72,7 +72,7 @@
                                                     <th rowspan="2" class="align-middle">Harga Satuan</th>
                                                     <th rowspan="2" class="align-middle">Diskon</th>
                                                     <th rowspan="2" class="align-middle">Total Harga</th>
-                                                </tr>    
+                                                </tr>
                                                 <tr class="text-center">
                                                     <th>Kode</th>
                                                     <th class="col-md-4">Nama</th>
@@ -171,7 +171,7 @@
                                         <div class="form-floating">
                                             <textarea class="form-control text-uppercase @error('purchase_note') is-invalid @enderror" placeholder="" name="purchase_note" id="purchaseNote" style="height: 100px;">{{ old('purchase_note') }}</textarea>
                                             <label for="purchaseNote">Catatan (Opsional)</label>
-                                            
+
                                             <!-- Showing notification error for input validation -->
                                             @error('purchase_note')
                                             <div class="invalid-feedback">

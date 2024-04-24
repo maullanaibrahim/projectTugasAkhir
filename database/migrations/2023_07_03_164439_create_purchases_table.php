@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('purchase_number')->unique();
             $table->string('purchase_expired');
-            $table->bigInteger('user_id');
+            $table->string('maker');
             $table->bigInteger('supplier_id');
             $table->decimal('purchase_total', 15, 2);
             $table->bigInteger('ppbje_id');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('approved');
             $table->string('purchase_status')->nullable();
             $table->string('purchase_note')->nullable();
-            $table->bigInteger('receiving_id')->nullable();
+            $table->string('receiving_number')->nullable();
             $table->timestamps();
         });
     }

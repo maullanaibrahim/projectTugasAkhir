@@ -94,49 +94,27 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-floating">
-                                            <select class="form-select @error('employee_id') is-invalid @enderror" name="employee_id" id="pemohon">
-                                                <option selected disabled>Pilih Pemohon..</option>
-                                                @foreach($employees as $employee)
-                                                    @if(old('employee_id') == $employee->id)
-                                                    <option selected value="{{ $employee->id }}">{{ strtoupper($employee->employee_name) }}</option>
-                                                    @else
-                                                    <option value="{{ $employee->id }}">{{ strtoupper($employee->employee_name) }}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
-                                            <label for="pemohon">Pemohon</label>
-
-                                            <!-- Showing notification error for input validation -->
-                                            @error('employee_id')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                    </div>
                                     <div class="col-md-3" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase bg-light" name="applicant_nik" id="applicant_nik" value="{{ old('applicant_nik') }}" readonly>
+                                            <input type="text" class="form-control text-uppercase bg-light" name="applicant_nik" id="applicant_nik" value="{{ old('applicant_nik', auth()->user()->nik) }}" readonly>
                                             <label for="applicant_nik">NIK Pemohon</label>
                                         </div>
                                     </div>
-                                    <div class="col-md-3" hidden>
+                                    <div class="col-md-2">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase bg-light" name="applicant_name" id="applicant_name" value="{{ old('applicant_name') }}" readonly>
-                                            <label for="applicant_name">Nama Pemohon</label>
+                                            <input type="text" class="form-control text-uppercase bg-light" name="applicant_name" id="applicant_name" value="{{ old('applicant_name', auth()->user()->first_name.auth()->user()->last_name) }}" readonly>
+                                            <label for="applicant_name">Pemohon</label>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control text-uppercase bg-light" name="applicant_position" id="applicant_position" value="{{ old('applicant_position') }}" readonly>
+                                            <input type="text" class="form-control text-uppercase bg-light" name="applicant_position" id="applicant_position" value="{{ old('applicant_position', auth()->user()->position->position_name) }}" readonly>
                                             <label for="applicant_position">Jabatan Pemohon</label>
                                         </div>
                                     </div>
                                     <div class="col-md-2" hidden>
                                         <div class="form-floating">
-                                            <input type="text" class="form-control bg-light" name="applicant_division" id="applicant_division" value="{{ old('applicant_division') }}" readonly>
+                                            <input type="text" class="form-control bg-light" name="applicant_division" id="applicant_division" value="{{ old('applicant_division', auth()->user()->division->division_name) }}" readonly>
                                             <label for="applicant_division">Employee Division</label>
                                         </div>
                                     </div>
@@ -212,16 +190,26 @@
                                     </div>
                                     <div class="col-12">
                                         <p class="border-bottom">Keterangan</p>
-                                        <div class="form-floating">
-                                            <textarea class="form-control text-uppercase @error('reason') is-invalid @enderror" placeholder="Alasan Permintaan" name="reason" id="alasan" style="height: 100px;">{{ old('reason') }}</textarea>
-                                            <label for="alasan">Alasan Permintaan</label>
-
-                                            <!-- Showing notification error for input validation -->
-                                            @error('reason')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" name="source" id="source" placeholder="Referensi Permintaan" value="{{ old('source') }}">
+                                                    <label for="source">Referensi Permintaan (opsional)</label>
+                                                </div>
                                             </div>
-                                            @enderror
+                                            <div class="col-md-12 mt-2">
+                                                <div class="form-floating">
+                                                    <textarea class="form-control text-uppercase @error('reason') is-invalid @enderror" placeholder="Alasan Permintaan" name="reason" id="alasan" style="height: 100px;">{{ old('reason') }}</textarea>
+                                                    <label for="alasan">Alasan Permintaan</label>
+
+                                                    <!-- Showing notification error for input validation -->
+                                                    @error('reason')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -316,51 +304,51 @@
                 }
             });
 
-            // Pemohon Autocomplete
-            $('#pemohon').change(function(){
-                var employee = $(this).val();
-                var url = '{{ route("getApplicant", ":id") }}';
-                url = url.replace(':id', employee);
-                $.ajax({
-                    url: url,
-                    type: 'get',
-                    dataType: 'json',
-                    success: function(response){
-                        if(response != null){
-                            $('#applicant_nik').val(response.nik);
-                            $('#applicant_name').val(response.employee_name);
-                            var position = response.position_id;
-                            var division = response.cost_id;
+            // // Pemohon Autocomplete
+            // $('#pemohon').change(function(){
+            //     var employee = $(this).val();
+            //     var url = '{{ route("getApplicant", ":id") }}';
+            //     url = url.replace(':id', employee);
+            //     $.ajax({
+            //         url: url,
+            //         type: 'get',
+            //         dataType: 'json',
+            //         success: function(response){
+            //             if(response != null){
+            //                 $('#applicant_nik').val(response.nik);
+            //                 $('#applicant_name').val(response.employee_name);
+            //                 var position = response.position_id;
+            //                 var division = response.cost_id;
 
-                            var urlPosition = '{{ route("getPosition", ":id") }}';
-                            url = urlPosition.replace(':id', position);
-                            $.ajax({
-                                url: url,
-                                type: 'get',
-                                dataType: 'json',
-                                success: function(response){
-                                    if(response != null){
-                                        $('#applicant_position').val(response.position_name);
-                                    }
-                                }
-                            });
+            //                 var urlPosition = '{{ route("getPosition", ":id") }}';
+            //                 url = urlPosition.replace(':id', position);
+            //                 $.ajax({
+            //                     url: url,
+            //                     type: 'get',
+            //                     dataType: 'json',
+            //                     success: function(response){
+            //                         if(response != null){
+            //                             $('#applicant_position').val(response.position_name);
+            //                         }
+            //                     }
+            //                 });
 
-                            var urlDivision = '{{ route("getDivision", ":id") }}';
-                            url = urlDivision.replace(':id', division);
-                            $.ajax({
-                                url: url,
-                                type: 'get',
-                                dataType: 'json',
-                                success: function(response){
-                                    if(response != null){
-                                        $('#applicant_division').val(response.cost_name);
-                                    }
-                                }
-                            });
-                        }
-                    }
-                });
-            });
+            //                 var urlDivision = '{{ route("getDivision", ":id") }}';
+            //                 url = urlDivision.replace(':id', division);
+            //                 $.ajax({
+            //                     url: url,
+            //                     type: 'get',
+            //                     dataType: 'json',
+            //                     success: function(response){
+            //                         if(response != null){
+            //                             $('#applicant_division').val(response.cost_name);
+            //                         }
+            //                     }
+            //                 });
+            //             }
+            //         }
+            //     });
+            // });
 
             // Total Harga dan Total Biaya ikut berubah saat nama barang dipilih
             $('#item_id').change(function(){

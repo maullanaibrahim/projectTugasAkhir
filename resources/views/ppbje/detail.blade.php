@@ -8,7 +8,6 @@
                         <div class="card recent-sales overflow-auto">
                             <div class="card-body pt-4">
                                 <a href="/ppbje{{ $url }}"><button type="button" class="btn btn-outline-secondary shadow-sm"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
-                                <a href="/ppbje"><button type="button" class="btn btn-outline-success shadow-sm ms-1"><i class="bi bi-printer-fill me-1"></i> Cetak</button></a>
                                 @if($ppbje->ppbje_status == "belum disetujui")
                                 <div class="badge bg-secondary float-end text-uppercase px-3">{{ $ppbje->ppbje_status }}</div>
                                 @elseif($ppbje->ppbje_status == "berlangsung")
@@ -37,7 +36,7 @@
                                         </tr>
                                         <tr style="background-color:#fff;">
                                             <td colspan="2" style="text-align:left">No. PPBJe : {{ $ppbje->ppbje_number }}</td>
-                                            <td class="col-3" style="text-align:left" colspan="2">Dibuat oleh : {{ ucwords($ppbje->maker_division) }}</td>
+                                            <td class="col-6" style="text-align:left" colspan="2">Referensi : {{ ucwords($ppbje->source) }}</td>
                                         </tr>
                                     </thead>
                                 </table>
@@ -53,7 +52,7 @@
                                         <tr>
                                             <td><span style="margin-right:5px;">Jabatan Pemohon </span>: {{ $ppbje->applicant_position}}</td>
                                             <td rowspan="3" class="align-middle"><center><h6><b>{{ $ppbje->cost->cost_name }}</b></h6></center></td>
-                                            @if($ppbje->ppbje_type == "NON ASSET")
+                                            @if($ppbje->ppbje_type == "non asset")
                                             <td rowspan="3" class="align-middle"><center><h6><b>Procurement</b></h6></center></td>
                                             @else
                                             <td rowspan="3" class="align-middle"><center><h6><b>Asset Management / Procurement</b></h6></center></td>

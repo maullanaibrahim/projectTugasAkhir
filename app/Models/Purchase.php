@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Purchase extends Model
 {
@@ -40,8 +40,8 @@ class Purchase extends Model
         return $this->belongsTo('App\Models\Cost');
     }
     
-    public function receiving_purchase()
+    public function receiving()
     {
-        return $this->hasOne('App\Models\Receiving_purchase');
+        return $this->hasOne('App\Models\Receiving');
     }
 }

@@ -8,7 +8,7 @@
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pt-4">
                                 <a href="/receivings"><button type="button" class="btn btn-outline-secondary shadow-sm"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
-                                <a href="/404"><button type="button" class="btn btn-outline-success shadow-sm ms-1"><i class="bi bi-printer-fill me-1"></i> Cetak</button></a>
+                                <button type="button" class="btn btn-outline-success shadow-sm ms-1" onclick="window.print()"><i class="bi bi-printer-fill me-1"></i> Cetak</button>
 
                                 <table class="table table-bordered mt-3">
                                     <thead class="text-center">
@@ -106,4 +106,6 @@
             </div> <!-- End col-lg-12 -->
         </div><!-- End row -->
     </section>
+
+    @include('receiving.print')
 @endsection

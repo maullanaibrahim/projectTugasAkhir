@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Receiving;
-use App\Models\Purchase;
-use App\Models\Purchase_detail;
 use App\Models\Ppbje;
+use App\Models\Purchase;
+use App\Models\Receiving;
 use App\Models\Ppbje_detail;
+use Illuminate\Http\Request;
+use App\Models\Purchase_detail;
+use Illuminate\Support\Facades\Auth;
 
 class ReceivingController extends Controller
 {
@@ -16,11 +17,18 @@ class ReceivingController extends Controller
      */
     public function index()
     {
-        $receivings = Receiving::all();
+        $divisionId = Auth::user()->division_id;
+
+        if ($divisionId == 11) {
+            $purchases = Purchase::where('approved', 'yes')->get();
+        } else {
+            $purchases = Purchase::where([['cost_id', $divisionId],['approved', 'yes']])->get();
+        }
+        
         return view('receiving.index', [
-            "title"         => "Data Receiving",
-            "path"          => "Data Receiving",
-            "receivings"    => $receivings
+            "title"     => "Data Receiving",
+            "path"      => "Data Receiving",
+            "purchases" => $purchases
         ]);
     }
 
@@ -85,24 +93,16 @@ class ReceivingController extends Controller
         $purchase_details   = Purchase_detail::where('purchase_id', $purchase_id)->get();
         $no                 = 1;
 
-        if($checkPO == NULL){
-            return back()->with('poNull', 'Nomor PO tidak ada!');
-        }
-        elseif($checkRcv == 1){
-            return back()->with('rcvNotNull', 'Nomor PO sudah di receiving!');
-        }
-        elseif($checkRcv == 0){
-            return view('receiving.create', [
-                "title"             => "Buat Receiving",
-                "path"              => "Receiving Order",
-                "path2"             => "Buat Receiving",
-                "dateNow"           => $dateNow,
-                "rcvNumber"         => $rcvNumber,
-                "purchase"          => $purchase,
-                "purchase_details"  => $purchase_details,
-                "no"                => $no
-            ]);
-        }
+        return view('receiving.create', [
+            "title"             => "Buat Receiving",
+            "path"              => "Receiving Order",
+            "path2"             => "Buat Receiving",
+            "dateNow"           => $dateNow,
+            "rcvNumber"         => $rcvNumber,
+            "purchase"          => $purchase,
+            "purchase_details"  => $purchase_details,
+            "no"                => $no
+        ]);
     }
 
     /**
@@ -163,10 +163,12 @@ class ReceivingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Receiving $receiving)
+    public function show(Request $request)
     {
         $no                 = 1;
-        $purchase_id        = $receiving->purchase_id;
+        $receivingNumber    = $request->receiving_number;
+        $receiving          = Receiving::where('receiving_number', $receivingNumber)->first();
+        $purchase_id        = $request->purchase_id;
         $purchase_details   = Purchase_detail::where('purchase_id', $purchase_id)->get();
 
         return view('receiving.detail', [

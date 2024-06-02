@@ -1,18 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PpbjeController;
-use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\ReceivingController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PpbjeController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\DivisionController;
-use App\Http\Controllers\ItemController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReceivingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,14 +120,20 @@ Route::post('/purchases/{purchase}', [PurchaseController::class, 'approval'])
    ->middleware('procurement')->name('purchase.update');
 
 // Route Receiving
-Route::resource('/receivings', ReceivingController::class)
-   ->middleware('auth');
+Route::get('receivings', [ReceivingController::class, 'index'])
+   ->middleware('auth')->name('receiving.index');
+
+Route::get('receivings-show', [ReceivingController::class, 'show'])
+   ->middleware('auth')->name('receiving.show');
+
+Route::get('receivings-search', [ReceivingController::class, 'search'])
+   ->middleware('auth')->name('receiving.search');
+
+Route::post('receivings/create-thisPO', [ReceivingController::class, 'getPurchaseDetail'])
+   ->middleware('auth')->name('receiving.create');
 
 Route::get('/searchPO/{id}', [ReceivingController::class, 'getPurchaseID'])
    ->middleware('auth')->name('getPurchaseID');
-
-Route::post('receivings/create-thisPO', [ReceivingController::class, 'getPurchaseDetail'])
-   ->middleware('auth');
 
 // Route User
 Route::resource('/users', UserController::class)

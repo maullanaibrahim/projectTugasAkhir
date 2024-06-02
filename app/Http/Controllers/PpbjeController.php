@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Ppbje;
-use App\Models\Ppbje_detail;
-use App\Models\Ppbje_approval;
 use App\Models\Cost;
+use App\Models\Item;
+use App\Models\Ppbje;
+use App\Models\Division;
 use App\Models\Employee;
 use App\Models\Position;
-use App\Models\Division;
-use App\Models\Item;
+use App\Models\Ppbje_detail;
+use Illuminate\Http\Request;
+use App\Models\Ppbje_approval;
 
 class PpbjeController extends Controller
 {
@@ -22,7 +22,7 @@ class PpbjeController extends Controller
         $div2 = decrypt($div);
         $pos2 = decrypt($pos);
         $ppbje_type = "asset";
-        
+
         if ($div2 == "Procurement"){
             if($pos2 == "Manager"){
                 $ppbjes = Ppbje::where([
@@ -114,7 +114,7 @@ class PpbjeController extends Controller
         }
 
         $ppbje_detail = Ppbje_detail::all();
-        
+
         return view('ppbje.index', [
             "sendurl"   => "asset",
             "title"     => "PPBJe Asset",
@@ -276,7 +276,7 @@ class PpbjeController extends Controller
         $data = Employee::where([['cost_id','=',$id],['position_id','=', "3"]])->first();
         return response()->json($data);
     }
-    
+
     public function getManager($id = 0)
     {
         if ($id == 3 or $id == 4 or $id == 5){
@@ -288,7 +288,7 @@ class PpbjeController extends Controller
         }
         return response()->json($data);
     }
-    
+
     public function getSeniorManager($id = 0)
     {
         $data = Employee::where('position_id', 9)->first();
@@ -330,23 +330,23 @@ class PpbjeController extends Controller
         $request->validate([
             'ppbje_number'  => 'required|unique:ppbjes',
             'cost_id'       => 'required',
-            'employee_id'   => 'required',
             'date_of_need'  => 'required',
             'reason'        => 'required|min:15|max:255',
             'item_id'       => 'required',
             'quantity'      => 'required',
+            'source'        => 'max:100',
         ],
         [
             'ppbje_number.required' => 'No. PPBJe belum diisi!',
             'unique'                => 'No. PPBJe sudah digunakan!',
             'cost_id'               => 'Beban Biaya belum dipilih!',
-            'employee_id'           => 'Pemohon belum dipilih!',
             'date_of_need'          => 'Tentukan Tgl Kebutuhan!',
             'reason.required'       => 'Tolong jelaskan Alasan Permintaan!',
             'reason.min'            => 'Ketikkan minimal 15 huruf!',
             'reason.max'            => 'Ketikkan maksimal 255 huruf!',
             'item_id'               => 'Nama Barang belum dipilih!',
-            'quantity'               => 'Isi!'
+            'quantity'              => 'Isi!',
+            'source.max'            => 'Ketikkan maksimal 100 huruf!',
         ]);
 
         $data           = $request->all();
@@ -367,6 +367,7 @@ class PpbjeController extends Controller
         $ppbje->applicant_division  = $data['applicant_division'];
         $ppbje->date_of_need        = $data['date_of_need'];
         $ppbje->ppbje_type          = $data['ppbje_type'];
+        $ppbje->source              = $data['source'];
         $ppbje->reason              = $data['reason'];
         $ppbje->cost_total          = $cost_total;
         $ppbje->approved            = $approved;
@@ -390,7 +391,7 @@ class PpbjeController extends Controller
         $ppbje_approval->save();
 
         $item     = count($data['item_id']);
-        
+
         if($item > 0){
             foreach ($data['item_id'] as $item => $value ){
                 $data2 = array(
@@ -452,7 +453,7 @@ class PpbjeController extends Controller
         $ppbje_detail   = Ppbje_detail::where('ppbje_id', $ppbjeID)->get();
         $getSuppliers   = Ppbje_detail::where([['ppbje_id', $ppbjeID], ['purchase_number', NULL]])->select('supplier_id')->distinct()->get();
         $no             = 1;
-        
+
         return view('ppbje.progress', [
             "title"           => "Progress",
             "path"            => "PPBJe ".ucwords($ppbjeType),
@@ -470,7 +471,7 @@ class PpbjeController extends Controller
         $ppbje          = Ppbje::where('id', $ppbjeID)->first();
         $ppbje_detail   = Ppbje_detail::where('ppbje_id', $ppbjeID)->get();
         $no             = 1;
-        
+
         return view('ppbje.stock', [
             "title"           => "Tandai Stock",
             "path"            => "PPBJe Asset",
@@ -571,14 +572,14 @@ class PpbjeController extends Controller
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'cek stock'
-                        ]);                        
+                        ]);
                     }
                     elseif($ppbje_type == "non asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'beli'
-                        ]);                        
+                        ]);
                     }
                 }
                 else{
@@ -600,14 +601,14 @@ class PpbjeController extends Controller
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'cek stock'
-                        ]);                        
+                        ]);
                     }
                     elseif($ppbje_type == "non asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'beli'
-                        ]);                        
+                        ]);
                     }
                 }
                 else{
@@ -629,14 +630,14 @@ class PpbjeController extends Controller
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'cek stock'
-                        ]);                        
+                        ]);
                     }
                     elseif($ppbje_type == "non asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'beli'
-                        ]);                        
+                        ]);
                     }
                 }
                 else{
@@ -658,14 +659,14 @@ class PpbjeController extends Controller
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'cek stock'
-                        ]);                        
+                        ]);
                     }
                     elseif($ppbje_type == "non asset"){
                         Ppbje::where('id', $get_id)->update([
                             'approved'      => 'yes',
                             'ppbje_status'  => 'berlangsung',
                             'ppbje_note'    => 'beli'
-                        ]);                        
+                        ]);
                     }
                 }
             }
@@ -682,12 +683,12 @@ class PpbjeController extends Controller
                 if($ppbje_type == "asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
-                    ]);                        
+                    ]);
                 }
                 elseif($ppbje_type == "non asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
-                    ]);                        
+                    ]);
                 }
             }
             if($position == "Manager"){
@@ -699,12 +700,12 @@ class PpbjeController extends Controller
                 if($ppbje_type == "asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
-                    ]);                        
+                    ]);
                 }
                 elseif($ppbje_type == "non asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
-                    ]);                        
+                    ]);
                 }
             }
             if($position == "Senior Manager"){
@@ -716,12 +717,12 @@ class PpbjeController extends Controller
                 if($ppbje_type == "asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
-                    ]);                        
+                    ]);
                 }
                 elseif($ppbje_type == "non asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
-                    ]);                        
+                    ]);
                 }
             }
             if($position == "Direktur"){
@@ -733,12 +734,12 @@ class PpbjeController extends Controller
                 if($ppbje_type == "asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
-                    ]);                        
+                    ]);
                 }
                 elseif($ppbje_type == "non asset"){
                     Ppbje::where('id', $get_id)->update([
                         'ppbje_status'  => 'tidak disetujui'
-                    ]);                        
+                    ]);
                 }
             }
             return redirect('/ppbje'.$url.'/'.$get_id)->with('success', 'PPBJe '.$no_ppbje.' telah disetujui!');

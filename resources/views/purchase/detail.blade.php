@@ -8,8 +8,8 @@
                         <div class="card">
                             <div class="card-body p-4">
                                 <div class="border-bottom mb-3 pb-3">
-                                    <a href="/purchases{{ encrypt(auth()->user()->position->position_name) }}"><button type="button" class="btn btn-outline-secondary shadow-sm"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
-                                    <a href="#"><button type="button" class="btn btn-outline-success shadow-sm ms-1"><i class="bi bi-printer-fill me-1"></i> Cetak</button></a>
+                                    <a href="{{ url()->previous() }}"><button type="button" class="btn btn-outline-secondary shadow-sm"><i class="bi bi-arrow-return-left me-1"></i> Kembali</button></a>
+                                    <button type="button" class="btn btn-outline-success shadow-sm ms-1" onclick="window.print()"><i class="bi bi-printer-fill me-1"></i> Cetak</button>
 
                                     @if($purchase->purchase_status == "belum disetujui")
                                     <div class="badge bg-secondary float-end text-uppercase px-3">{{ $purchase->purchase_status }}</div>
@@ -381,4 +381,6 @@
             </div> <!-- End col-lg-12 -->
         </div><!-- End row -->
     </section>
+
+    @include('purchase.print')
 @endsection
